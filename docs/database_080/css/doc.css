@@ -1,0 +1,159 @@
+p {
+    font-family: "Verdana", "Helvetica", sans-serif; 
+    font-size: 9pt;
+}
+
+a {
+    font-family: "Verdana", "Helvetica", sans-serif; 
+    text-decoration: none;
+    color: #0469b3;  
+    font-size: 9pt;
+}
+
+a:visited {
+    text-decoration: none
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+p.mainBanner {
+    font-size: 9pt;
+    font-weight: bold;
+    /*color: #ef8861;*/
+}
+
+p.boolImg {
+    text-align: center;
+}
+
+p.boolImgHorz {
+    text-align: left;
+}
+
+a.horzMenu {
+    color: #293D6B;
+    font-size: 8pt;
+    font-weight: bold;
+    /*font-weight: normal;
+    color: #ffffff; */
+}
+
+td {
+    font: normal 9pt verdana,arial,helvetica;
+    padding: 2px 4px 2px 4px;
+    background-color: #ffffff;
+}
+
+hr {
+	width: 650px; 
+	text-align: left;/*this will align it for IE*/
+	margin-left: 0; /*this will align it left for Mozilla*/
+	margin-right: auto;
+	height: 2px
+}
+
+h3 {
+    font-family: "Verdana", "Helvetica", sans-serif;
+    color: #ef8861;
+    font-weight: normal;
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+
+img.logo {
+    width: 70px;
+    height: 25px;
+}
+
+td.banner {
+    font-size: 8pt;
+    font-weight: bold;
+    background-color: #D6E2F5;
+}
+
+td.logo {
+    font-weight: bold;
+    background-color: #D6E2F5;
+    /*background-color: #ddeeff;
+    color: #000080;*/
+    text-align: right;
+}
+
+td.pageTitle {
+    font-weight: bold;
+    background-color: #d7d7d7;
+    text-align: center;
+}
+
+td.header {
+    text-align: center;
+    background-color: #ececec; /* light grey */
+}
+
+td.diagramThumb {
+    text-align: center;
+}
+
+td.key {
+    width: 150px;
+    background-color: #ebf4f3;
+    vertical-align: top;
+}
+
+td.value {
+    vertical-align: top;
+    text-align: left;
+}
+
+td.PkCol {
+    background-color: #fffded;
+}
+
+td.FkCol {
+    background-color: #ebf4f3;
+}
+
+td.horzMenu {
+    background-color: #C8D7E3;
+    color: #ffffff;
+    /*background-color: #2d73b9;
+    color: #ffffff;*/
+    text-align: center;
+}
+
+td.horzMenuFiller {
+    width: 200px;
+    background-color: #C8D7E3;
+    color: #ffffff;
+}
+
+table.flat {
+    border-style: groove;
+    border-width: 0px;
+    border-color: #000000;
+    background-color: #d7d7d7;
+    width: 650;
+}
+
+table.horzMenu {
+    /*border: 1px solid #6699CC;
+    border-width: 0px;*/
+	background-color: #99AFC4;
+    /*background-color: #ffffff;*/
+    width: 650;
+}
+
+table.logo {
+    height: 32px;
+    width: 650;
+    background-color: #99AFC4;
+}
+
+table.pageTitle {
+    height: 28px;
+    width: 650;
+    background-color: #2d73b9;
+}
+

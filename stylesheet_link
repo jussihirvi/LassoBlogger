@@ -1,0 +1,578 @@
+/*  
+Theme Name: LassoBlogger Default
+Theme URI: http://www.greenspot.fi/LassoBlogger
+Description: The default LassoBlogger theme based on the famous <a href="http://wordpress.org">WordPress default theme</a> (which in turn is based on a theme by Kubrick.
+Version: 0.9.0 (July 28 2008)
+Author: Jussi Hirvi
+Author URI: http://www.greenspot.fi/jussihirvi
+
+	The CSS, HTML and design is released under GPL:
+	http://www.opensource.org/licenses/gpl-license.php
+	
+	*** REGARDING HEADER DIV (the top of page) ***
+
+	The styles affecting the header DIV 
+	are since LassoBlogger 0.7 in gen/frame_default.inc
+
+*/
+
+/* Begin Basic */
+
+body {
+	margin: 0;
+	padding: 0; 
+	font-size: 62.5%; /* Resets 1em to 10px */
+	font-family: 'Lucida Grande', Verdana, Arial, Sans-Serif;
+	background-color: #d5d6d7;
+	color: #000;
+	text-align: center;
+	}
+
+div#page {
+	margin: 20px auto;
+	padding: 0;
+	width: 760px;
+	background-color: white;
+	border: 1px solid #959596;
+	text-align: left;
+	}
+
+td#widecolumn {
+	padding: 0 0 20px 45px;
+	margin: 0;
+	width: 460px;
+	font-size: 1.1em
+	}
+
+td#widecolumn .entry {
+	line-height: 1.4em;
+	}
+
+td#widecolumn .postmetadata {
+	padding-top: 5px;
+	text-align: left;
+	}
+
+td#sidebar {
+	padding: 65px 0 10px 35px;
+	width: 210px;
+	font-size: 1em;
+	}
+
+#footer {
+	padding: 0 0 0 0px;
+	margin: 0 auto;
+	width: 760px;
+	clear: both;
+	background-color: #eee;
+	}
+
+#footer p {
+	margin: 0;
+	padding: 20px 0;
+	text-align: center;
+	}
+
+.post {
+	margin: 0 0 40px;
+	text-align: left;
+	clear:both; /* necessary if images on left/right are higher than text */
+	}
+
+p.summary {font-weight:bold;}
+
+p.linkfromsummary {font-weight:normal; text-align:right;}
+
+.alt {
+	background-color: #f8f8f8;
+	border-top: 1px solid #ddd;
+	border-bottom: 1px solid #ddd;
+	}
+
+small {
+	font-family: Verdana, Arial, Helvetica, Sans-Serif;
+	font-size: 0.9em;
+	line-height: 1.5em;
+	color: #555;
+	}
+
+.small {
+	font-family: Verdana, Arial, Helvetica, Sans-Serif;
+	font-size: 0.9em;
+	line-height: 1.5em;
+	}
+
+.subtitle {
+	font-family: Verdana, Arial, Sans-Serif; 
+	font-size:0.6em;
+	font-weight:normal;
+}
+
+.entry p a:visited {
+	color: #b85b5a;
+	}
+
+p.postmetadata {
+	font: 0.9em 'Lucida Grande', Verdana, Arial, Sans-Serif;
+}
+
+.postmetadata, strike {
+	color: #555;
+	}
+	
+code {
+	font: 1.1em 'Courier New', Courier, Fixed;
+	}
+
+acronym, abbr, span.caps
+{
+	font-size: 0.9em;
+	letter-spacing: .07em;
+	border-bottom: 1px dashed #999;
+	cursor: help;
+	}
+
+a 	{
+	color: #06c;
+	text-decoration: underline;
+	}
+
+a:hover {
+	color: #147;
+	text-decoration: underline;
+	}
+	
+a img {
+	border: none;
+	}
+
+.postmetadata a {
+    	text-decoration: none;
+	}
+    
+.caption {font-style:italic; }
+
+blockquote {
+	margin: 15px 30px 0 10px;
+	padding-left: 20px;
+	border-left: 5px solid #ddd;
+	color: #555;
+	}
+
+blockquote cite {
+	margin: 5px 0 0;
+	display: block;
+	}
+
+/* End Basic */
+
+
+
+/*	Begin Headings */
+
+h2, h3 {
+	font-family: 'Trebuchet MS', 'Lucida Grande', Verdana, Arial, Sans-Serif;
+	color: maroon;
+	font-weight: bold;
+	text-decoration: none;
+	}
+
+h2 {
+	margin: 30px 0 0;
+	font-size: 1.6em;
+	}
+
+h3 {
+	padding: 26px 0 4px 0;
+	margin: 0;
+	font-size: 1.3em;
+	}
+
+h2 a, h3 a {
+	color: maroon;
+	text-decoration: none;
+	}
+
+h2 a:visited, h3 a:visited {
+	color: maroon;
+	text-decoration: none;
+	}
+
+h2 a:hover, h3 a:hover  {
+	color: #06c;
+	text-decoration: none;
+	}
+
+h2.pagetitle {
+	margin-top: 30px;
+	text-align: center;
+}
+
+h3.comments {
+	padding: 0;
+	margin: 40px auto 20px ;
+	}
+
+/* End Headings */
+
+
+/* Begin LInks */
+/* End Links */
+
+/* Begin Images */
+
+p img {
+	padding: 0;
+	max-width: 100%;
+	}
+
+/*	Using 'class="alignright"' on an image will (who would've
+	thought?!) align the image to the right. And using 'class="centered',
+	will of course center the image. This is much better than using
+	align="center", being much more futureproof (and valid) */
+	
+img.centered {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	}
+	
+img.alignright {
+	padding: 4px;
+	margin: 0 0 2px 7px;
+	display: inline;
+	}
+
+img.alignleft {
+	padding: 4px;
+	margin: 0 7px 2px 0;
+	display: inline;
+	}
+
+.alignright {
+	float: right;
+	}
+	
+.alignleft {
+	float: left
+	}
+
+/* End Images */
+
+
+
+/* Begin Lists
+
+	Special stylized non-IE bullets
+	Do not work in Internet Explorer, which merely default to normal bullets. */
+
+html>body .entry ul {
+	margin-left: 0px;
+	padding: 0 0 0 30px;
+	list-style: none;
+	padding-left: 10px;
+	text-indent: -10px;
+	} 
+
+html>body .entry li {
+	margin: 7px 0 8px 10px;
+	}
+
+.entry ul li:before {
+	content: "\00BB \0020";
+	}
+
+.entry ol {
+	padding: 0 0 0 35px;
+	margin: 0;
+	}
+
+.entry ol li {
+	margin: 0;
+	padding: 0;
+	}
+
+.postmetadata ul, .postmetadata li {
+	display: inline;
+	list-style-type: none;
+	list-style-image: none;
+	}
+	
+ol li {
+	list-style: decimal outside;
+	}
+
+/* End Lists */
+
+
+/* Begin Sidebar */
+
+#sidebar form {
+	margin: 0;
+	}
+
+#sidebar ul ul li, #sidebar ul ol li {
+	color: #555;
+	}
+	
+#sidebar a {
+	text-decoration: none;
+	}
+
+#sidebar h2 {
+	margin: 15px 0 5px 0;
+	padding: 0;
+	font-family: 'Lucida Grande', Verdana, Sans-Serif;
+	font-size: 1.2em;
+	text-decoration: none;
+	}
+
+#sidebar ul ul li:before {
+	content: "\00BB \0020";
+	}
+
+#sidebar ul, #sidebar ul ol {
+	margin: 0;
+	padding: 0;
+	}
+
+#sidebar ul li {
+	list-style-type: none;
+	list-style-image: none;
+	margin-bottom:1px;
+	}
+
+#sidebar ul p, #sidebar ul select {
+	margin: 5px 0 8px;
+	}
+
+#sidebar ul ul, #sidebar ul ol {
+	margin: 5px 0 0 10px;
+	}
+
+#sidebar ul ul ul, #sidebar ul ol {
+	margin: 0 0 0 10px;
+	}
+
+#sidebar ul ol li {
+	list-style: decimal outside;
+	}
+
+#sidebar ul ul li, #sidebar ul ol li {
+	margin: 3px 0 0;
+	padding: 0;
+	}
+
+/* End Sidebar */
+
+
+
+/* Begin Form Elements */
+
+#searchform {
+	margin: 10px auto 10px 0;
+	padding: 5px 3px; 
+	text-align: left;
+	}
+
+#sidebar #searchform #s {
+	width: 115px;
+	padding: 2px;
+	font-size:0.9em;
+	}
+
+#sidebar #searchsubmit {
+	padding: 1px;
+	font-size:1.1em;
+	}
+
+.entry form { 
+/* This is mainly for password protected posts, makes them look better. */
+	text-align:center;
+	}
+
+select {
+	width: 130px;
+	}
+
+input {
+	padding: 1px;
+	margin: 5px 5px 1px 0;
+	border: 1px solid #b2b2b2;
+	background: #f4f4f4;
+	border: 1px solid #b2b2b2;
+	font: 0.9em 'Lucida Grande', Verdana, Arial, Sans-Serif;
+	}
+
+textarea {
+	padding: 2px;
+	background: #f4f4f4;
+	border: 1px solid #b2b2b2;
+	font: 0.9em 'Lucida Grande', Verdana, Arial, Sans-Serif;
+	}
+
+input:focus, textarea:focus, label:focus {
+	background: #fff;
+	border: 1px solid #686868;
+}
+
+#commentform p {
+	margin: 5px 0;
+	}
+
+#commentform #submit {
+	margin: 0;
+	float: right;
+	}
+
+/* (admin app) */
+td.formview_help {
+    text-align:left;
+    padding-left:10px;
+    }
+
+/* End Form Elements */
+
+
+
+/* Begin Comments*/
+.comment {
+	margin: 0;
+	padding: 10px;
+	}
+
+.commentlist {
+	padding: 0;
+	text-align: left;
+	}
+
+.commentlist li {
+	margin: 15px 0 3px;
+	padding: 5px 10px 3px;
+	list-style: none;
+	font-size: 0.9em;
+	font-weight: bold;
+	}
+
+.commentlist p {
+	margin: 10px 5px 10px 0;
+	font-weight: normal;
+	line-height: 1.5em;
+	text-transform: none;
+	}
+
+.nocomments {
+	text-align: center;
+	margin: 0;
+	padding: 0;
+	color: #555;
+	}
+
+.commentmetadata {
+	margin: 0;
+	font-weight: normal;
+	}
+
+span.commentauthor {
+	font-weight: bold;
+	font-style: normal;
+	font-size: 1.1em;
+	}
+
+div.commenttitle {
+	padding-top:16px;
+	font-weight: bold;
+	font-style: normal;
+	font-size: 1.2em;
+	}
+
+div.commentcontent p {
+	margin-top:8px;
+	margin-bottom:0;
+}
+/* End Comments */
+
+
+/* Begin Various Tags & Classes */
+
+.center {
+	text-align: center;
+	}
+
+hr {
+	display: none;
+	}
+
+/* speakBubble texts */
+.alert {
+    font-size: 14px;
+    font-weight: bold;
+    color: #cc0033;
+}
+
+/* End Various Tags & Classes*/
+
+
+/* Begin Calendar */
+#wp-calendar {
+	empty-cells: show;
+	margin: 10px auto 0;
+	width: 155px;
+	}
+
+#wp-calendar #next a {
+	padding-right: 10px;
+	text-align: right;
+	}
+
+#wp-calendar #prev a {
+	padding-left: 10px;
+	text-align: left;
+	}
+
+#wp-calendar a {
+	display: block;
+	}
+
+#wp-calendar caption {
+	text-align: center;
+	width: 100%;
+	text-decoration: none;
+	}
+
+#wp-calendar td {
+	padding: 3px 0;
+	text-align: center;
+	}
+
+#wp-calendar td.pad:hover { /* Doesn't work in IE */
+	background-color: #fff; }
+
+#wp-calendar #prev a {
+	font-size: 9pt;
+	}
+
+#wp-calendar a {
+	text-decoration: none;
+	}
+
+#wp-calendar caption {
+	font: bold 1.3em 'Lucida Grande', Verdana, Arial, Sans-Serif;
+	text-align: center;
+	}
+
+#wp-calendar th {
+	font-style: normal;
+	text-transform: capitalize;
+	}
+
+/* End Calendar */
+
+
+
+
+
+/*  "I heard ten thousand whispering and nobody listening
+     I heard one person starve I heard many people laughing"
+*/
+

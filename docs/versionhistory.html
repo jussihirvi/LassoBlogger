@@ -1,0 +1,156 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>LassoBlogger &rsaquo; Version History</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style type="text/css" media="screen">
+	<!--
+	html {
+		background: #eee;
+	}
+	body {
+		background: #fff;
+		color: #000;
+		font-family: Georgia, "Times New Roman", Times, serif;
+		margin-left: 20%;
+		margin-right: 20%;
+		padding: .2em 2em;
+	}
+	
+	h1 {
+		color: #006;
+		font-size: 18px;
+		font-weight: lighter;
+	}
+	
+	h2 {
+		font-size: 16px;
+	}
+	
+	p, li, dt {
+		line-height: 140%;
+		padding-bottom: 2px;
+	}
+
+	ul, ol {
+		padding: 5px 5px 5px 20px;
+	}
+	-->
+	</style>
+</head>
+<body>
+    <h1>LassoBlogger version history</h1>
+
+    <!--
+    <h1>Newest changes (published at GoogleCode, unpublished at LassoForge)</h1>
+    -->
+    <h1>0.9.1 (released 2009-06-19)</h1>
+    <ul>
+    <li>NEW FEATURE: New spam-filtering feature, based on an encrypted timestamp on the commenting form. Affected file: inc/module_comments.inc, cont/com-posted.inc (2009-06-19) 
+    <li>NEW FEATURE: possibility to manually tie an uploaded file to a post (on the page Uploads > Manage Files). Affected file: admin/upl-fileedit.lasso. (2009-05-29) 
+    <li>BUG FIX: When a left- or right-aligned pic was added to a post, and the pic was higher than the accompanying text, the pic pushed aside even the next post below. This has now been fixed (in style.css). (2009-05-25) 
+    </li>
+    <li>NEW FEATURE: FCKeditor (v2.6.4) integrated in LassoBlogger. Notes for use:
+    <ul>
+    <li>to enable FCKeditor for a field, open the stub file (for example admin/man-postedit.lasso), find the variable EditFields, and replace "textarea" with "textarea_fckeditor" in the third slot of the array 
+    <li>if you get errors, check the Apache conf to verify that Lasso is *not* processing all files in the fckeditor directory; for example add these lines: <br>
+	<blockquote>
+	&lt;Directory "/var/www/MyPathTo/LassoBlogger/admin/fckeditor"&gt;<br>
+	RemoveHandler lasso8-handler html htm js php pl py css<br>
+	&lt;/Directory&gt;
+	</blockquote>
+    </ul>
+    (2009-05-07)
+    </li>
+    <li>BUG FIX: On add or update action, the added or updated content appeared on the search form. This is now corrected. (2009-05-05) 
+    </li>
+    <li>NEW FEATURE: Possibility to make a post-related image into a link that points to another blog file (typically a high-res version of the same image) (2008-10-27). Directions of use: 
+	<ol>
+	<li>Upload a post-related pic (the small pic) in the usual way (Manage > Write & Edit Posts)
+	<li>Upload the other file (the big pic) using the admin section Uploads
+	<li>In Uploads > Manage Files, set the Image Display for the big pic as "none"
+	<li>In Uploads > Manage Files, select the small pic, and set the Link URI so that it points to the big pic; also check the Description, which will become the TITLE parameter of the A tag
+	</ol>
+    </ul>
+    <h1>0.9.0 (released 2008-07-28)</h1>
+    <ul>
+    <li>LAYOUT: Comment list (displayed after a post) now neater. Affected files inc/module_comments.inc, themes/default/stylesheet.css. (July 23 2008)
+    <li>BUG FIX: Registration form data, if sent, was being processed even when registration was prevented in blog options. This is now fixed. (July 23 2008)</li>
+    <li>STYLESHEET: The default stylesheet (themes/default/style.css) has been completely restructured, for greater clarity. (July 3 2008)</li>
+    <li>HTML: The column layout in the basic html frame is no more based on floating divs, but table cells (to ensure that the sidebar always stays on the side of the main column). Affected file: cont/index.inc. (July 3 2008)</li>
+    <li>ADMIN: The central admin page "monster file" (gen/adminpage_monster.inc) has been restructured. Now it's less muddy. A short help section is now included at the top of the file. This operation may have caused bugs on the admin pages. (July 3 2008)</li>
+    <li>NEW FEATURE: Email validation (with valid_email tag) added to comment processing (July 2 2008)</li>
+    <li>NEW FEATURE: Graphical smilies now work (July 1 2008)</li>
+    <li>NEW FEATURE: New option www_use_summary, to switch on/off the display of summary (instead of summary + main content) in any list view of blog posts (June 30 2008)</li>
+    <li>NEW FEATURE: Multiple blogs in a single database (facilitated by a new table_prefix variable, which is defined in config.lasso) (June 30 2008)</li>
+    <li>ADMIN: Checkbox formatting finally corrected (June 24 2008)</li>
+    <li>NEW FEATURE: Login/Logout links now visible (when appropriate) in the narrow column (March 20 2008)</li>
+    <li>NEW FEATURE: Custom sorting option for lists of uploaded files (when displayed on the FileVault page). Adjustable on file category level (January 17 2008)</li>
+    <li>NEW FEATURE: Blog by email. LassoBlogger will act as a POP client and collect emails sent to a specified address. For more info, see docs/lb_blogbyemail.txt (August 28 2007)</li>
+    <li>ADMIN: on the Admin Dashboard page, LassoBlogger news has been moved to an iframe (August 2007)</li>
+    <li>BUG FIX: Unneeded alert text "No users were found" removed from the registration page (use-register.lasso) (August 21 2007)</li>
+    </ul>
+    <h1>0.8.0 (released 2007-07-25)</h1>
+    <ul>
+	<li>NEW FEATURE: New var "dbConfig" added to config.lasso, to facilitate -host specification in inlines. This was requested by Marc Vos.(July 18 2007)</li>
+	<li>NEW FEATURE: Delete warnings for non-empty categories on admin pages man-cats.lasso and upl-cats.lasso (July 3 2007)</li>
+	<li>NEW FEATURE: Post summaries finally enabled: if there is a
+	summary, only the summary is shown whenever more than one posts are
+	shown on the same page.  (June. 16 2007)</li>
+	<li>NEW FEATURE: "Quick delete" button on the admin page "List Comments".  (June. 11 2007)</li>
+	<li>OPTIMIZATION: Category lists are now retrieved at the beginning of /cont/index.inc. This means about 20 inlines less per page (depending on blog settings and db contents). (July 4 2007)</li>
+	<li>DOCUMENTATION: New db structure presentation included in the /docs folder (see /docs/database_080/index.html). Thanks to Marc Vos for sharing this! (July 24 2007)</li>
+	<li>BUG FIX: File Vault: big mix-up resulting from variable 'i' being used in two hierarchical layers on the same page (July 3 2007)</li>
+	<li>BUG FIX: File Vault: file categories were defined to be sorted by a non-existent field "upc_name" (should be "upl_name")(July 3 2007)</li>
+	<li>BUG FIX: File upload gave a syntax error in Lasso 8.5 (but was ok in Lasso 6). As a fix, RegExp pattern corrected in /gen/adminpage_monster.inc, line 625.  (June. 11 2007)</li>
+	<li>BUG FIX: Commenting form did never appear in Lasso 8.5 (but was ok in Lasso 6). As a fix, typo corrected in /inc/module_posts.inc, line 272.  (June. 11 2007)</li>
+	<li>BUG FIX: Post could not be deleted. As a fix, a new condition (Variable_Defined...) was added to /gen/adminpage_monster.inc, approximately on line 459.(Aug. 15 2006)</li>
+	<li>BUG FIX: Many more bug fixes</li>
+	<!--
+	<li></li>
+	-->
+    </ul>
+    <h1>0.8.0b1</h1>
+    <ul>
+	<li><b>File uploads</b></li>
+	<li>Options are regrouped</li>
+	<li>New option "multiuser_blog" (doesn't work yet)</li>
+	<li><i>Small changes</i></li>
+	<li>Option permalink_structure marked "works" in admin/install_stuff.inc (it was already ok in the admin/upgrade_06_073.lasso)</li>
+	<li>Permalinks now work in "Special page" links (in sidebar)</li>
+	<li>Unaccepted comments or those marked as spam don't show in rss feeds anymore</li>
+    </ul>
+
+    <h1>0.7.3 (released 2006-04-21)</h1>
+    <p>About ten new options activated to give control over commenting and specifically protection against spam comments. See readme.html for more details.</p>
+    <p>Fixed a bug that prevented permalinks to function, whenever the post title had non-ascii characters. </p>
+    <p>Many other bug fixes.</p>
+
+    <h1>0.7.2 (bugfix, not officially released)</h1>
+    <p>- sorting of posts can now be defined in category settings: either newest-first or oldest-first</p>
+
+    <h1>0.7.1 (bugfix, released 2005-12-20)</h1>
+    <p>In admin/install.lasso added Var:'fromMetoRoot' = '../';</p>
+<h1>New features in 0.7 (released  2005-12-19)</h1>
+<p>The two big new features are permalinks and language support. </p>
+<p>When using permalinks, links to your post may look like <code>www.MyDomain.org/MyBlog/2005/12/My_Post_Title</code>.</p>
+<p>Permalink structure can be modified by adjusting the related  option (new in this version) on the admin page Options > Permalinks. Permalinks use the "error.lasso method". This required that you put a <strong>modified error.lasso</strong> file to your domain root, where Lasso will use it in case of any errors. </p>
+<p>Check the enclosed <code>error.lasso</code>. you can use it as such, or modify (for example, you could add link to webmaster, or company logo). Then put it to the domain root. </p>
+<p>Of course, you can perfectly well use LassoBlogger without using permalinks. In that case links to your posts look like this: <code>www.MyDomain.org/MyBlog/?p=15</code>.  </p>
+<p>The <strong>language support</strong> works this way: </p>
+<ul>
+    <li>first try to find out if a language file for your language already exists; take a look to the <code>languages</code> folder; read the official <a href="http://www.greenspot.fi/LassoBlogger/">dev blog</a>; ask the developer
+    <li>if not, it's easy to do - about 70-80 phrases to translate from English, and they all are in one file; it took me about 30 minutes to do the Finnish translation (it's all in <code>languages/fi.inc</code>)</li>
+    <li>decide upon a language code (for example de, fr, or en_UK)</li>
+    <li>open <code>languages/language_template.inc</code> and follow directions in it</li>
+    <li>finally, activate your translations by changing the value of variable <code>lang</code> from "en" to your chosen code (in <code>config.lasso</code>)</li>
+</ul>
+<p>New in 0.7.0 is also the possibility to create <strong>static pages</strong>.
+</p>
+    <h1>0.6 (released 2005-12-02)</h1>
+<p>There is now a registration page for visitors. If you switch user registration on by adjusting the relevant option (on the admin page Options > General), a link to the register page will appear on the public blog pages. Newly registered users will by default get privileges according to a setting on the admin page Options > Write (possible values 0, 1 or 2).</p>
+<p>Of the inactive options in v0.5, 11 new ones have now been activated. See the source code of <code>upgrade_05_06.lasso</code>, if you want to see a list of them.</p>
+    <h1>0.5 (released 2005-09-06)</h1>
+</body>
+</html>
+

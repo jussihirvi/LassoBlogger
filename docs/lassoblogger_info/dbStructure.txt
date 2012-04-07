@@ -1,0 +1,204 @@
+<?LassoScript
+
+// this may not be perfectly up-to-date, so please do not use this
+// for creating tables. Ask me for current version, if you need
+// a working sql script. You can generate it yourself by doing a
+// mysqldump of an existing blog db, and extracting the CREATE TABLE
+// statements from the dump. 
+//
+// Also see /docs/database_080/index.html
+// for a readable report on db structure.
+//
+// - Jussi Hirvi
+
+// from v. 0.5, unless where otherwise indicated
+
+Variable:'myDbstructure'="
+
+CREATE TABLE categories (
+  ID bigint(20) NOT NULL auto_increment,
+  cat_name varchar(55) NOT NULL default '',
+  cat_nicename varchar(200) NOT NULL default '',
+  cat_description longtext NOT NULL,
+  cat_parent int(5) NOT NULL default '0',
+  cat_sortorder VARCHAR(255) NOT NULL default 'descending';   /* 0.72 */
+  PRIMARY KEY  (ID),
+  INDEX cat_nicename (cat_nicename)
+);
+CREATE TABLE comments (
+  ID bigint(20) unsigned NOT NULL auto_increment,
+  com_post_ID int(11) NOT NULL default '0',
+  com_author tinytext NOT NULL,
+  com_author_email varchar(100) NOT NULL default '',
+  com_author_url varchar(200) NOT NULL default '',
+  com_author_IP varchar(100) NOT NULL default '',
+  com_date datetime NOT NULL default '0000-00-00 00:00:00',
+  com_date_gmt datetime NOT NULL default '0000-00-00 00:00:00', 
+	// probably we do better without that gmt date field - jh050906
+  com_content text NOT NULL,
+  com_karma int(11) NOT NULL default '0',
+  com_approved enum('0','1','spam') NOT NULL default '1',
+  com_agent varchar(255) NOT NULL default '',
+  com_type varchar(20) NOT NULL default '',
+  com_parent int(11) NOT NULL default '0',
+  com_user_id int(11) NOT NULL default '0',
+  PRIMARY KEY  (ID),
+  INDEX com_approved (com_approved),
+  INDEX com_post_ID (com_post_ID)
+);
+CREATE TABLE linkcategories (
+  id bigint(20) NOT NULL auto_increment,
+  cat_name tinytext NOT NULL,
+  auto_toggle enum('Y','N') NOT NULL default 'N',
+  show_images enum('Y','N') NOT NULL default 'Y',
+  show_description enum('Y','N') NOT NULL default 'N',
+  show_rating enum('Y','N') NOT NULL default 'Y',
+  show_updated enum('Y','N') NOT NULL default 'Y',
+  sort_order varchar(64) NOT NULL default 'rand',
+  sort_desc enum('Y','N') NOT NULL default 'N',
+  text_before_link varchar(128) NOT NULL default '<li>',
+  text_after_link varchar(128) NOT NULL default '<br />',
+  text_after_all varchar(128) NOT NULL default '</li>',
+  list_limit int(11) NOT NULL default '-1',
+  PRIMARY KEY  (id)
+);
+CREATE TABLE links (
+  id bigint(20) NOT NULL auto_increment,
+  lin_url varchar(255) NOT NULL default '',
+  lin_name varchar(255) NOT NULL default '',
+  lin_image varchar(255) NOT NULL default '',
+  lin_target varchar(25) NOT NULL default '',
+  lin_category int(11) NOT NULL default '0',
+  lin_description varchar(255) NOT NULL default '',
+  lin_visible enum('Y','N') NOT NULL default 'Y',
+  lin_owner int(11) NOT NULL default '1',
+  lin_rating int(11) NOT NULL default '0',
+  lin_updated datetime NOT NULL default '0000-00-00 00:00:00',
+  lin_rel varchar(255) NOT NULL default '',
+  lin_notes mediumtext NOT NULL,
+  lin_rss varchar(255) NOT NULL default '',
+  PRIMARY KEY  (id),
+  INDEX lin_category (lin_category),
+  INDEX lin_visible (lin_visible)
+);
+CREATE TABLE options (
+  id bigint(20) NOT NULL auto_increment,
+  opt_blog_id int(11) NOT NULL default '0',
+  opt_name varchar(64) NOT NULL default '',
+  opt_can_override enum('Y','N') NOT NULL default 'Y',
+  opt_type int(11) NOT NULL default '1', 
+// opt_type: in WP probably deprecated, but still must exist; value always =1 
+  opt_value longtext NOT NULL,
+  opt_width int(11) NOT NULL default '20',
+  opt_height int(11) NOT NULL default '8',
+  opt_description tinytext NOT NULL,
+  opt_admin_level int(11) NOT NULL default '1',
+  opt_autoload enum('yes','no') NOT NULL default 'yes',
+  opt_group enum('gene','writ','read','disc','perm','file','misc') NOT NULL,  	// new in LB0.7.4
+  opt_sortcode VARCHAR(255) NOT NULL,	// new in LB0.7.4
+  PRIMARY KEY  (id,opt_blog_id,opt_name),
+  INDEX opt_name (opt_name),
+  INDEX opt_group (opt_name)		// new in LB0.7.4
+);
+CREATE TABLE post2cat (
+  id bigint(20) NOT NULL auto_increment,
+  p2c_post_id bigint(20) NOT NULL default '0',
+  p2c_category_id bigint(20) NOT NULL default '0',
+  PRIMARY KEY  (id),
+  INDEX post_id (p2c_post_id,p2c_category_id)
+);
+CREATE TABLE postmeta (
+  id bigint(20) NOT NULL auto_increment,
+  met_post_id bigint(20) NOT NULL default '0',
+  met_key varchar(255) default NULL,
+  met_value text,
+  PRIMARY KEY  (id),
+  INDEX post_id (met_post_id),
+  INDEX meta_key (meta_key)
+);
+CREATE TABLE posts (
+  ID bigint(20) unsigned NOT NULL auto_increment,
+  pos_author int(4) NOT NULL default '0',
+  pos_date datetime NOT NULL default '0000-00-00 00:00:00',
+  pos_date_gmt datetime NOT NULL default '0000-00-00 00:00:00',
+  pos_content longtext NOT NULL,
+  pos_title text NOT NULL,
+  pos_category int(4) NOT NULL default '0',
+  pos_excerpt text NOT NULL,
+  pos_status enum('publish','draft','private','static','object') NOT NULL default 'publish',
+  pos_comment_status enum('open','closed','registered_only') NOT NULL default 'open',
+  pos_ping_status enum('open','closed') NOT NULL default 'open',
+  pos_password varchar(20) NOT NULL default '',
+  pos_name varchar(200) NOT NULL default '',
+  pos_ping text NOT NULL,
+  pos_pinged text NOT NULL,
+  pos_modified datetime NOT NULL default '0000-00-00 00:00:00',
+  pos_modified_gmt datetime NOT NULL default '0000-00-00 00:00:00',
+  pos_content_filtered text NOT NULL,
+  pos_parent int(11) NOT NULL default '0',
+  pos_guid varchar(255) NOT NULL default '',
+  pos_menu_order int(11) NOT NULL default '0',
+  PRIMARY KEY  (ID),
+  INDEX pos_name (pos_name),
+  FULLTEXT pos_title,		/* 0.6 */
+  FULLTEXT pos_excerpt,		/* 0.6 */
+  FULLTEXT pos_content		/* 0.6 */
+);
+CREATE TABLE users (
+  ID bigint(20) unsigned NOT NULL auto_increment,
+  use_login varchar(60) NOT NULL default '',
+  use_pass varchar(64) NOT NULL default '',
+  use_firstname varchar(50) NOT NULL default '',
+  use_lastname varchar(50) NOT NULL default '',
+  use_nickname varchar(50) NOT NULL default '',
+  use_nicename varchar(50) NOT NULL default '',
+  use_icq int(10) unsigned NOT NULL default '0',
+  use_email varchar(100) NOT NULL default '',
+  use_url varchar(100) NOT NULL default '',
+  use_ip varchar(15) NOT NULL default '',
+  use_domain varchar(200) NOT NULL default '',
+  use_browser varchar(200) NOT NULL default '',
+  use_registered datetime NOT NULL default '0000-00-00 00:00:00',
+  use_level int(2) unsigned NOT NULL default '0',
+  use_aim varchar(50) NOT NULL default '',
+  use_msn varchar(100) NOT NULL default '',
+  use_yim varchar(50) NOT NULL default '',
+  use_idmode varchar(20) NOT NULL default '',
+  use_activation_key varchar(60) NOT NULL default '',
+  use_status int(11) NOT NULL default '0',
+  use_description longtext NOT NULL default '',
+  PRIMARY KEY  (ID),
+  UNIQUE KEY use_login (use_login)
+);
+
+/* tables uploadcats & uploads: v0.8 */
+
+CREATE TABLE uploadcats (
+  ID bigint(20) NOT NULL auto_increment,
+  upc_name varchar(55) NOT NULL default '',
+  upc_nicename varchar(200) NOT NULL default '',
+  upc_description longtext NOT NULL,
+  upc_parent int(5) NOT NULL default '0',
+  upc_sortorder VARCHAR(255) NOT NULL default 'descending', 
+  PRIMARY KEY  (ID),
+  INDEX upc_nicename (upc_nicename)
+);
+CREATE TABLE uploads (
+  ID bigint(20) unsigned NOT NULL auto_increment,
+  upl_catid int(4) NOT NULL default '-1',
+  upl_postid bigint(20) NOT NULL default '0',
+  upl_name varchar(60) NOT NULL default '',
+  upl_path varchar(255) NOT NULL default '',
+  upl_description varchar(255) NOT NULL default '',
+/* next field added after 0.8.0 */
+  upl_customsortcode varchar(255) NOT NULL, 
+  upl_created datetime NOT NULL default '0000-00-00 00:00:00',
+  upl_modified datetime NOT NULL default '0000-00-00 00:00:00',
+  upl_userid int(4) NOT NULL,
+  upl_imagedisplay enum('right','left','block','link') NOT NULL,
+  PRIMARY KEY  (ID),
+  INDEX upl_postid (upl_postid)
+  );
+";
+
+?>

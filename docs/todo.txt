@@ -1,0 +1,6 @@
+When deleting a file, the app does not ask, if the file should be moved to
+trash. (2008-08-09)
+
+WHen updating, the values from the rec to update are inserted in the search
+form fields (if present). (2008-08-10)
+

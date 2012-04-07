@@ -1,0 +1,25 @@
+// bugfix code convention: 
+
+Code:
+#
+#-----[ OPEN ]------------------------------------------
+#
+gen/adminpage_monster.inc
+
+#
+#-----[ FIND (approximately on line 458)]------------------------------------------
+#
+Var:'temp' = '';
+If: $allowFileupload == 'yes';
+$temp = '&file=' + (Encode_URL:$upl_path + $upl_name);
+/If;
+
+#
+#-----[ REPLACE WITH ]------------------------------------------
+#
+Var:'temp' = '';
+    If: $allowFileupload == 'yes';
+        If: (Variable_Defined:'upl_path') &&  (Variable_Defined:'upl_name');
+        $temp = '&file=' + (Encode_URL:$upl_path + $upl_name);
+        /If;
+    /If;

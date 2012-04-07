@@ -1,0 +1,546 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Db flnm="LassoBlogger" nm="LassoBlogger" ver="1.3.4">
+<VerLbl></VerLbl>
+<VerNotes></VerNotes>
+<DefTblOpts></DefTblOpts>
+<DocFolder>/Users/marcvos/Sites/blog/docs/database</DocFolder>
+<Sch Cm="" nm="schemaA">
+<Tbl UsSo="1" nm="categories">
+<TblOpts>ENGINE=MyISAM DEFAULT CHARSET=latin1</TblOpts>
+<Pk ClNs="id" nm="pkcategories"/>
+<Cl au="1" df="" nm="id" nu="0">
+<DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+</Cl>
+<Cl au="0" df="" nm="cat_name" nu="0">
+<DT ds="VarChar" en="" id="12" ln="55" sc="null" sg="1"/>
+</Cl>
+<Cl au="0" df="" nm="cat_nicename" nu="0">
+<DT ds="VarChar" en="" id="12" ln="200" sc="null" sg="1"/>
+</Cl>
+<Cl au="0" df="" nm="cat_description" nu="0">
+<DT ds="Text" en="" id="703" ln="null" sc="null" sg="1"/>
+</Cl>
+<Cl au="0" df="0" nm="cat_parent" nu="0">
+<DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+</Cl>
+<Cl au="0" df="descending" nm="cat_sortorder" nu="0">
+<DT ds="VarChar" en="" id="12" ln="255" sc="null" sg="1"/>
+</Cl>
+<Idx clu="0" nm="cat_nicename" unq="0">
+<ClNs>cat_nicename</ClNs>
+</Idx>
+<SchTrHis/>
+</Tbl>
+<Tbl UsSo="1" nm="comments">
+<TblOpts>ENGINE=MyISAM DEFAULT CHARSET=latin1</TblOpts>
+<Pk ClNs="id" nm="pkcomments"/>
+<Cl au="1" df="" nm="id" nu="0">
+<DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+</Cl>
+<Cl au="0" df="0" nm="com_post_ID" nu="0">
+<DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+</Cl>
+<Cl au="0" df="" nm="com_author" nu="0">
+<DT ds="TinyText" en="" id="710" ln="null" sc="null" sg="1"/>
+</Cl>
+<Cl au="0" df="" nm="com_author_email" nu="0">
+<DT ds="VarChar" en="" id="12" ln="100" sc="null" sg="1"/>
+</Cl>
+<Cl au="0" df="" nm="com_author_url" nu="0">
+<DT ds="VarChar" en="" id="12" ln="200" sc="null" sg="1"/>
+</Cl>
+<Cl au="0" df="" nm="com_author_IP" nu="0">
+<DT ds="VarChar" en="" id="12" ln="100" sc="null" sg="1"/>
+</Cl>
+<Cl au="0" df="0000-00-00 00:00:00" nm="com_date" nu="0">
+<DT ds="DateTime" en="" id="700" ln="null" sc="null" sg="1"/>
+</Cl>
+<Cl au="0" df="0000-00-00 00:00:00" nm="com_date_gmt" nu="0">
+<DT ds="DateTime" en="" id="700" ln="null" sc="null" sg="1"/>
+</Cl>
+<Cl au="0" df="" nm="com_title" nu="0">
+<DT ds="VarChar" en="" id="12" ln="255" sc="null" sg="1"/>
+</Cl>
+<Cl au="0" df="" nm="com_content" nu="0">
+<DT ds="Text" en="" id="703" ln="null" sc="null" sg="1"/>
+</Cl>
+<Cl au="0" df="0" nm="com_karma" nu="0">
+<DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+</Cl>
+<Cl au="0" df="1" nm="com_approved" nu="0">
+<DT ds="Enum" en="'0','1','SPAM'" id="706" ln="null" sc="null" sg="1"/>
+</Cl>
+<Cl au="0" df="" nm="com_agent" nu="0">
+<DT ds="VarChar" en="" id="12" ln="255" sc="null" sg="1"/>
+</Cl>
+<Cl au="0" df="" nm="com_type" nu="0">
+<DT ds="VarChar" en="" id="12" ln="20" sc="null" sg="1"/>
+</Cl>
+<Cl au="0" df="0" nm="com_parent" nu="0">
+<DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+</Cl>
+<Cl au="0" df="0" nm="com_user_id" nu="0">
+<DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+</Cl>
+<Idx clu="0" nm="com_approved" unq="0">
+<ClNs>com_approved</ClNs>
+</Idx>
+<Idx clu="0" nm="com_post_ID" unq="0">
+<ClNs>com_post_ID</ClNs>
+</Idx>
+<SchTrHis/>
+</Tbl>
+<Tbl UsSo="1" nm="linkcategories">
+<TblOpts>ENGINE=MyISAM DEFAULT CHARSET=latin1</TblOpts>
+<Pk ClNs="id" nm="pklinkcategories"/>
+<Cl au="1" df="" nm="id" nu="0">
+<DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+</Cl>
+<Cl au="0" df="" nm="cat_name" nu="0">
+<DT ds="TinyText" en="" id="710" ln="null" sc="null" sg="1"/>
+</Cl>
+<Cl au="0" df="N" nm="auto_toggle" nu="0">
+<DT ds="Enum" en="'Y','N'" id="706" ln="null" sc="null" sg="1"/>
+</Cl>
+<Cl au="0" df="Y" nm="show_images" nu="0">
+<DT ds="Enum" en="'Y','N'" id="706" ln="null" sc="null" sg="1"/>
+</Cl>
+<Cl au="0" df="N" nm="show_description" nu="0">
+<DT ds="Enum" en="'Y','N'" id="706" ln="null" sc="null" sg="1"/>
+</Cl>
+<Cl au="0" df="Y" nm="show_rating" nu="0">
+<DT ds="Enum" en="'Y','N'" id="706" ln="null" sc="null" sg="1"/>
+</Cl>
+<Cl au="0" df="Y" nm="show_updated" nu="0">
+<DT ds="Enum" en="'Y','N'" id="706" ln="null" sc="null" sg="1"/>
+</Cl>
+<Cl au="0" df="rand" nm="sort_order" nu="0">
+<DT ds="VarChar" en="" id="12" ln="64" sc="null" sg="1"/>
+</Cl>
+<Cl au="0" df="N" nm="sort_desc" nu="0">
+<DT ds="Enum" en="'Y','N'" id="706" ln="null" sc="null" sg="1"/>
+</Cl>
+<Cl au="0" df="&lt;li&gt;" nm="text_before_link" nu="0">
+<DT ds="VarChar" en="" id="12" ln="128" sc="null" sg="1"/>
+</Cl>
+<Cl au="0" df="&lt;br /&gt;" nm="text_after_link" nu="0">
+<DT ds="VarChar" en="" id="12" ln="128" sc="null" sg="1"/>
+</Cl>
+<Cl au="0" df="&lt;/li&gt;" nm="text_after_all" nu="0">
+<DT ds="VarChar" en="" id="12" ln="128" sc="null" sg="1"/>
+</Cl>
+<Cl au="0" df="0" nm="list_limit" nu="0">
+<DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+</Cl>
+<SchTrHis/>
+</Tbl>
+<Tbl UsSo="1" nm="links">
+<TblOpts>ENGINE=MyISAM DEFAULT CHARSET=latin1</TblOpts>
+<Pk ClNs="id" nm="pklinks"/>
+<Cl au="1" df="" nm="id" nu="0">
+<DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+</Cl>
+<Cl au="0" df="" nm="lin_url" nu="0">
+<DT ds="VarChar" en="" id="12" ln="255" sc="null" sg="1"/>
+</Cl>
+<Cl au="0" df="" nm="lin_name" nu="0">
+<DT ds="VarChar" en="" id="12" ln="255" sc="null" sg="1"/>
+</Cl>
+<Cl au="0" df="" nm="lin_image" nu="0">
+<DT ds="VarChar" en="" id="12" ln="255" sc="null" sg="1"/>
+</Cl>
+<Cl au="0" df="" nm="lin_target" nu="0">
+<DT ds="VarChar" en="" id="12" ln="25" sc="null" sg="1"/>
+</Cl>
+<Cl au="0" df="0" nm="lin_category" nu="0">
+<DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+</Cl>
+<Cl au="0" df="" nm="lin_description" nu="0">
+<DT ds="VarChar" en="" id="12" ln="255" sc="null" sg="1"/>
+</Cl>
+<Cl au="0" df="Y" nm="lin_visible" nu="0">
+<DT ds="Enum" en="'Y','N'" id="706" ln="null" sc="null" sg="1"/>
+</Cl>
+<Cl au="0" df="1" nm="lin_owner" nu="0">
+<DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+</Cl>
+<Cl au="0" df="0" nm="lin_rating" nu="0">
+<DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+</Cl>
+<Cl au="0" df="0000-00-00 00:00:00" nm="lin_updated" nu="0">
+<DT ds="DateTime" en="" id="700" ln="null" sc="null" sg="1"/>
+</Cl>
+<Cl au="0" df="" nm="lin_rel" nu="0">
+<DT ds="VarChar" en="" id="12" ln="255" sc="null" sg="1"/>
+</Cl>
+<Cl au="0" df="" nm="lin_notes" nu="0">
+<DT ds="Text" en="" id="703" ln="null" sc="null" sg="1"/>
+</Cl>
+<Cl au="0" df="" nm="lin_rss" nu="0">
+<DT ds="VarChar" en="" id="12" ln="255" sc="null" sg="1"/>
+</Cl>
+<Idx clu="0" nm="lin_category" unq="0">
+<ClNs>lin_category</ClNs>
+</Idx>
+<Idx clu="0" nm="lin_visible" unq="0">
+<ClNs>lin_visible</ClNs>
+</Idx>
+<SchTrHis/>
+</Tbl>
+<Tbl UsSo="1" nm="options">
+<TblOpts>ENGINE=MyISAM DEFAULT CHARSET=latin1</TblOpts>
+<Pk ClNs="id" nm="pkoptions"/>
+<Cl au="1" df="" nm="id" nu="0">
+<DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+</Cl>
+<Cl au="0" df="0" nm="opt_blog_id" nu="0">
+<DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+</Cl>
+<Cl au="0" df="" nm="opt_name" nu="0">
+<DT ds="VarChar" en="" id="12" ln="64" sc="null" sg="1"/>
+</Cl>
+<Cl au="0" df="Y" nm="opt_can_override" nu="0">
+<DT ds="Enum" en="'Y','N'" id="706" ln="null" sc="null" sg="1"/>
+</Cl>
+<Cl au="0" df="1" nm="opt_type" nu="0">
+<DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+</Cl>
+<Cl au="0" df="" nm="opt_value" nu="0">
+<DT ds="VarChar" en="" id="12" ln="255" sc="null" sg="1"/>
+</Cl>
+<Cl au="0" df="20" nm="opt_width" nu="0">
+<DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+</Cl>
+<Cl au="0" df="8" nm="opt_height" nu="0">
+<DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+</Cl>
+<Cl au="0" df="" nm="opt_description" nu="0">
+<DT ds="Text" en="" id="703" ln="null" sc="null" sg="1"/>
+</Cl>
+<Cl au="0" df="" nm="opt_status" nu="0">
+<DT ds="VarChar" en="" id="12" ln="255" sc="null" sg="1"/>
+</Cl>
+<Cl au="0" df="1" nm="opt_admin_level" nu="0">
+<DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+</Cl>
+<Cl au="0" df="YES" nm="opt_autoload" nu="0">
+<DT ds="Enum" en="'YES','NO'" id="706" ln="null" sc="null" sg="1"/>
+</Cl>
+<Cl au="0" df="GENE" nm="opt_group" nu="0">
+<DT ds="Enum" en="'GENE','WRIT','READ','DISC','PERM','FILE','MISC'" id="706" ln="null" sc="null" sg="1"/>
+</Cl>
+<Cl au="0" df="" nm="opt_sortcode" nu="0">
+<DT ds="VarChar" en="" id="12" ln="255" sc="null" sg="1"/>
+</Cl>
+<Idx clu="0" nm="opt_name" unq="0">
+<ClNs>opt_name</ClNs>
+</Idx>
+<SchTrHis/>
+</Tbl>
+<Tbl UsSo="1" nm="post2cat">
+<TblOpts>ENGINE=MyISAM DEFAULT CHARSET=latin1</TblOpts>
+<Pk ClNs="id" nm="pkpost2cat"/>
+<Cl au="1" df="" nm="id" nu="0">
+<DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+</Cl>
+<Cl au="0" df="0" nm="p2c_post_id" nu="0">
+<DT ds="BigInt" en="" id="-5" ln="null" sc="null" sg="1"/>
+</Cl>
+<Cl au="0" df="0" nm="p2c_category_id" nu="0">
+<DT ds="BigInt" en="" id="-5" ln="null" sc="null" sg="1"/>
+</Cl>
+<Idx clu="0" nm="p2c_post_id" unq="0">
+<ClNs>p2c_post_id, p2c_category_id</ClNs>
+</Idx>
+<SchTrHis/>
+</Tbl>
+<Tbl UsSo="1" nm="postmeta">
+<TblOpts>ENGINE=MyISAM DEFAULT CHARSET=latin1</TblOpts>
+<Pk ClNs="id" nm="pkpostmeta"/>
+<Cl au="1" df="" nm="id" nu="0">
+<DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+</Cl>
+<Cl au="0" df="0" nm="met_post_id" nu="0">
+<DT ds="BigInt" en="" id="-5" ln="null" sc="null" sg="1"/>
+</Cl>
+<Cl au="0" df="" nm="met_key" nu="0">
+<DT ds="VarChar" en="" id="12" ln="255" sc="null" sg="1"/>
+</Cl>
+<Cl au="0" df="" nm="met_value" nu="0">
+<DT ds="Text" en="" id="703" ln="null" sc="null" sg="1"/>
+</Cl>
+<Idx clu="0" nm="met_key" unq="0">
+<ClNs>met_key</ClNs>
+</Idx>
+<Idx clu="0" nm="met_post_id" unq="0">
+<ClNs>met_post_id</ClNs>
+</Idx>
+<SchTrHis/>
+</Tbl>
+<Tbl UsSo="1" nm="posts">
+<TblOpts>ENGINE=MyISAM DEFAULT CHARSET=latin1</TblOpts>
+<Pk ClNs="id" nm="pkposts"/>
+<Cl au="1" df="" nm="id" nu="0">
+<DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+</Cl>
+<Cl au="0" df="0" nm="pos_author" nu="0">
+<DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+</Cl>
+<Cl au="0" df="0000-00-00 00:00:00" nm="pos_date" nu="0">
+<DT ds="DateTime" en="" id="700" ln="null" sc="null" sg="1"/>
+</Cl>
+<Cl au="0" df="0000-00-00 00:00:00" nm="pos_date_gmt" nu="0">
+<DT ds="DateTime" en="" id="700" ln="null" sc="null" sg="1"/>
+</Cl>
+<Cl au="0" df="" nm="pos_content" nu="0">
+<DT ds="LongText" en="" id="712" ln="null" sc="null" sg="1"/>
+</Cl>
+<Cl au="0" df="" nm="pos_title" nu="0">
+<DT ds="Text" en="" id="703" ln="null" sc="null" sg="1"/>
+</Cl>
+<Cl au="0" df="0" nm="pos_category" nu="0">
+<DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+</Cl>
+<Cl au="0" df="" nm="pos_excerpt" nu="0">
+<DT ds="Text" en="" id="703" ln="null" sc="null" sg="1"/>
+</Cl>
+<Cl au="0" df="PUBLISH" nm="pos_status" nu="0">
+<DT ds="Enum" en="'PUBLISH','DRAFT','PRIVATE','STATIC','OBJECT'" id="706" ln="null" sc="null" sg="1"/>
+</Cl>
+<Cl au="0" df="OPEN" nm="pos_comment_status" nu="0">
+<DT ds="Enum" en="'OPEN','CLOSED','REGISTERED_ONLY'" id="706" ln="null" sc="null" sg="1"/>
+</Cl>
+<Cl au="0" df="OPEN" nm="pos_ping_status" nu="0">
+<DT ds="Enum" en="'OPEN','CLOSED'" id="706" ln="null" sc="null" sg="1"/>
+</Cl>
+<Cl au="0" df="" nm="pos_password" nu="0">
+<DT ds="VarChar" en="" id="12" ln="20" sc="null" sg="1"/>
+</Cl>
+<Cl au="0" df="" nm="pos_name" nu="0">
+<DT ds="VarChar" en="" id="12" ln="200" sc="null" sg="1"/>
+</Cl>
+<Cl au="0" df="" nm="pos_to_ping" nu="0">
+<DT ds="Text" en="" id="703" ln="null" sc="null" sg="1"/>
+</Cl>
+<Cl au="0" df="" nm="pos_pinged" nu="0">
+<DT ds="Text" en="" id="703" ln="null" sc="null" sg="1"/>
+</Cl>
+<Cl au="0" df="0000-00-00 00:00:00" nm="pos_modified" nu="0">
+<DT ds="DateTime" en="" id="700" ln="null" sc="null" sg="1"/>
+</Cl>
+<Cl au="0" df="0000-00-00 00:00:00" nm="pos_modified_gmt" nu="0">
+<DT ds="DateTime" en="" id="700" ln="null" sc="null" sg="1"/>
+</Cl>
+<Cl au="0" df="" nm="pos_content_filtered" nu="0">
+<DT ds="Text" en="" id="703" ln="null" sc="null" sg="1"/>
+</Cl>
+<Cl au="0" df="0" nm="pos_parent" nu="0">
+<DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+</Cl>
+<Cl au="0" df="" nm="pos_guid" nu="0">
+<DT ds="VarChar" en="" id="12" ln="255" sc="null" sg="1"/>
+</Cl>
+<Cl au="0" df="0" nm="pos_menu_order" nu="0">
+<DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+</Cl>
+<Idx clu="0" nm="pos_combined" unq="0">
+<ClNs>pos_title, pos_excerpt, pos_content</ClNs>
+</Idx>
+<Idx clu="0" nm="pos_content" unq="0">
+<ClNs>pos_content</ClNs>
+</Idx>
+<Idx clu="0" nm="pos_excerpt" unq="0">
+<ClNs>pos_excerpt</ClNs>
+</Idx>
+<Idx clu="0" nm="pos_name" unq="0">
+<ClNs>pos_name</ClNs>
+</Idx>
+<Idx clu="0" nm="pos_title" unq="0">
+<ClNs>pos_title</ClNs>
+</Idx>
+<SchTrHis/>
+</Tbl>
+<Tbl UsSo="1" nm="uploadcats">
+<TblOpts>ENGINE=MyISAM DEFAULT CHARSET=latin1</TblOpts>
+<Pk ClNs="id" nm="pkuploadcats"/>
+<Cl au="1" df="" nm="id" nu="0">
+<DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+</Cl>
+<Cl au="0" df="" nm="upc_name" nu="0">
+<DT ds="VarChar" en="" id="12" ln="55" sc="null" sg="1"/>
+</Cl>
+<Cl au="0" df="" nm="upc_nicename" nu="0">
+<DT ds="VarChar" en="" id="12" ln="200" sc="null" sg="1"/>
+</Cl>
+<Cl au="0" df="" nm="upc_description" nu="0">
+<DT ds="LongText" en="" id="712" ln="null" sc="null" sg="1"/>
+</Cl>
+<Cl au="0" df="0" nm="upc_parent" nu="0">
+<DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+</Cl>
+<Cl au="0" df="" nm="upc_sortorder" nu="0">
+<DT ds="VarChar" en="" id="12" ln="255" sc="null" sg="1"/>
+</Cl>
+<Idx clu="0" nm="upc_nicename" unq="0">
+<ClNs>upc_nicename</ClNs>
+</Idx>
+<SchTrHis/>
+</Tbl>
+<Tbl UsSo="1" nm="uploads">
+<TblOpts>ENGINE=MyISAM DEFAULT CHARSET=latin1</TblOpts>
+<Pk ClNs="id" nm="pkuploads"/>
+<Cl au="1" df="" nm="id" nu="0">
+<DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+</Cl>
+<Cl au="0" df="0" nm="upl_catid" nu="0">
+<DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+</Cl>
+<Cl au="0" df="0" nm="upl_postid" nu="0">
+<DT ds="BigInt" en="" id="-5" ln="null" sc="null" sg="1"/>
+</Cl>
+<Cl au="0" df="" nm="upl_name" nu="0">
+<DT ds="VarChar" en="" id="12" ln="60" sc="null" sg="1"/>
+</Cl>
+<Cl au="0" df="" nm="upl_path" nu="0">
+<DT ds="VarChar" en="" id="12" ln="255" sc="null" sg="1"/>
+</Cl>
+<Cl au="0" df="" nm="upl_description" nu="0">
+<DT ds="VarChar" en="" id="12" ln="255" sc="null" sg="1"/>
+</Cl>
+<Cl au="0" df="0000-00-00 00:00:00" nm="upl_created" nu="0">
+<DT ds="DateTime" en="" id="700" ln="null" sc="null" sg="1"/>
+</Cl>
+<Cl au="0" df="0000-00-00 00:00:00" nm="upl_modified" nu="0">
+<DT ds="DateTime" en="" id="700" ln="null" sc="null" sg="1"/>
+</Cl>
+<Cl au="0" df="0" nm="upl_userid" nu="0">
+<DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+</Cl>
+<Cl au="0" df="RIGHT" nm="upl_imagedisplay" nu="0">
+<DT ds="Enum" en="'RIGHT','LEFT','BLOCK','LINK'" id="706" ln="null" sc="null" sg="1"/>
+</Cl>
+<Idx clu="0" nm="upl_postid" unq="0">
+<ClNs>upl_postid</ClNs>
+</Idx>
+<SchTrHis/>
+</Tbl>
+<Tbl UsSo="1" nm="users">
+<TblOpts>ENGINE=MyISAM DEFAULT CHARSET=latin1</TblOpts>
+<Pk ClNs="id" nm="pkusers"/>
+<Cl au="1" df="" nm="id" nu="0">
+<DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+</Cl>
+<Cl au="0" df="" nm="use_login" nu="0">
+<DT ds="VarChar" en="" id="12" ln="60" sc="null" sg="1"/>
+</Cl>
+<Cl au="0" df="" nm="use_pass" nu="0">
+<DT ds="VarChar" en="" id="12" ln="64" sc="null" sg="1"/>
+</Cl>
+<Cl au="0" df="" nm="use_firstname" nu="0">
+<DT ds="VarChar" en="" id="12" ln="50" sc="null" sg="1"/>
+</Cl>
+<Cl au="0" df="" nm="use_lastname" nu="0">
+<DT ds="VarChar" en="" id="12" ln="50" sc="null" sg="1"/>
+</Cl>
+<Cl au="0" df="" nm="use_nickname" nu="0">
+<DT ds="VarChar" en="" id="12" ln="50" sc="null" sg="1"/>
+</Cl>
+<Cl au="0" df="" nm="use_nicename" nu="0">
+<DT ds="VarChar" en="" id="12" ln="50" sc="null" sg="1"/>
+</Cl>
+<Cl au="0" df="0" nm="use_icq" nu="0">
+<DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+</Cl>
+<Cl au="0" df="" nm="use_email" nu="0">
+<DT ds="VarChar" en="" id="12" ln="100" sc="null" sg="1"/>
+</Cl>
+<Cl au="0" df="" nm="use_url" nu="0">
+<DT ds="VarChar" en="" id="12" ln="100" sc="null" sg="1"/>
+</Cl>
+<Cl au="0" df="" nm="use_ip" nu="0">
+<DT ds="VarChar" en="" id="12" ln="15" sc="null" sg="1"/>
+</Cl>
+<Cl au="0" df="" nm="use_domain" nu="0">
+<DT ds="VarChar" en="" id="12" ln="200" sc="null" sg="1"/>
+</Cl>
+<Cl au="0" df="" nm="use_browser" nu="0">
+<DT ds="VarChar" en="" id="12" ln="200" sc="null" sg="1"/>
+</Cl>
+<Cl au="0" df="0000-00-00 00:00:00" nm="use_registered" nu="0">
+<DT ds="DateTime" en="" id="700" ln="null" sc="null" sg="1"/>
+</Cl>
+<Cl au="0" df="0" nm="use_level" nu="0">
+<DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+</Cl>
+<Cl au="0" df="" nm="use_aim" nu="0">
+<DT ds="VarChar" en="" id="12" ln="50" sc="null" sg="1"/>
+</Cl>
+<Cl au="0" df="" nm="use_msn" nu="0">
+<DT ds="VarChar" en="" id="12" ln="100" sc="null" sg="1"/>
+</Cl>
+<Cl au="0" df="" nm="use_yim" nu="0">
+<DT ds="VarChar" en="" id="12" ln="50" sc="null" sg="1"/>
+</Cl>
+<Cl au="0" df="" nm="use_idmode" nu="0">
+<DT ds="VarChar" en="" id="12" ln="20" sc="null" sg="1"/>
+</Cl>
+<Cl au="0" df="" nm="use_activation_key" nu="0">
+<DT ds="VarChar" en="" id="12" ln="60" sc="null" sg="1"/>
+</Cl>
+<Cl au="0" df="0" nm="use_status" nu="0">
+<DT ds="Integer" en="" id="4" ln="null" sc="null" sg="1"/>
+</Cl>
+<Cl au="0" df="" nm="use_description" nu="0">
+<DT ds="Text" en="" id="703" ln="null" sc="null" sg="1"/>
+</Cl>
+<Idx clu="0" nm="use_login" unq="0">
+<ClNs>use_login</ClNs>
+</Idx>
+<SchTrHis/>
+</Tbl>
+</Sch>
+<Dgm nm="diagramA">
+<RnCf FtSz="12" lkStgy="KeyToKeyStrategy" zm="1.0">
+<VbCfg>
+<Fg ky="Auto Number" vl="0"/>
+<Fg ky="Check" vl="0"/>
+<Fg ky="Comment" vl="0"/>
+<Fg ky="Data Type" vl="1"/>
+<Fg ky="Default" vl="0"/>
+<Fg ky="ENUM Values" vl="0"/>
+<Fg ky="Length" vl="1"/>
+<Fg ky="Name" vl="1"/>
+<Fg ky="Nullable" vl="0"/>
+<Fg ky="Schema Name" vl="0"/>
+<Fg ky="Signed" vl="0"/>
+</VbCfg>
+</RnCf>
+<TbGl bkCl="ffffffe6" sch="schemaA" tbl="categories" x="50" y="50"/>
+<TbGl bkCl="ffffffe6" sch="schemaA" tbl="comments" x="343" y="50"/>
+<TbGl bkCl="ffffffe6" sch="schemaA" tbl="linkcategories" x="646" y="50"/>
+<TbGl bkCl="ffffffe6" sch="schemaA" tbl="links" x="952" y="50"/>
+<TbGl bkCl="ffffffe6" sch="schemaA" tbl="options" x="50" y="311"/>
+<TbGl bkCl="ffffffe6" sch="schemaA" tbl="post2cat" x="343" y="311"/>
+<TbGl bkCl="ffffffe6" sch="schemaA" tbl="postmeta" x="646" y="311"/>
+<TbGl bkCl="ffffffe6" sch="schemaA" tbl="posts" x="952" y="311"/>
+<TbGl bkCl="ffffffe6" sch="schemaA" tbl="uploadcats" x="50" y="642"/>
+<TbGl bkCl="ffffffe6" sch="schemaA" tbl="uploads" x="343" y="642"/>
+<TbGl bkCl="ffffffe6" sch="schemaA" tbl="users" x="646" y="642"/>
+</Dgm>
+<RnmMgr NxRnmId="1"/>
+<DbDocOptionMgr>
+<BasicOptionMgr>
+<Name>db.doc.option.mgr</Name>
+<BoolOpt lbl="Diagrams" nm="doc.diagrams" on="1" spl="0"/>
+<BoolOpt lbl="Foreign Keys" nm="doc.fks" on="1" spl="0"/>
+<BoolOpt lbl="Indexes" nm="doc.indexes" on="1" spl="0"/>
+<BoolOpt lbl="Overwrite CSS File" nm="doc.overwrite.css" on="1" spl="0"/>
+<BoolOpt lbl="Procedures" nm="doc.procs" on="0" spl="1"/>
+<BoolOpt lbl="Schemas" nm="doc.schemas" on="1" spl="1"/>
+<BoolOpt lbl="Sequences" nm="doc.sequences" on="0" spl="1"/>
+<BoolOpt lbl="Tables" nm="doc.tables" on="1" spl="0"/>
+<BoolOpt lbl="Triggers" nm="doc.triggers" on="0" spl="1"/>
+<BoolOpt lbl="Views" nm="doc.views" on="0" spl="1"/>
+</BasicOptionMgr>
+</DbDocOptionMgr>
+</Db>

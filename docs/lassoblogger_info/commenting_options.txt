@@ -1,0 +1,75 @@
+COMMENTING OPTIONS (first activated in LB 0.7.3, except id= 32 in LB 0.5)
+
+= OVERVIEW =
+
+ OPTION NAME          OPTION ID    OPTION GROUPING       DEFAULT NEGATIVE RESULT
+ default_comment_status  32      == Unconditional ==        1    discard
+ comment_registration     6      == AuthorSpecific ==       0    discard
+ blacklist_keys          40      == Keys ==                 ;    discard
+ comment_link_limit      38      == Links ==                0    disc. or mod.
+ comment_moderation      35      == Unconditional  ==       0    moderate
+ moderation_keys         39      == Keys ==                 ;    moderate
+ commentor_whitelist     37      == AuthorSpecific ==       0    moderate
+ comments_notify         33      == Notifications ==        2     -
+ moderation_notify       34      == Notifications ==        2     -
+ require_name_email      36      == RequiredFields ==       1     -
+
+When a new comment is submitted, it is checked against  relevant options shown 
+on the list above. The list order  shows the actual order of processing: the 
+most powerful  options are checked first. If the evaluation result for any 
+option is "negative" (discard or moderate), the rest of  the options will be 
+skipped. 
+
+As a practical action plan I recommend that you first allow all comments. Then, if and when you will get spam, start tightening the rules, starting from the least powerful options (at the bottom of the list above). Go as far as needed until you won't get any more spam, but will continue to receive the comments which you want. 
+
+= DETAILS =
+
+default_comment_status (id=32, default =1) 	== Unconditional ==		
+Comments main switch (0 or 1)  
+
+comment_registration (id=6, default= 0)		== AuthorSpecific ==		
+(see the admin page General Options)
+Users must be registered and logged in to comment (0 or 1); see Discussion 
+Options for softer ways to control commenting
+  
+blacklist_keys (id=40, default=;) 		== Keys ==
+Comment is always discarded if it contains any of these  strings in its name, 
+email, website, title, or content.  Separate multiple strings with a semicolon 
+(;) and optional space. Example: <code>friggin; holy-liftin</code>. NOTE: Be  
+careful: <code>ass</code> will trigger processing if the  comment contains "
+bass" or "assist". 
+
+comment_link_limit (id=38, default=0) 		== Links ==
+(in WordPress and LassoBlogger before 0.7.3: "comment_max_ links")
+If the comment contains links, (0) this option is ignored,  (10) comment goes 
+to moderation queue, (11) comment goes to moderation queue, unless the author 
+is registered (12)  comment goes to moderation queue, unless the author is  
+registered AND has a previously accepted comment (20)  comment is discarded, (
+21) comment is discarded, unless the author is registered (22) comment is 
+discarded, unless the  author is registered AND has a previously accepted 
+comment
+
+comment_moderation (id=35, default=0) 		== Unconditional ==
+Comments always go to moderation queue (i.e. they must be  approved by 
+administrator) (0 or 1)
+
+moderation_keys (id=39, default=;) 		== Keys ==
+Comment always goes to moderation queue, if it contains any of these strings in
+its name, email, website, title, or  content. Separate multiple strings with a 
+semicolon (;) and optional space. Example: <code>friggin; holy-liftin</code>  
+
+commentor_whitelist (id=37, default=0) 		== AuthorSpecific ==
+(in WordPress and LassoBlogger before 0.7.3: "comment_ whitelist")
+Comment goes to moderation queue unless (1) the author is  registered, or (2) 
+the author is registered AND has a  previously approved comment, (0, 1 or 2)
+
+require_name_email (id=36, default=1) 		== RequiredFields ==
+Comment author must fill out name and email (0 or 1)
+
+comments_notify  (id=33, default=2) 		== Notifications ==
+Send email when a comment has been submitted and NOT held  for moderation (0 = 
+no email, 1 = to writer of the post, 2  = to administrator) 
+
+moderation_notify (id=34, default=2) 		== Notifications ==
+Send email when a comment is held for moderation (0 = no  email, 1 = to writer 
+of the post, 2 = to administrator)   

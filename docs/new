@@ -1,0 +1,8 @@
+CREATE TABLE pagecontents (
+  ID bigint(20) unsigned NOT NULL auto_increment,
+  creation_date datetime NOT NULL default '0000-00-00 00:00:00',
+  mod_date datetime NOT NULL default '0000-00-00 00:00:00',
+  pagename varchar(255) NOT NULL,
+  contents longtext NOT NULL,
+  sparefield varchar(255) NOT NULL
+);

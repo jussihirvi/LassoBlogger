@@ -1,0 +1,179 @@
+// cont/com-posted.inc
+
+'Sorry, commenting is not allowed for this item'
+'Please give'
+'Thanks for your comment!'
+'Comment added'   // short notice used in email subject
+'A comment has been added to your blog at' // used in email message
+'You may edit or moderate the comment here:' // used in email message
+'Blacklisted strings were found'
+'Commenting is turned off for this blog'
+'Illegal input for this page'   // shown to bad spammers who try to load the comment response page without supplying accurate form data; after this text, abort
+'It didn\'t pass test number' // [number following]
+'It has to be moderated by administrator before it can be shown.'
+'More info'
+'Sorry, commenting is not allowed for this item'
+'Sorry, your comment was <b>NOT</b> saved.'
+'The add operation FAILED. More info:'
+'The administrator will be notified of your comment.'
+'The tests are used to control commenting and to prevent spam comments.'
+'The writer of the post will be notified of your comment.'
+'There are limitations to using links in comments'
+'You can try again or contact the administrator at'
+'email address'
+'post settings' //meaning a toggle in post settings to either allow or disallow commenting 
+'your name'
+
+// cont/index.inc
+
+'Search!' // button text
+'Archives'
+'Special Pages' // aka static pages
+'Categories'
+'View all posts filed under' // category link
+'View all posts filed under' // category link
+'Meta'		// title for links to admin pages and register page
+'Site Admin'
+'Register'
+'Author' // headline
+'Authors'// headline (for multi-author blog)
+'File Vault' // headline
+'uploaded'
+'Login'
+'Logout'
+'Sorry, no such category!'  // not yet in 0.8.0
+
+// gen_adminpage_monster.inc (db operations, validations etc.)
+
+'Please give'
+'Duplicate value in the field' 		// name of field follows
+'The email address in field'		// name of field follows
+'is not valid.'
+'Only alphanumeric characters (a-z, A-Z and 0-9) are allowed in the field'
+
+// inc/admin_editform.inc
+'Fields marked with asterisk (*) are required'
+
+// inc/footer.inc
+
+'is powered by' // (this blog) is powered by (link to LassoBlogger follows)
+'Entries' // link to RSS feeds
+'Comments' // link to RSS feeds
+
+// inc/library.inc
+
+'comment'  // (one) comment (was found)
+'comments' // (NN) comments (were found)
+'Be the first to comment this page'
+'Be the first to comment this post'
+
+// inc/module_comments.inc
+
+'comment' // (1) comment (to the post/page XX)
+'comments' // (NN) comments (to the post/page XX)
+'to the post' // (comments) to the post
+'to the page' // (comments) to the page
+'Leave a Comment'
+'Name'
+'Email (will not be published)'
+'required'
+'Website'
+'Comment Title'
+'Submit Comment' // button text
+
+// inc/module_posts.inc
+
+'No records were found'
+'Permanent link to' // ...[post title]
+'Posted in'		// ...[category name]
+'View all posts in' // ...[category name]
+'View all files in' // ...[file category name]
+'Edit' 			// link text
+'More than one records were found - check your permalink'
+'See www site' // tooltip text in link to commenters www site
+'says'		// [commentor name] ...
+'You have to be registered and logged in to be able to comment' 
+'Read the whole post';
+
+// inc/snip_naviglinks.inc
+
+'record was found' // (1) ...
+'records were found' // [NN] ...
+'First page'
+'Previous page'
+'Next page'
+'Last page'
+
+// use-register.lasso
+
+'Registration'
+'Fill in to register. '
+'Fields marked with asterisk (*) are required'
+'Login Name'
+'Password'
+'User Level'
+'First Name'
+'Last Name'
+'Public Name'
+'May be your real name, or a nickname'
+'Website'
+'Without the "http://"'
+'Integer field'
+'Description'
+
+// use-registered.lasso
+
+'Registration'
+'Login Name'
+'Password'
+'User Level'
+'First Name'
+'Last Name'
+'Nickname'
+'Your public name tag'
+'Website'
+'Without the "http://"'
+'Integer field'
+'Description'
+
+// admin/custom/postprocess/use-registered.inc
+
+'The registration has succeeded.'
+'Your username is'
+'and your password'
+'Be sure to remember these values.'
+'You can now log in'
+'at the admin pages'
+'and start writing posts (if your initial permissions allow it)'
+
+// gen/frame_admin.inc
+
+'back to the blog'
+
+// email_fetch.lasso
+
+'Thank you for your blog posting'
+'The blog posting that you sent by email has just been successfully received. '
+'You may browse your post here:'
+'or edit the post here:'
+
+// logout.lasso, admin/logout.lasso
+
+'You have logged out of the site.'
+'Login again'
+'See the site'
+
+// gen/frame_default.inc, gen/frame_admin.inc
+
+'Back to blog'
+'Could not identify user. '
+'Password'
+'Please login'
+'The operation will be continued after reauthentication.'
+'Too many trials. Please try again later!'
+'Username'
+'You do not have enough privileges to access this page.'
+
+// UNHANDLED NEW
+
+

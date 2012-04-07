@@ -1,0 +1,130 @@
+<HTML>
+<Header>
+<Title>links - Table</Title>
+<Link href="../css/doc.css" rel="stylesheet" type="text/css">
+</Header>
+<Body>
+<table class="logo">
+<tr>
+<td class="logo">
+<p>DbWrench Documentation: LassoBlogger</p>
+</td>
+</tr>
+</table>
+<table class="horzMenu">
+<tr>
+<td class="horzMenu"><a class="horzMenu" href="../index.html">Home</a></td><td class="horzMenu"><a class="horzMenu" href="../tables/index.html">Tables</a></td><td class="horzMenu"><a class="horzMenu" href="../schemas/index.html">Schemas</a></td><td class="horzMenu"><a class="horzMenu" href="../diagrams/index.html">Diagrams</a></td><td class="horzMenu"><a class="horzMenu" href="../foreignKeys/index.html">Foreign Keys</a></td><td class="horzMenu"><a class="horzMenu" href="../indexes/index.html">Indexes</a></td><td class="horzMenuFiller"></td>
+</tr>
+</table>
+<hr>
+<table class="pageTitle">
+<tr>
+<td class="pageTitle">
+<p>Table: links</p>
+</td>
+</tr>
+</table>
+<br>
+<table class="flat">
+<tr>
+<td class="banner" colspan="8">Columns</td>
+</tr>
+<tr>
+<td class="Header">PK</td><td class="Header">Name</td><td class="Header">Data Type</td><td class="Header">NULLs</td><td class="Header">A/N</td><td class="Header">Default</td><td class="Header">Comment</td><td class="Header">FK</td>
+</tr>
+<tr>
+<td class="PkCol">
+<p class="boolImg">
+<img src="../images/pkb16.gif"></p>
+</td><td class="PkCol"><a href="../columns/schemaA_links_id.html">id</a></td><td class="PkCol">Integer</td><td class="PkCol"> </td><td class="PkCol">
+<p class="boolImg">
+<img src="../images/ok12d.gif"></p>
+</td><td class="PkCol"> </td><td class="PkCol"> </td><td class="PkCol"> </td>
+</tr>
+<tr>
+<td> </td><td><a href="../columns/schemaA_links_lin_url.html">lin_url</a></td><td>VarChar(255)</td><td> </td><td> </td><td> </td><td> </td><td> </td>
+</tr>
+<tr>
+<td> </td><td><a href="../columns/schemaA_links_lin_name.html">lin_name</a></td><td>VarChar(255)</td><td> </td><td> </td><td> </td><td> </td><td> </td>
+</tr>
+<tr>
+<td> </td><td><a href="../columns/schemaA_links_lin_image.html">lin_image</a></td><td>VarChar(255)</td><td> </td><td> </td><td> </td><td> </td><td> </td>
+</tr>
+<tr>
+<td> </td><td><a href="../columns/schemaA_links_lin_target.html">lin_target</a></td><td>VarChar(25)</td><td> </td><td> </td><td> </td><td> </td><td> </td>
+</tr>
+<tr>
+<td> </td><td><a href="../columns/schemaA_links_lin_category.html">lin_category</a></td><td>Integer</td><td> </td><td> </td><td>0</td><td> </td><td> </td>
+</tr>
+<tr>
+<td> </td><td><a href="../columns/schemaA_links_lin_description.html">lin_description</a></td><td>VarChar(255)</td><td> </td><td> </td><td> </td><td> </td><td> </td>
+</tr>
+<tr>
+<td> </td><td><a href="../columns/schemaA_links_lin_visible.html">lin_visible</a></td><td>Enum</td><td> </td><td> </td><td>Y</td><td> </td><td> </td>
+</tr>
+<tr>
+<td> </td><td><a href="../columns/schemaA_links_lin_owner.html">lin_owner</a></td><td>Integer</td><td> </td><td> </td><td>1</td><td> </td><td> </td>
+</tr>
+<tr>
+<td> </td><td><a href="../columns/schemaA_links_lin_rating.html">lin_rating</a></td><td>Integer</td><td> </td><td> </td><td>0</td><td> </td><td> </td>
+</tr>
+<tr>
+<td> </td><td><a href="../columns/schemaA_links_lin_updated.html">lin_updated</a></td><td>DateTime</td><td> </td><td> </td><td>0000-00-00 00:00:00</td><td> </td><td> </td>
+</tr>
+<tr>
+<td> </td><td><a href="../columns/schemaA_links_lin_rel.html">lin_rel</a></td><td>VarChar(255)</td><td> </td><td> </td><td> </td><td> </td><td> </td>
+</tr>
+<tr>
+<td> </td><td><a href="../columns/schemaA_links_lin_notes.html">lin_notes</a></td><td>Text</td><td> </td><td> </td><td> </td><td> </td><td> </td>
+</tr>
+<tr>
+<td> </td><td><a href="../columns/schemaA_links_lin_rss.html">lin_rss</a></td><td>VarChar(255)</td><td> </td><td> </td><td> </td><td> </td><td> </td>
+</tr>
+</table>
+<br>
+<table class="flat">
+<tr>
+<td class="banner" colspan="5">Indexes</td>
+</tr>
+<tr>
+<td class="Header">Name</td><td class="Header">Table</td><td class="Header">Columns</td><td class="Header">Unique</td><td class="Header">Clustered</td>
+</tr>
+<tr>
+<td><a href="../indexes/schemaA_links_lin_category.html">lin_category</a></td><td><a href="../tables/schemaA_links.html">links</a></td><td>lin_category</td><td> </td><td> </td>
+</tr>
+<tr>
+<td><a href="../indexes/schemaA_links_lin_visible.html">lin_visible</a></td><td><a href="../tables/schemaA_links.html">links</a></td><td>lin_visible</td><td> </td><td> </td>
+</tr>
+</table>
+<br>
+<table class="flat">
+<tr>
+<td class="banner" colspan="5">Foreign Keys</td>
+</tr>
+<tr>
+<td class="header">Name</td><td class="header">Parent Table</td><td class="header">Child Table</td><td class="header">Parent Columns</td><td class="header">Child Columns</td>
+</tr>
+</table>
+<br>
+<table class="flat">
+<tr>
+<td class="banner" colspan="5">Parent Relations</td>
+</tr>
+<tr>
+<td class="header">Name</td><td class="header">Parent Table</td><td class="header">Child Table</td><td class="header">Parent Columns</td><td class="header">Child Columns</td>
+</tr>
+</table>
+<br>
+<table class="flat">
+<tr>
+<td class="banner" colspan="1">Used in Diagrams</td>
+</tr>
+<tr>
+<td class="Header">Diagram Name</td>
+</tr>
+<tr>
+<td><a href="../diagrams/diagramA.html">diagramA</a></td>
+</tr>
+</table>
+</Body>
+</HTML>

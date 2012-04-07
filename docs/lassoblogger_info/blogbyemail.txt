@@ -1,0 +1,39 @@
+SEND ARTICLES TO YOUR BLOG VIA EMAIL
+
+A new feature in LassoBlogger 8.n. 
+
+This feature is fully optional - use it if you want to. It works only in Lasso versions that support POP - to my knowledge only Lasso 8 and above do that. 
+
+To get this to work, you need to 
+
+Step 1. Set up a dedicated email address for your blog, for example myworkblog@mydomain.com
+
+Step 2. Configure the associated options on the blog admin page Options > Writing
+
+Step 3. Set things up so that the page email_fetch.lasso will be loaded periodically, for example every 15 minutes
+
+Notes to the above: 
+
+(Step 1) The email address will not be specified in the blog software but in your mailserver software (you may need to ask your postmaster to set this up). To prevent spam, please use an  email address that is not quite easy to guess. 
+
+(Step 2) You will need to define options mailserver_url, mailserver_port, mailserver_login, mailserver_pass, and default_email_category. Mailserver_port is generally 110 (hence it's the default value of this option in LassoBlogger). Default_email_category directs incoming email messages to the specified post category. 
+
+(Step 3) You can do this in several ways: 
+a. set up a Lasso event on your SiteAdmin pages 
+b. set up a cron job (in Mac OS X and Linux) to load that page
+c. set up a remote machine to load that page in any method
+
+EMAIL PROCESSING
+
+For multipart emails the text/plain portion will be used, and a possible
+text/html part will be thrown away. LassoBlogger will use the Subject line of the incoming email as the post title. The Body part will become the content of the post. If a line containing only two hyphens (--) are found, everything after that will be discarded - two hyphens are a traditional way to separate email signatures from the message part. The post will be filed under the category that has been selected in the blog option default_email_category. Attachments are not yet supported, and thus they will be thrown away. 
+
+SECURITY
+
+Almost any email sent to your blog email address will be posted to your blog. Therefore it is wise to use an email address that is not quite trivial to
+guess. 
+
+The only check that is done to every incoming email message is the From: field. It has to contain an email address of a valid blog user who has enough privileges to write posts to your blog (see the blog page Admin > Users). Please remember, though, that the From: field is trivially easy to forge!
+
+The sender will be sent an email notification in response to an incoming email that passes tests and is published in the blog. If an incoming email does *not* pass all tests, then the blog administrator will be sent an email notification, and the sender (who might be a spammer) will get nothing back. 
+

@@ -1,0 +1,79 @@
+FILE UPLOADS
+
+In managing file uploads, it's important to know that there are always two things to take care of: the files themselves, and database references to those files.
+
+Every file is accompanied by exactly one db record (in the table uploads). Normally LassoBlogger takes care of things, but if the database and the actual file repository get out of sync - which can happen for a number of reasons - you might have to intervene to set things right again. 
+
+Before you can start uploading, you will have to tweak Lasso's SiteAdmin settings (see below). This is for your own good, as it means the security is (hopefully) tightly controlled. 
+
+There are two ways to use files: a) post-related files, and b) file vault. 
+
+a. Post-related files (typically images)
+
+Use the admin page Manage > Write & Edit Posts to upload files. The files will be automatically tied to the post that is displayed at the time of the download. Files will be automatically displayed, when that post is read. Use the admin page Uploads > Manage Files to set display preferences, edit file information and to delete files.  
+
+If you want to control yourself, how an image (or other file) is displayed, you can use the following trick:  
+-  use Upload > Manage Files to upload your file(s); make note of the image path, when it is displayed after upload
+- after uploading, delete the db record in Upload > Manage Files, but leave the file itself
+- in Manage > Write & Edit Posts, use regular html code (for ecample an IMG or A tag) to display the file as you please
+
+Remember that you have to take care of image sizes manually, using an image editin program before uploading images - ImageMagick routines may be built in later LB versions to control & adjust image sizes automatically. 
+
+The maximum width for post-related images is currently 450px - and that would fill the entire column! About 200px would be a practical max value. Any contents that is wider than 450px will seriously distort the page layout in Internet Explorer, so beware of that. 
+
+b. File Vault
+
+File Vault here means a file repository that is publicly displayed. It can be used to maintain a image album, or a list of any files for downloading. File Vault files can be organized in categories and subcategories, just like posts. Use admin page Uploads -> File Categories to manage *categories*. Use Uploads > Manage Files to upload, manage and delete your *files*.  
+
+A link to the File Vault will be displayed in the right-side (narrow) column, if all of the following are true: 
+- file uploads are turned on in Options -> File Uploads
+- there is at least one file to display (post-related files do not count here)
+
+Usually images will be displayed, but all other files (.pdf, .doc etc.) are presented as links. Display can be turned off for selected images on page Uploads > Manage Files. 
+
+1. OVERVIEW OF RELEVANT OPTIONS
+
+On the admin page Options > Uploads, you have to set the following options: 
+
+== use_fileupload == 		(default: 0)
+The main switch. Set to 1, if you want to upload files.
+
+== fileupload_realpath ==	(default: /YourBlogFolder/content) (actual value depends on installation)
+Main contents-directory, absolute path (beginning from the domain root). The uploaded files may end up in a subdirectory inside this directory. Fileupload_realpath doesn't need to be inside the blog directory, and in fact it's a good idea to keep the contents separately from the blog installation - this will makeLassoBlogger upgrades easier! 
+
+== fileupload_url ==		(default: http://PathToYourBlog/YourBlogFolder/content) (actual value depends on installation)
+The same as before, but as a full-qualified URL. (In fact I'm not sure if this
+is really needed. Let's use it anyway, so far. - JH)
+
+== fileupload_maxk ==	(default: 300)
+Upper size limit to uploaded files, expressed in kB. 
+
+== fileupload_allowedtypes ==	(default:jpg jpeg gif png)
+Allowed file types. When you add file suffixes here, REMEMBER to also authorize Lasso to handle those file types. In Lasso v6, this happens in  Lasso Admin page Setup > Global Settings > Settings.
+
+== fileupload_minlevel ==	(default: 6)
+Minimum user level for file uploads. 
+
+
+2. FILE PERMISSIONS IN LASSO ADMIN
+
+The price of file uploads is that you will have to assign quite liberal rights for your blog user (as defined in LassoAdmin) to handle files. You will have to check and modify two pages. The following is based on Lasso v6, and things may be different in Lasso 8. 
+
+2.1. SETUP > SECURITY > FILES (in Lasso 6: SETUP > GROUPS > FILES)
+
+Necessary rights: inspect, create, move, copy. 
+
+LASSO 8: You have to grant these rights to your blog user for two paths: a temporary path (defined in ServerAdmin by testing file upload), and the web server root.
+
+LASSO 6: You have to grant these rights to your blog user for ALL PATHS (also outside web serving root). This is because Lasso uploads files first temporarily to a location ouside server root, and our user has to be authorized to move those files from there to the web serving folder. 
+
+2.2. SETUP > SECURITY > TAGS (in Lasso 6: SETUP > GROUPS > TAGS)
+
+Select File Tags. Allow  the following:
+    File_Copy
+    File_Create
+    File_CurrentError
+    File_Exists
+    File_IsDirectory
+    File_Move
+To maximize security, be careful NOT to allow unneeded tags - only allow those that are really needed. This is especially important as long as access to ALL files (including, in principle, even your system files) has to be granted (see chapter 2.1 above). 

@@ -1,0 +1,19 @@
+
+'Blacklisted strings were found' = 'Löytyi kiellettyjä merkkijonoja',
+'Commenting is turned off for this blog' = 'Kommentointi ei ole sallittua tässä blogissa',
+'email address' = 'email-osoite',
+'Illegal input for this page' = 'Laiton syöte tätä sivua varten',	// shown to bad spammers who try to load the comment response page without supplying accurate form data; after this text, abort
+'It didn\'t pass test number' = 'Se ei läpäissyt testiä numero', // [number following]
+'It has to be moderated by administrator before it can be shown.' = 'Se voidaan näyttää vasta kun administraattori on hyväksynyt sen.',
+'More info' = 'Lisätietoja',
+'post settings' = 'artikkeli asetukset', //meaning a toggle in post settings to either allow or disallow commenting 
+'Sorry, commenting is not allowed for this item' = 'Tätä artikkelia ei valitettavasti voi kommentoida',
+'Sorry, your comment was <b>NOT</b> saved.' = 'Kommenttiasi EI valitettavasti tallennettu.',
+'The add operation FAILED. More info:' = 'Toiminto EI ONNISTUNUT. Lisätietoja:',
+'The administrator will be notified of your comment.' = 'Administraattorille ilmoitetaan kommentistasi.',
+'The tests are used to control commenting and to prevent spam comments.' = 'Testien tarkoitus on hallita kommentointia ja estää roskapostikommentit.',
+'The writer of the post will be notified of your comment.' = 'Artikkelin jirjoittajalle ilmoitetaan kommentistasi.',
+'There are limitations to using links' = 'Linkkien käyttöä kommenteissa on rajoitettu',
+'You can try again or contact the administrator at' = 'Voit yrittää uudelleen tai ottaa yhteyttä ylläpitäjään osoitteessa',
+'You have to be registered and logged in to be able to comment' = 'Vain rekisteröityneet ja sisäänkirjautuneet käyttäjät saavat kirjoittaa kommentteja', 
+'your name' = 'nimesi',
