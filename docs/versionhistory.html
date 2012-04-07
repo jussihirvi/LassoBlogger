@@ -19,12 +19,13 @@
 	
 	h1 {
 		color: #006;
-		font-size: 18px;
+		font-size: 140%;
 		font-weight: lighter;
+                padding-bottom:10px;
 	}
 	
 	h2 {
-		font-size: 16px;
+		font-size: 110%;
 	}
 	
 	p, li, dt {
@@ -42,9 +43,17 @@
     <h1>LassoBlogger version history</h1>
 
     <!--
-    <h1>Newest changes (published at GoogleCode, unpublished at LassoForge)</h1>
+    <h2>Newest changes (published at GoogleCode, unpublished at LassoForge)</h2>
     -->
-    <h1>0.9.1 (released 2009-06-19)</h1>
+    <h2>0.9.2 (released 2012-04-07)</h2>
+    <li>NEW FEATURE: Lasso 9 compatibility
+    <li>NEW FEATURE: images can be scaled and/or rotated when uploading
+    <li>NEW FEATURE: admin area redesigned, has new and faster navigation
+    <li>NEW FEATURE: CKEditor instead of FCKEditor in admin area
+    <li>REDESIGN: code has been thoroughly modernized; a lot of it has been refactored, some features have been rewritten; the code footprint is radically smaller than before
+    <li>REDESIGN: permalinks are now set to use Apache rewrite (and similar) instead of "Lasso error" method, which was always flaky and which I could not get to work with Lasso 9 at all (no harm done)
+    <li>BUGFIX: a lot of bugs have been fixed, and new ones created, no doubt
+    <h2>0.9.1 (released 2009-06-19)</h2>
     <ul>
     <li>NEW FEATURE: New spam-filtering feature, based on an encrypted timestamp on the commenting form. Affected file: inc/module_comments.inc, cont/com-posted.inc (2009-06-19) 
     <li>NEW FEATURE: possibility to manually tie an uploaded file to a post (on the page Uploads > Manage Files). Affected file: admin/upl-fileedit.lasso. (2009-05-29) 
@@ -72,7 +81,7 @@
 	<li>In Uploads > Manage Files, select the small pic, and set the Link URI so that it points to the big pic; also check the Description, which will become the TITLE parameter of the A tag
 	</ol>
     </ul>
-    <h1>0.9.0 (released 2008-07-28)</h1>
+    <h2>0.9.0 (released 2008-07-28)</h2>
     <ul>
     <li>LAYOUT: Comment list (displayed after a post) now neater. Affected files inc/module_comments.inc, themes/default/stylesheet.css. (July 23 2008)
     <li>BUG FIX: Registration form data, if sent, was being processed even when registration was prevented in blog options. This is now fixed. (July 23 2008)</li>
@@ -90,7 +99,7 @@
     <li>ADMIN: on the Admin Dashboard page, LassoBlogger news has been moved to an iframe (August 2007)</li>
     <li>BUG FIX: Unneeded alert text "No users were found" removed from the registration page (use-register.lasso) (August 21 2007)</li>
     </ul>
-    <h1>0.8.0 (released 2007-07-25)</h1>
+    <h2>0.8.0 (released 2007-07-25)</h2>
     <ul>
 	<li>NEW FEATURE: New var "dbConfig" added to config.lasso, to facilitate -host specification in inlines. This was requested by Marc Vos.(July 18 2007)</li>
 	<li>NEW FEATURE: Delete warnings for non-empty categories on admin pages man-cats.lasso and upl-cats.lasso (July 3 2007)</li>
@@ -110,7 +119,7 @@
 	<li></li>
 	-->
     </ul>
-    <h1>0.8.0b1</h1>
+    <h2>0.8.0b1</h2>
     <ul>
 	<li><b>File uploads</b></li>
 	<li>Options are regrouped</li>
@@ -121,17 +130,17 @@
 	<li>Unaccepted comments or those marked as spam don't show in rss feeds anymore</li>
     </ul>
 
-    <h1>0.7.3 (released 2006-04-21)</h1>
+    <h2>0.7.3 (released 2006-04-21)</h2>
     <p>About ten new options activated to give control over commenting and specifically protection against spam comments. See readme.html for more details.</p>
     <p>Fixed a bug that prevented permalinks to function, whenever the post title had non-ascii characters. </p>
     <p>Many other bug fixes.</p>
 
-    <h1>0.7.2 (bugfix, not officially released)</h1>
+    <h2>0.7.2 (bugfix, not officially released)</h2>
     <p>- sorting of posts can now be defined in category settings: either newest-first or oldest-first</p>
 
-    <h1>0.7.1 (bugfix, released 2005-12-20)</h1>
+    <h2>0.7.1 (bugfix, released 2005-12-20)</h2>
     <p>In admin/install.lasso added Var:'fromMetoRoot' = '../';</p>
-<h1>New features in 0.7 (released  2005-12-19)</h1>
+<h2>New features in 0.7 (released  2005-12-19)</h2>
 <p>The two big new features are permalinks and language support. </p>
 <p>When using permalinks, links to your post may look like <code>www.MyDomain.org/MyBlog/2005/12/My_Post_Title</code>.</p>
 <p>Permalink structure can be modified by adjusting the related  option (new in this version) on the admin page Options > Permalinks. Permalinks use the "error.lasso method". This required that you put a <strong>modified error.lasso</strong> file to your domain root, where Lasso will use it in case of any errors. </p>
@@ -147,10 +156,10 @@
 </ul>
 <p>New in 0.7.0 is also the possibility to create <strong>static pages</strong>.
 </p>
-    <h1>0.6 (released 2005-12-02)</h1>
+    <h2>0.6 (released 2005-12-02)</h2>
 <p>There is now a registration page for visitors. If you switch user registration on by adjusting the relevant option (on the admin page Options > General), a link to the register page will appear on the public blog pages. Newly registered users will by default get privileges according to a setting on the admin page Options > Write (possible values 0, 1 or 2).</p>
 <p>Of the inactive options in v0.5, 11 new ones have now been activated. See the source code of <code>upgrade_05_06.lasso</code>, if you want to see a list of them.</p>
-    <h1>0.5 (released 2005-09-06)</h1>
+    <h2>0.5 (released 2005-09-06)</h2>
 </body>
 </html>
 
