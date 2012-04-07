@@ -1,0 +1,349 @@
+2d1
+< loop(1); // hack to mimic abort on L9
+6,21c5,20
+<         var('comment_reg'	= $opts -> find('comment_registration'));
+< 	var('siteurl'	        = $opts -> find('siteurl'));
+< 
+< 	var('showcatlink'       = string);
+< 	var('showeditlink'      = string);
+< 	var('showcommentlink'   = string);
+<         var('showcommentmodule' = string); 
+<         var('postid'		= string); // necessary when case=perma
+<      	var('pos_status'	= string); // needed when case=perma
+<         var('pos_comment_status'= string); // commenting allowed for post? 
+< 	var('url_topost'	= string);
+< 
+<      inline(-search,$dbConfig,-table=$table_prefix+'posts',
+<         -sortField='pos_date',
+<         -sortOrder='descending',
+<         -maxRecords=$opts->find('posts_per_page'),
+---
+>         Var('postid'		= string); // necessary when case=perma
+>      	Var('pos_status'	= string); // needed when case=perma
+>         Var('pos_comment_status'= string); // commenting allowed for post? 
+>         Var('comment_reg'	= (LB_getOption('comment_registration')));
+> 
+> 	Var('showCatLink'       = string); // postmetadata line
+> 	Var('showEditLink'      = string); // postmetadata line
+> 	Var('showCommentLink'   = string); // postmetadata line
+>         Var('showCommentModule' = string); 
+> 	Var('url_topost'	= string);
+> 	Var('siteurl'	        = $basicOptions -> find('siteurl'));
+> 
+>      Inline(-search,$dbConfig,-Table=$table_prefix+'jas_posts',
+>         -SortField='pos_date',
+>         -SortOrder='descending',
+>         -MaxRecords='all',
+23,25c22,25
+< 	-skipRecords=$skip,
+<         -inlineName='postsearch');
+<             if( (found_count) == 0);
+---
+> 	-SkipRecords=$skip,
+>         -InlineName='postsearch'
+>         );
+>             If( (Found_Count) == 0);
+27,28c27,29
+< 	    else( (found_count) > 1 && $case == 'perma');
+< 		MO_speakBubble(str('Tried to interpret the address as a permalink, but failed. Please check the address!'));
+---
+> 	    Else( (Found_Count) > 1 && $case == 'perma');
+> 		$speakBubble = (str('Tried to interpret the address as a permalink, but failed. Please check the address!'));
+>                 MO_speakBubble($speakBubble);
+30,71c31,54
+< 		abort;
+<             else( error_currenterror != error_noerror );
+< 		MO_speakBubble(Error_CurrentError);
+<             /if;
+< 
+<     if( $case != 'p' && $case != 'page' && $case != 'perma');
+<         MO_naviglinks(-rectype=$rectype,-rectype_pl=$rectype_plural);
+<     /if;
+< 
+<     records(-inlineName='postSearch');
+< 
+< 	$showCatLink       = string;
+< 	$showEditLink      = string;
+< 	$showCommentLink   = string;
+<         $showCommentModule = string;
+< 	$postID            = string(field('id'));
+< 	$pos_status        = field('pos_status');
+< 	$pos_comment_status= field('pos_comment_status');
+< 
+<         // compose link to post
+<         $url_topost = $siteurl;
+<           if( ! $opts->find('permalink_structure') ); // permalinks switched off
+<             $url_topost += '?p=' + $postID;  
+<           else;	// use permalink structure
+<             // available - /%year%/%monthnum%/%day%/%postname%/%postid%  
+<             var('year'      = date(field('pos_date')) -> Year);
+<             var('month'     = date(field('pos_date')) -> Month);
+<             var('day'       = date(field('pos_date')) -> Day);
+<             var('postname'  = field('pos_name')); 
+<             // string casting below is mandatory 
+<             // otherwise L9 does not behave
+<             // it modifies $opts->find('perma
+<             // but for some reason only on first round
+<             var('linkstuff' = string($opts->find('permalink_structure')));
+<             $linkstuff -> removeLeading('/');
+<             $linkstuff -> replace('%year%',string($year));
+<             $linkstuff -> replace('%monthnum%',string($month));
+<             $linkstuff -> replace('%day%',string($day));
+<             $linkstuff -> replace('%postname%',string($postname));
+<             $linkstuff -> replace('%postid%',$postID);
+<             $url_topost += encode_url($linkstuff);
+<           /if;
+---
+> //                MO_errorhandler(-level='debug');
+> 		Abort;
+>             Else( (Error_CurrentError) != (Error_NoError));
+> 		$speakBubble = (Error_CurrentError);
+>             // Else;
+> 		// $speakBubble = 'No error';
+>             /If;
+> //                MO_errorhandler(-level='debug');
+>     If( $case != 'post' && $case != 'page' && $case != 'perma');
+> 	// Var linkstuff (used in naviglinks) has been defined in cont/index.inc
+> //	Include( 'inc/naviglinks.inc');
+>         // naviglinks bugittaa 2011-01
+>     /If;
+>     Records(-InlineName='postSearch');
+> 
+> 	Var('showCatLink'       = string); // postmetadata line
+> 	Var('showEditLink'      = string); // postmetadata line
+> 	Var('showCommentLink'   = string); // postmetadata line
+>         Var('showCommentModule' = string); 
+> 	Var('url_topost'	= string);
+> 
+> 	$postID = (Field('id'));
+> 	$pos_status = (Field('pos_status'));
+> 	$pos_comment_status = (Field('pos_comment_status'));
+75c58,62
+<             // show link
+---
+> 	  // compose link to post
+> 	      $url_topost = $siteurl;
+> 		$url_topost += '?p=' + $postID;  
+> 
+> 	  If( (Found_Count) > 1); // show link
+77,80d63
+< 		if( $opts -> find('permalink_structure') ); 
+< 		  '" TITLE="'; (str('Permanent link to')); ' &#34;'; 
+< 		  field('pos_title');'&#34;';
+< 		/if;
+82c65,68
+< 		field('pos_title'); '</A>';
+---
+> 		Field('pos_title'); '</A>';
+> 	  Else; 	// case found_count == 1 (-> no link needed)
+> 	      Field('pos_title'); 
+> 	  /If;
+84c70
+< 	  if( $pos_status != 'static');
+---
+> 	  If( $pos_status != 'static');
+88,89c74,78
+< 	    LB_getAuthor(field('pos_author')); ', ';
+< 	    LB_formatDateTime(field('pos_date'));
+---
+> 
+> 	    Field('pos_author'); ', ';
+> 
+> 	    LB_formatDateTime(Field('pos_date'));
+> 
+92a82,83
+> 	// any uploaded files for this post?
+> 
+94,95c85,87
+< 		var('summary'     = string);
+< 		var('content'     = string);
+---
+> 		Var('summary'     = string);
+> 		Var('content'     = string);
+> 		// first insert images/files (if any)
+97,98c89
+< 		// first insert uploaded files (if any)
+<                 var('files') = MO_collectUploadData(-table='posts',
+---
+>                 var('files') = MO_collectUploadData(-table='jas_posts',
+100a92
+> 
+102,169c94,102
+<                 // html_comment;
+<                 // 'test files is '; $files;
+<                 // /html_comment;
+<                 // loop_continue;
+< 		$summary += field('pos_excerpt');
+< 		$summary -> replace('\r\r','</p><p>');
+< 		$summary -> replace('\r','<br>');
+< 		$summary -> replace('<p>','<p>\r'); // for neater html source
+< 
+< 		$content += field('pos_content');
+< 		$content -> replace('\r\r','</p><p>');
+< 		$content -> replace('\r','<br>');
+< 		$content -> replace('<p>','<p>\r'); // for neater html source
+< 
+< 		// smilies
+< 
+< 		var('smilies' = map(
+< 		':)' = 'smile',
+< 		':-)' = 'smile',
+< 		':D' = 'biggrin',
+< 		':-D' = 'biggrin',
+< 		':(' = 'sad',
+< 		':-(' = 'sad',
+< 		':o' = 'eek',
+< 		':-o' = 'eek',
+< 		':0' = 'surprised',
+< 		':-0' = 'surprised',
+< 		'8O' = 'surprised',
+< 		'8-O' = 'surprised',
+< 		':?' = 'question',
+< 		':-?' = 'question',
+< 		'8)' = 'cool',
+< 		'8-)' = 'cool',
+< 		':X' = 'mad',
+< 		':-X' = 'mad',
+< 		':P' = 'razz',
+< 		':-P' = 'razz',
+< 		':|' = 'neutral',
+< 		':-|' = 'neutral',
+< 		';)' = 'wink',
+< 		';-)' = 'wink' 
+< 		));
+< 
+< 		if( ($opts -> find('use_smilies')) == 1);
+< 		    var('i' = string);
+< 		    iterate($smilies, $i);
+< 			$summary -> replace($i -> first,
+< 			  '<img src="' + $siteurl + 'images/smilies/icon_' 
+< 			  + ($i -> second) + '.gif" alt="smilie" title="' 
+< 			  + ($i -> second) + '">'); 
+< 			$content -> replace($i -> first,
+< 			  '<img src="' + $siteurl + 'images/smilies/icon_' 
+< 			  + ($i -> second) + '.gif" alt="smilie" title="' 
+< 			  + ($i -> second) + '">'); 
+< 		    /iterate;
+< 		/if;
+< 
+< 
+< 		If( $opts -> find('www_use_summary') == '1'
+< 			&& $summary && ($case != 'p' && $case != 'perma'));
+< 		    '<p class="summary">';$shown_files; 
+<                         encode_smart($summary);
+< 		    '</p>\r';
+< 		    '<p class="linkfromsummary"><a href="' + $url_topost + '" TITLE="';
+< 		    str('Read the whole post');
+< 		    '">';
+< 		    str('Read the whole post'); ' &#187;</a></p>\r';
+< 		Else;
+---
+> 		$summary += (Field('pos_excerpt'));
+> 		$summary -> (Replace('\r\r','</p><p>'));
+> 		$summary -> (Replace('\r','<br>'));
+> 		$summary -> (Replace('<p>','<p>\r')); // for neater html source
+> 
+> 		$content += (Field('pos_content'));
+> 		$content -> (removeLeading('<p>')); 
+> 		$content -> (removeTrailing('<p>')); 
+> 
+171,177c104,109
+<                         $files -> get(1); // shown_files
+<                         encode_smart($summary);
+< 		    '</p><p>';
+<                         encode_smart($content);
+< 		    '</p>\r';
+< 		/If;
+< 		If( $files->get(2)->size); $files->get(2); /If; //linked_files
+---
+> 			(Var('summary',-encodeSmart)); 
+> 		    '</p>';
+>                     '<p>'; $files -> get(1); // shown_files
+> 			$content;		    
+>                       '</p>\r';
+> 		If( $files -> get(2) ); $files -> get(2); /If; // linked_files
+192,193c124,125
+< 	    If( $opts -> find('default_comment_status') == '1'
+< 	      && field('pos_comment_status') == 'open'
+---
+> 	    If: (LB_getOption:'default_comment_status') == 1
+> 	      && (Field('pos_comment_status')) == 'open'
+196c128
+< 		 ));
+---
+> 		 );
+199,200c131
+< 
+< 		If($case == 'p'||  $case == 'page' || $case == 'perma' );
+---
+> 		If($case == 'p'||  $case == 'page');
+209c140
+< /*  'TEST - level='; $use_level; ' ';
+---
+> /*  'TEST: level='; $use_level; ' ';
+212c143
+<     'comment_registration='; $opts -> find('comment_registration'); ' ';
+---
+>     'comment_registration='; (LB_getOption('comment_registration')); ' ';
+219,220c150,151
+< 	    If( $catz->parentids -> FindIndex(Field('pos_category'))->size);
+< 		$ix = $catz->parentids -> FindIndex(Field('pos_category')) 
+---
+> 	    If( $aCats_parents_ids -> (FindIndex((Field:'pos_category')))->size);
+> 		$ix = $aCats_parents_ids -> (FindIndex((Field('pos_category')))) 
+222c153
+< 		$cat = $catz->parents -> get($ix) -> get(3);
+---
+> 		$cat = $aCats_parents -> (get($ix)) -> (get(3));
+224,226c155,157
+< 		$ix = $catz->childids -> FindIndex(Field('pos_category'))
+< 		    -> get(1);
+< 		$cat = $catz->children -> get($ix) -> get(3);
+---
+> 		$ix = $aCats_children_ids -> (FindIndex((Field('pos_category'))))
+> 		    -> (get(1));
+> 		$cat = $aCats_children -> (get($ix)) -> (get(3));
+228a160,164
+> //	    var:'cat' = $aCats_parents 
+> //		   -> (Get:($aCats_parents_ids 
+> //			   -> (FindIndex((Field:'pos_category')))->(Get(1))))
+> //		   -> (Get(3)); // for title
+> ////	    Variable('cat'= (LB_getCategory((Field:'pos_category'))));
+233,234c169,170
+< 	    If( $showEditLink == 'yes' || $showCommentLink == 'yes'
+< 	        || $comment_reg == 1 );
+---
+> 	    If: $showEditLink == 'yes' || $showCommentLink == 'yes'
+> 	        || $comment_reg == 1;
+256a193,202
+> 	  /* NOTE: for case=perma we show comment *links*, because
+> 	     if we would show comment *form* on the perma page
+> 	     (as is done on single-post pages normally, 
+> 	     that is, when case=p)
+> 	     the user cookies could not be read, because the "virtual
+> 	     directory" is different from that stored in
+> 	     cookies; :-) if someone knows a way around this,
+> 	     let me know; maybe in Lasso 8...
+> 	  */
+> 
+264c210
+< 		LB_getCommentLink($postID);
+---
+> 		LB_getCommentLink($postID,-EncodeNone);
+274c220
+< 	var('pos_title' = Field('pos_title'));
+---
+> 	Variable('pos_title' = (Field('pos_title')));
+278,279c224,225
+< 	If( $speakBubble);
+< 	MO_speakBubble($speakBubble);
+---
+> 	If( $speakBubble != '');
+> 	Include( $myInc + 'speakBubble.inc');
+282a229
+> 
+286,287d232
+< 
+< /loop;
+288a234
+> 

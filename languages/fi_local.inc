@@ -1,0 +1,4 @@
+<?LassoScript
+var('mTransLocal' = map(
+));
+?>

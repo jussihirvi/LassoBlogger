@@ -1,0 +1,58 @@
+<?LassoScript
+// // show individual recs
+// 
+// Records;
+//     '<td class="'; $defaultClass; '">'; Field('Tunnus'); '</td>';
+// /Records;
+// 
+// Abort;
+?>
+
+<?LassoScript
+// // example from  MUSEOHISTORIA
+// // on successful add action, 
+// // send email, and show message with field values
+// 
+// If( $action == 'lisaa' && ! $dbChange_error );
+//     // send email
+//     var('emailSubj' = ($basicOptions -> Find('sitename')) + '-viesti');
+//     $emailSubj -> Uppercase;
+//     $emailSubj += ' - Uusi k‰ytt‰j‰';
+// 
+//     var('emailbody' = 'Automaatinen viesti ');
+//     $emailbody += ($basicOptions -> Find('sitename'));
+//     $emailbody += '-sivustolta.';
+//     $emailbody += '\n\nUusi k‰ytt‰j‰ on juuri rekisterˆitynyt nimell‰ "';
+//     $emailbody += $museo + '".';
+// 	Email_Send( 			// fill in -Host, if needed
+// 	-From = 'greenspot@greenspot.fi',
+// 	-To   = $basicOptions -> Find('admin_email'),
+// 	-Cc   = 'greenspot@greenspot.fi',
+// 	-Subject = $emailSubj,
+// 	-Body = $emailbody);
+// 
+// // ...and show message; you could also use SpeakBubble
+
+?>
+    <p class="center">The registration has succeeded. </p>
+    <p class="center">Your username is <strong>[$username]</strong> and your password <strong>[$password]</strong>. Be sure to remember these values. </p>
+    <p class="center">You can now <A HREF="/museoliitto/museohistoria/">log in</A> and start writing!</p>
+
+<?LassoScript
+//     Abort;
+// Else: $dbChange != 1; // tukitaan mahdollisuus selata tietoja
+//     Abort;
+// /If;
+?>
+
+<?LassoScript
+
+// // Show html welcome text above the empty form
+// 
+// If( ! $action );
+// 
+// '<h2>Logistiikan signaali veloituksetta</h2>\r';
+// '<p class="center"><b>Logistiikka - Kuljetus 2006</b> -n‰yttelyn j‰lkeen julkaistaan <i>Logistiikan Signaali</i> -lehti. Lehdess‰ esitell‰‰n <b>Logistiikka - Kuljetus</b> -n‰yttelyss‰ esill‰ olleita tuotteita ja palveluita sanoin ja kuvin.</p>\r';
+// 
+// /If;
+?>

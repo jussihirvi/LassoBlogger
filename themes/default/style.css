@@ -11,9 +11,11 @@ Author URI: http://www.greenspot.fi/jussihirvi
 	
 	*** REGARDING HEADER DIV (the top of page) ***
 
-	The styles affecting the header DIV 
-	are since LassoBlogger 0.7 in gen/frame_default.inc
+        The header div can be customized in gen/frame_default.inc
+        This file contains some basic styles for the header.
 
+        *** COLOR SCHEME *** 
+        blue fill for header is #73a0c5
 */
 
 /* Begin Basic */
@@ -23,12 +25,15 @@ body {
 	padding: 0; 
 	font-size: 62.5%; /* Resets 1em to 10px */
 	font-family: 'Lucida Grande', Verdana, Arial, Sans-Serif;
-	background-color: #d5d6d7;
+	background-color: #ddd;
 	color: #000;
 	text-align: center;
 	}
 
 div#page {
+        position:relative;
+        top:0; left:0;
+        z-index:2;
 	margin: 20px auto;
 	padding: 0;
 	width: 760px;
@@ -37,11 +42,11 @@ div#page {
 	text-align: left;
 	}
 
-td#widecolumn {
+#widecolumn {
 	padding: 0 0 20px 45px;
 	margin: 0;
 	width: 460px;
-	font-size: 1.1em
+	font-size: 1.2em
 	}
 
 td#widecolumn .entry {
@@ -56,15 +61,23 @@ td#widecolumn .postmetadata {
 td#sidebar {
 	padding: 65px 0 10px 35px;
 	width: 210px;
-	font-size: 1em;
+	font-size: 1.0em;
 	}
 
+#header {
+    padding: 0;
+    margin: 0 auto;
+    width: 100%;
+    background-color: #73a0c5;
+    border-radius:10px 10px 0 0;
+}
 #footer {
 	padding: 0 0 0 0px;
 	margin: 0 auto;
 	width: 760px;
 	clear: both;
 	background-color: #eee;
+    border-radius:0 0 10px 10px;
 	}
 
 #footer p {
@@ -76,7 +89,7 @@ td#sidebar {
 .post {
 	margin: 0 0 40px;
 	text-align: left;
-	clear:both; /* necessary if images on left/right are higher than text */
+	clear:both; 
 	}
 
 p.summary {font-weight:bold;}
@@ -185,7 +198,7 @@ h2 {
 h3 {
 	padding: 26px 0 4px 0;
 	margin: 0;
-	font-size: 1.3em;
+	font-size: 1.5em;
 	}
 
 h2 a, h3 a {
@@ -503,11 +516,22 @@ hr {
 	display: none;
 	}
 
-/* speakBubble texts */
-.alert {
-    font-size: 14px;
-    font-weight: bold;
-    color: #cc0033;
+/* speakBubble */
+
+div.speakBubble {width:350px; 
+    padding-top:20px;
+    padding-bottom:45px;
+    margin-left:auto;
+    margin-right:auto;
+}
+div.speakBubbleImage {float:left; width:32px;}
+div.speakBubbleText  {
+    float:left; 
+    width:300px; 
+    padding-left:12px;
+    text-align:left;
+    font-size:14px;
+    color:#73a0c5; /* blue; default: bright red, #c03 */
 }
 
 /* End Various Tags & Classes*/
@@ -568,8 +592,166 @@ hr {
 
 /* End Calendar */
 
+/*  Naviglinks 2012-04-06 */
+ 
+div#naviglinks {        margin:5px 0 5px 0;
+                        font-size:0.8em;
+}
+div#naviglinks_upper {  padding:5px 0 2px 0;
+                        text-align:center;
+} 
+div#naviglinks_lower {  width:360px;
+                        margin:0 auto;
+}
+div#naviglinks_lowleft{ width:150px;
+                        float:left;
+                        text-align:right;
+                        padding-right:24px;
+                        font-weight:bold;
+}
+div#naviglinks_lowmid { float:left;
+}
+div#naviglinks_lowright{width:150px;
+                        float:left;
+                        text-align:left;
+                        padding-left:24px;
+                        font-weight:bold;
+}
+div#naviglinks em {font-weight:bold;font-style:normal;}
+div#naviglinks img {vertical-align:text-top; padding:0 5px 0 8px;}
+
+/* login form */
+
+div#login {
+	background: #fff;
+	border: 2px solid #a2a2a2;
+	margin: 2em auto;
+	padding: 1.5em;
+        width:26em;
+        font-size:1.2em;
+}
+div#login div.label      { float:left;text-align:right;width:11em;margin:8px 10px 0 0;padding:0;}
+div#login input#username { float:left;width:10em;padding: 3px; }
+div#login input#password { float:left;width:10em;padding: 3px; }
+
+#login input#submit {
+        float:left;
+        margin:0.5em 0 0 0;
+        padding:4px;
+	font-family: Tahoma, Arial, Helvetica, Sans-Serif;
+        font-size:1.2em;
+}
+#login input#submit:hover {
+      background-color:#ddd;
+}
+#login #login_error {
+	background: #c00;
+	border: 1px solid #a40000;
+	color: #fff;
+	font-size: 16px;
+	font-weight: bold;
+	padding: .5em;
+	text-align: center;
+}
+div#login h1 {
+        color:black;
+	margin:0 0 16px 0;
+        padding:2px 0 2px 0;
+        text-align:center;
+        font-size:1.6em;
+        font-weight:bold;
+}
+div#login ul {
+	list-style: none;
+	margin: 10px auto 0 auto;
+        text-align:center;
+	padding: 0;
+}
+div#login ul li {
+        display:inline;
+        font-size:1.1em;
+	margin:10px 20px 0 0;
+}
+
+/* editformtable on register page */
+
+table.editformtable     {margin:0 auto 20px auto;}
+table.editformtable th  {text-align:right;padding-right:10px; }
+table.editformtable th.listviewlabel {
+  vertical-align:top;text-align:left;padding:0 10px 0 3px; }
+table.editformtable th.listviewlabel_addform {
+  vertical-align:top;background-color:#ffc;text-align:left;padding:0 10px 0 3px; }
+table.editformtable td.listview_addform {
+  background-color:#ffc;
+  padding:5px 4px 10px 0;
+  border-bottom:1px solid #fc3;
+}
+table.editformtable td  {font-size:11pt; padding:6px 8px 0 0;}
+table.editformtable div.helptext { 
+  display:inline;
+  float:left;
+  padding-top:5px; 
+  padding-left:10px; 
+  font-size:0.9em;
+  }
+table.editformtable .iso {font-size:14pt; }
+table.editformtable .isohko {font-size:12pt; }
+table.editformtable .normaalikoko {font-size:11pt;}
+table.editformtable .puolipieni {font-size:10pt; }
+table.editformtable .pieni {font-size:9pt; }
 
 
+table.editformtable input:focus, 
+table.editformtable textarea:focus, 
+table.editformtable label:focus {
+    background: #ffc;
+    border: 1px solid #111;
+}
+
+table.editformtable textarea, 
+table.editformtable input {
+        background: #f4f4f4;
+	border: 1px solid #777;
+	color: #000;
+	font-family: Georgia, "Times New Roman", Times, serif;
+	margin: 1px;
+	padding: 3px;
+}
+table.editformtable select {
+	background: #f4f4f4;
+	font-family: Georgia, "Times New Roman", Times, serif;
+	margin: 1px;
+	padding: 3px;
+}
+table.editformtable textarea, 
+table.editformtable input,
+table.editformtable select {
+        float:left;
+}
+table.editformtable input.radio {
+        float:none;
+}
+table.editformtable td.formblockheading {text-align:center;padding:14px 0 6px 0;font-size:1.4em;font-weight:bold;}
+table.editformtable td.formblockheadingr2 {font-size:1.2em;font-weight:bold;}
+
+/* AJAX field validations */
+        
+div.fieldval_error {
+  color:red;
+  font-weight:bold;
+}
+div.fieldval_noerror {
+  color:green;
+  font-weight:bold;
+}   
+
+/* Round corners */
+
+.round {
+  -moz-border-radius:    10px;
+  -webkit-border-radius: 10px;
+  border-radius:         10px;
+}
 
 
 /*  "I heard ten thousand whispering and nobody listening

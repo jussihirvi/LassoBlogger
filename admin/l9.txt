@@ -1,0 +1,20 @@
+// changes in Lasso 9 syntax in comparison to L8.5
+
+var('i') = array(1);
+if($i->find('whatever'));
+// evaluates as true, because result is 'array'
+// use this insead
+if($i->find('whatever') != array);
+// or...
+if($i->find('whatever')->size);
+
+If( $fvals -> find('date') != array || $fvals -> find('timestamp' != array) );
+// does not evaluate right; needs parens like this: 
+If( ($fvals->find('date')) != array || ($fvals->find('timestamp') != array) );
+
+variable
+// change to var
++= 'a' + 'b'
+// needs parens, at least if statements spans several lines
+$i += ('a' + 'b');
+

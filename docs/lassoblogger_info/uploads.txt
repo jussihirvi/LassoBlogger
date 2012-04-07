@@ -38,12 +38,8 @@ On the admin page Options > Uploads, you have to set the following options:
 == use_fileupload == 		(default: 0)
 The main switch. Set to 1, if you want to upload files.
 
-== fileupload_realpath ==	(default: /YourBlogFolder/content) (actual value depends on installation)
-Main contents-directory, absolute path (beginning from the domain root). The uploaded files may end up in a subdirectory inside this directory. Fileupload_realpath doesn't need to be inside the blog directory, and in fact it's a good idea to keep the contents separately from the blog installation - this will makeLassoBlogger upgrades easier! 
-
-== fileupload_url ==		(default: http://PathToYourBlog/YourBlogFolder/content) (actual value depends on installation)
-The same as before, but as a full-qualified URL. (In fact I'm not sure if this
-is really needed. Let's use it anyway, so far. - JH)
+== fileupload_path ==	(default: /YourBlogFolder/content) (actual value depends on installation)
+Main contents-directory, path beginning from the domain root. The uploaded files may end up in a subdirectory inside this directory. Fileupload_path doesn't need to be inside the blog directory, and in fact it's a good idea to keep the contents separately from the blog installation - this will makeLassoBlogger upgrades easier! 
 
 == fileupload_maxk ==	(default: 300)
 Upper size limit to uploaded files, expressed in kB. 

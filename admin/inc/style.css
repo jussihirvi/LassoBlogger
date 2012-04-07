@@ -1,0 +1,618 @@
+/* #ffc very light yellow (field in focus)
+   #ff9 light yellow  (menu bg)
+   #fc3 orange (lines)
+
+   white (field in focus)
+   #e4ebf0 very light blue (not used)
+   #cde0ee very light blue (addform bg)
+   #adcee7 light blue (menu bg, submit button bg)
+   #286ca0 middle blue (header h1)
+   #084676 dark blue
+*/
+
+@import url(style_ie.css);
+
+body {
+      background-color:#fff;
+	font-size: 62.5%; /* Resets 1em to 10px */
+	font-family: Verdana, Arial, Helvetica, Sans-Serif;
+	}
+
+div#page {
+    /* without border, padding is left above & below bg image - why? */
+    margin:0; padding:0;
+    background-color:#fff; 
+}
+
+div#wrap {
+        width:998px;
+        margin: 0;
+        padding: 0;
+}
+div#wrap h1 {color:#066;
+	margin:30px auto 24px auto;
+	padding: 0px 0 3px 0; 
+	text-align:center;
+	border-bottom:1px solid #066;
+	font-family: Arial, Helvetica, Sans-Serif;
+	font-size:2.8em;
+	text-transform: uppercase; 
+}
+div#wrap h1.first {
+        margin-top:0;
+}
+
+
+div#rightcolumn form#searchform input#s {
+    width:100px;
+}
+div#rightcolumn form#searchform input.submit,
+form.searchform input.submit {
+    font-size:1.1em;
+    font-family: Verdana, Arial, Helvetica, Sans-Serif;
+    width:50px;
+}
+form#orderform input.submit {
+    font-family: Verdana, Arial, Helvetica, Sans-Serif;
+    width:150px;
+}
+
+div#header { 
+    height:53px; 
+    margin: 0;
+    padding:0;
+    background-color:#ccc;
+}
+div#header h1 {padding-top: 5px; text-align:center;color:#286ca0; font-size:3.0em;}
+
+/* register and login - remove "display.none" from the following to enable */
+
+p.submenu {margin:9px auto 0 auto; text-align:center;font-size:1.2em;}
+p.submenu .L1, .L1_selected {margin-top:8px; margin-bottom:6px; line-height:1;}
+p.submenu li {margin-bottom:4px; }
+p.submenu li.L2, li.L2_selected {margin-left:20px;padding-left:0;}
+p.submenu .L1_selected, div#menu .L2_selected {color:#000; font-weight:bold;}
+
+/* cim violetti 5d3887 */
+#menu a:link    {color:#0E3366;text-decoration:none; font-weight: bold;}
+#menu a:visited {color:#0E3366;text-decoration:none; font-weight: bold; }
+#menu a:hover   {color:#0E3366;text-decoration:underline;font-weight: bold; } 
+
+h2 {font-size:2em;margin:22px 10px 9px 0px; max-width:580px;}
+h2.noAdmin {padding:4px; font-size:2em;text-align:center; }
+h2.Admin {padding:0px; font-size:1.8em;text-align:center; max-width:1000px;}
+h3 {font-size:1.6em;margin:20px 10px 6px 0px; }
+div#logout {margin-top:30px; text-align:center; }
+
+
+div.center {text-align:center}
+p.center     {margin-left:auto; margin-right:auto;}
+table.center {margin-left:auto; margin-right:auto;}
+
+.display_none   {display:none;}
+.display_inline {display:inline;}
+.display_block {display:block;}
+
+table{border-collapse:collapse;
+      border-spacing:0;
+}
+td#leftcol {
+    background-color: #adcee7;
+    width:193px;
+    border-right:1px solid #adcee7;
+    border-bottom:1px solid #adcee7;
+    /* float:left; */
+}
+td#middlecol {
+    width:760px;
+    background-color:white;
+    padding:14px;
+    /* float:left; */
+}
+table.containstext td,
+div#maincontents ul,
+div#maincontents ol {
+    font-size:1.4em; 
+}
+li {margin-top: 8px;}
+ol li blockquote {margin:6px 0 6px 0;font-weight:normal;}
+
+table {font-size: 100%; } 
+/* always needed because font-size doesn't inherit to tables in Win/IE5.5 */
+
+td {text-align:left; vertical-align:top;
+}
+
+textarea {font-size:1.1em;}
+input {font-size:1.1em;}
+input.submit {font-size:1.1em;
+    background-color:#adcee7;
+    border-color:#286ca0;
+    font-family: Tahoma, Arial, Helvetica, Sans-Serif;
+    }
+select {font-size:1.0em;}
+
+td#speakBubbleText {text-align:left; vertical-align:middle;
+}
+
+div#maincontents p.slogan {
+	line-height:1.1;
+	font-size: 1.8em;
+	color:#5D3887;
+}
+div#maincontents p.pieni {font-size:1.2em;}
+div#maincontents p.pieni a {color:#555;
+			}
+
+.ptag {
+	font-size: 1em;
+	color: #666;
+}
+.adminList {
+	padding-right: 6px;
+	font-size: 0.8em;
+}
+
+/* cim violetti
+div#maincontents a:link	    {color:#0E3366; text-decoration:underline; }
+div#maincontents a:visited  {color:#0E3366; text-decoration:underline;  }
+div#maincontents a:hover    {color:#0E3366; text-decoration:underline; }
+*/
+/* iuisa
+a:link { color: #036; text-decoration: underline; font-weight: normal;}
+a:visited { color: #036; text-decoration: underline; font-weight: normal; }
+a:hover { color: #036; text-decoration: none; font-weight: normal; }
+*/
+a:link   { color: #1e2a63; text-decoration: underline; font-weight: normal;}
+a:visited{ color: #1e2a63; text-decoration: underline; font-weight: normal; }
+a:hover  { color: #1e2a63; text-decoration: none; font-weight: normal; }
+a:active { color: #a6a6a6; text-decoration: none; font-weight: normal; }
+
+div#footer {
+        margin: 20px auto 25px auto;
+        padding: 0px 0 24px 0;
+	text-align:left;
+    
+}
+div#footer p {
+    text-align:center;
+    color:#444;
+    margin:0;
+    padding:0;
+    font-size:1.2em;
+    }
+
+.listview {
+	font-size: 80%;
+	padding-right:10px;
+}
+/* page prodgroups.html */
+
+div#prodgroups p {margin:0; padding:0; }
+div#prodgroups li {margin-left:30px; padding:0; }
+
+/* speakBubble */
+
+div.speakBubble {width:350px; 
+    padding-top:20px;
+    padding-bottom:45px;
+    margin-left:auto;
+    margin-right:auto;
+}
+div.speakBubbleImage {float:left; width:32px;}
+div.speakBubbleText  {
+    float:left; 
+    width:300px; 
+    padding-left:12px;
+    text-align:left;
+    font-size:14px;
+    color:#066; /* dark green; default: bright red, #c03 */
+}
+
+/* ### admin pages ### */
+
+table#searchformtable td#searchformheader {background-color:#ddd;padding:2px 0 2px; 0}
+table.editformtable     {margin:0 auto 20px auto;}
+table.editformtable th  {text-align:right;padding-right:10px; }
+table.editformtable th.listviewlabel {
+  vertical-align:top;text-align:left;padding:0 10px 0 3px; }
+
+table.editformtable td.listview_addform_upper {
+  background-color:#cde0ee;
+  padding:10px 10px 5px 4px;
+  border-color:#286ca0;
+  border-width:1px;
+  border-style:solid;
+}
+table.editformtable th.listviewlabel_addform {
+  vertical-align:top;
+  background-color:#cde0ee;
+  text-align:left;
+  padding:0 10px 0 3px; 
+  border-color:#286ca0;
+  border-style:solid;
+}
+table.editformtable td.listview_addform {
+  background-color:#cde0ee;
+  padding:5px 4px 10px 0;
+  border-color:#286ca0;
+  border-bottom-width:1px;
+  border-style:solid;
+}
+table.editformtable td  {font-size:11pt; padding:6px 8px 0 0;}
+table.editformtable div.helptext { 
+  display:inline;
+  float:left;
+  padding-top:5px; 
+  padding-left:10px; 
+  font-size:0.9em;
+  }
+
+table.editformtable .iso {font-size:14pt; }
+table.editformtable .isohko {font-size:12pt; }
+table.editformtable .normaalikoko {font-size:11pt;}
+table.editformtable .puolipieni {font-size:10pt; }
+table.editformtable .pieni {font-size:9pt; }
+
+input:focus, textarea:focus, label:focus {
+    background: white;
+    border: 1px solid #111;
+}
+
+textarea, input {
+        background: #f4f4f4;
+	border: 1px solid #777;
+	color: #000;
+	font-family: Georgia, "Times New Roman", Times, serif;
+	margin: 1px;
+	padding: 3px;
+}
+select {
+	background: #f4f4f4;
+	font-family: Georgia, "Times New Roman", Times, serif;
+	margin: 1px;
+	padding: 3px;
+}
+
+table.editformtable textarea, 
+table.editformtable input,
+table.editformtable select {
+        float:left;
+}
+table.editformtable input.radio {
+        float:none;
+}
+table.editformtable td.formblockheading {text-align:center;padding:14px 0 6px 0;font-size:1.4em;font-weight:bold;}
+table.editformtable td.formblockheadingr2 {font-size:1.2em;font-weight:bold;}
+
+
+
+
+
+div#rightcolumn {
+  width:184px;
+}
+div.logofill {
+  width:200px;
+  height:25px;
+  background: transparent url(http://hyotydev.greenspot.fi/custom/images/header_v4_ala.jpg) no-repeat 112px 0px;
+}
+div.newsStrip {
+  width:172px;
+  padding:20px 14px 14px 0;
+  font-size:12px;
+}
+.newsStrip h2 {    
+    width:166px;
+    margin-top:20px;
+    padding:4px 0px 5px 5px;
+    border-bottom: 1px solid #000;
+    border-left: 1px solid #000;
+    background-color:#066;
+    color:#fff;
+    font-weight:bold; 
+    font-size:16px;
+}
+.newsStrip h2.first {    
+    margin-top:0;
+}
+.newsStrip p.heading {
+    font-size:1.2em;
+    font-weight:bold;
+    color:#066;
+}
+.newsStrip p.heading a {
+    font-weight:bold;
+    color:#066;
+    text-decoration:none;
+}
+.newsStrip p.heading a:hover, 
+.newsStrip p.heading a:active {
+    text-decoration:underline;
+}
+
+.newsStrip p { line-height:1.1;
+		margin:5px 0 6px 6px;
+}
+.newsStrip p.newsdate { font-weight:normal;font-style:italic;
+                color:#666;margin-bottom: 0px;
+}
+.newsStrip p.leipis {  font-weight:normal;
+                font-size:1em;
+                color:black; line-height:1.0;
+                margin-left:6px; margin-top:5px; margin-bottom: 6px;
+}
+
+/* Begin Images */
+
+p img {
+        padding: 0;
+        max-width: 100%;
+        }
+
+/*      Using 'class="alignright"' on an image will (who would've
+        thought?!) align the image to the right. And using 'class="centered',
+        will of course center the image. This is much better than using
+        align="center", being much more futureproof (and valid) */
+
+div.imagebox_left  {float: left; padding:4px;margin:0 7px 0 0;border:1px solid grey; }
+div.imagebox_right {float: right;padding:4px;margin:0 0 0 7px; }
+p.caption { padding:5px 0 14px 0;font-size:10px;font-style:italic; }
+img.centered { display: block; margin-left: auto; margin-right: auto; }
+
+/* sample html code 
+// "margin:0" has to be in p.caption html code, don't know why
+<div class="imagebox_left"><img alt="toimisto" src="/custom/images/iukonttori220px.jpg" />
+<p class="caption" style="margin:0;">Is&auml;nn&ouml;itsij&auml;unioni Oy:n toimisto</p>
+</div>
+*/
+
+/* styles for uploaded images */
+
+img.centered {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	}
+	
+img.alignright {
+	padding: 4px;
+	margin: 0 0 2px 7px;
+	display: inline;
+	}
+
+img.alignleft {
+	padding: 4px;
+	margin: 0 7px 2px 0;
+	display: inline;
+	}
+
+.alignright {
+	float: right;
+	}
+	
+.alignleft {
+	float: left
+	}
+
+/* End Images */
+
+/* login form */
+
+form#LoginFormMinimal {	
+	padding-right:10px;
+}
+
+form#LoginFormMinimal input {	
+	width:80px;
+	margin: 1px;
+	padding: 3px;
+	border: 1px solid #999;
+	background-color: #cde0ee;
+	color: #000;
+	font-size:1em;
+    }
+form#LoginFormMinimal input:focus {
+    background-color: #fff;
+    border: 1px solid black;
+}
+form#LoginFormMinimal input.submit {	
+    background-color: #fff;
+    font-family: Tahoma, Arial, Helvetica, Sans-Serif;
+}
+form#LoginFormMinimal input.submit:hover {	
+    border: 1px solid black;
+}
+
+/* login form */
+
+div#login {
+	background-color: #fff;
+	border: 2px solid #a2a2a2;
+	margin: 2em auto;
+	padding: 1.5em;
+        width:26em;
+        font-size:1.2em;
+}
+div#login div.label      { float:left;text-align:right;width:11em;margin:8px 10px 0 0;padding:0;}
+div#login input#username { float:left;width:10em;padding: 3px; }
+div#login input#password { float:left;width:10em;padding: 3px; }
+
+#login input#submit {
+        float:left;
+        margin:0.5em 0 0 0;
+        padding:4px;
+	font-family: Tahoma, Arial, Helvetica, Sans-Serif;
+        font-size:1.2em;
+}
+#login input#submit:hover {
+      background-color:#ddd;
+}
+#login #login_error {
+	background: #c00;
+	border: 1px solid #a40000;
+	color: #fff;
+	font-size: 16px;
+	font-weight: bold;
+	padding: .5em;
+	text-align: center;
+}
+div#login h1 {
+        color:black;
+	margin:0 0 16px 0;
+        padding:2px 0 2px 0;
+        text-align:center;
+        font-size:1.6em;
+        font-weight:bold;
+}
+div#login ul {
+	list-style: none;
+	margin: 10px auto 0 auto;
+        text-align:center;
+	padding: 0;
+}
+div#login ul li {
+        display:inline;
+        font-size:1.1em;
+	margin:10px 20px 0 0;
+}
+
+
+/* ***  main menu 2010-04-31  *** */
+
+div#mainmenu {
+        width:193px;
+	margin:0;
+	padding:10px 0 20px 0;;
+	font-family: Arial, Helvetica, Sans-Serif;
+}
+
+div#mainmenu ul {
+    list-style: none;
+    margin:  0;
+    padding: 0;
+}
+/* all li items */
+ul.menulist li {
+	margin: 0 0 0 0;
+	padding: 6px 5px 0 20px;
+	font-size:1.5em;
+}
+
+div#mainmenu a {
+    color: #000;
+    cursor: pointer; 
+    text-decoration: none;
+    font-weight: bold;
+}
+div#mainmenu a:hover {
+        font-weight: bold;
+        text-decoration:underline;
+        color:#084676;
+}
+/* sub-items (override values from above) */
+
+ul.menulist ul li {
+        font-size:0.9em;
+        list-style-type:none;
+        list-style-position:inside;
+}
+
+div#mainmenu ul.menulist ul li a {
+    font-weight: normal;
+}
+div#mainmenu ul.menulist ul li a:hover {
+    font-weight: bold;
+}
+div#mainmenu ul.menulist ul li.selected {
+        list-style-type:none;
+        list-style-position:inside;
+}
+div#mainmenu ul.menulist ul li.selected a {
+        font-weight: bold;
+}
+label.error   { display:inline;
+  padding-left:10px;
+  font-size:0.9em;
+  color:red;
+}
+/*  Naviglinks 2012-04-06 */
+
+div#naviglinks {        margin:5px auto 0 auto;
+                        font-size:1.0em;
+}
+div#naviglinks_upper {  padding:5px 0 4px 0;
+                        text-align:center;
+}
+div#naviglinks_lower {  width:360px;
+                        margin:0 auto;
+}
+div#naviglinks_lowleft{ width:150px;
+                        float:left;
+                        text-align:right;
+                        padding-right:24px;
+                        font-weight:bold;
+}
+div#naviglinks_lowmid { float:left;
+}
+div#naviglinks_lowright{width:150px;
+                        float:left;
+                        text-align:left;
+                        padding-left:24px;
+                        font-weight:bold;
+}
+div#naviglinks em {font-style:normal; font-weight:bold;}
+div#naviglinks img {vertical-align:text-top; padding:0 5px 0 8px;}
+
+
+/* AJAX field validations */
+
+div.fieldval_error {
+  color:red;
+  font-weight:bold;
+}
+div.fieldval_noerror {
+  color:green;
+  font-weight:bold;
+}
+
+div#dashboard-iframe iframe {
+        width:60%; height:500px;
+        border: 1px solid #69c;
+        background-color:#eee;
+}
+#dashboard-strip {
+        width: 30%;
+        background-color: #eee;
+        border: 1px solid #69c;
+        float: right;
+        font-size: 1em;
+        margin:0 0 0.5em 1em; 
+        padding: 1em;
+}
+
+#dashboard-strip h2, fieldset legend a {
+        border-bottom: none;
+}
+
+}
+#dashboard-strip h3 {
+        border-bottom: 1px solid #ccc;
+        font-size: 16px;
+        margin: 1em 0 0;
+}
+
+#dashboard-strip h3 cite {
+        font-size: 12px;
+        font-style: normal;
+}
+
+#dashboard-strip li, #dashboard-strip p {
+        margin: .2em 0;
+}
+
+#dashboard-strip ul {
+        margin: 0 0 .3em .6em;
+        padding: 0 0 0 .6em;
+}
+

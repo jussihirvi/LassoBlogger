@@ -5,18 +5,18 @@
 
 // replace the month names with those in the target language
 
-Variable:'aMonths'=(Array:'Tammikuu','Helmikuu','Maaliskuu','Huhtikuu','Toukokuu','Kesäkuu','Heinäkuu','Elokuu','Syyskuu','Lokakuu','Marraskuu','Joulukuu');
+var('aMonths')=Array('Tammikuu','Helmikuu','Maaliskuu','Huhtikuu','Toukokuu','Kesäkuu','Heinäkuu','Elokuu','Syyskuu','Lokakuu','Marraskuu','Joulukuu');
 
 // #2. day names - not used in 0.7, but may be used later
 
 // replace the day names below with those in the target language
 
-Variable:'aDays'=(Array:'Maanantai','Tiistai','Keskiviikko','Torstai','Perjantai','Lauantai','Sunnuntai');
-Variable:'aDays_short'=(Array:'Ma','Ti','Ke','To','Pe','La','Su');
+var('aDays')=Array('Maanantai','Tiistai','Keskiviikko','Torstai','Perjantai','Lauantai','Sunnuntai');
+var('aDays_short')=Array('Ma','Ti','Ke','To','Pe','La','Su');
 
 // #3. "emptyString": strings to places where there is no English equivalent
 
-Variable:'mEmptyString' = (Map:
+var('mEmptyString') = Map(
 1 = '-blogisovellusta', // BLOG ENGINE: [blogname] (uses LassoBlogger) ... 
 2 = 'Löytyi',		// IT WERE FOUND: ... [NN] (records)
 );
@@ -26,7 +26,7 @@ Variable:'mEmptyString' = (Map:
 // 'Categories'	= 'Kategoriat',
 // follow English punctuation etc. 
 
-Variable:'mTranslations' = (Map:
+var('mTranslations') = Map(
 'A comment has been added to your blog at'	= 'Blogiisi on lisätty kommentti, ks.', // used in email message
 'and start writing posts (if your initial permissions allow it)' = 'ja ryhtyä
 kirjoittamaan blogiviestejä (jos uudelle käyttäjälle myönnetyt oikeudet
@@ -46,7 +46,7 @@ sallivat tämän)', // use-registered.inc
 'Comment Title'	= 'Kommentin otsikko',
 'comment'	= 'kommentti', // (1) comment (to the post/page XX)
 'Commenting is turned off for this blog' = 'Kommentointi ei ole sallittua tässä blogissa',
-'comments'	= 'kommenttia', // (NN) comments (were found)
+'comments '	= 'kommenttia', // (NN) comments (were found)
 'Comments'	= 'Kommentit', // link text
 'Could not identify user. ' = 'Käyttäjän tunnistus ei onnistunut. ',
 'Description'	= 'Kuvaus',

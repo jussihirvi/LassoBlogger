@@ -1,192 +1,121 @@
 <?LassoScript
+loop(1); // hack to mimic abort on L9
 
     // posts module
 
-        Var:'postid'		= string; // necessary when case=perma
-     	Var:'pos_status'	= string; // needed when case=perma
-        Var:'pos_comment_status'= string; // commenting allowed for post? 
-        Var:'comment_reg'	= (LB_getOption:'comment_registration');
+        var('comment_reg'	= $opts -> find('comment_registration'));
+	var('siteurl'	        = $opts -> find('siteurl'));
 
-	Var:'showCatLink'       = string; // postmetadata line
-	Var:'showEditLink'      = string; // postmetadata line
-	Var:'showCommentLink'   = string; // postmetadata line
-        Var:'showCommentModule' = string; 
-	Var:'url_topost'	= string;
-	Var:'siteurl'	        = $basicOptions -> 'siteurl';
+	var('showcatlink'       = string);
+	var('showeditlink'      = string);
+	var('showcommentlink'   = string);
+        var('showcommentmodule' = string); 
+        var('postid'		= string); // necessary when case=perma
+     	var('pos_status'	= string); // needed when case=perma
+        var('pos_comment_status'= string); // commenting allowed for post? 
+	var('url_topost'	= string);
 
-     Inline:-search,$dbConfig,-Table=$table_prefix+'posts',
-        -SortField='pos_date',
-        -SortOrder='descending',
-        -MaxRecords=(LB_getOption:'posts_per_page'),
+     inline(-search,$dbConfig,-table=$table_prefix+'posts',
+        -sortField='pos_date',
+        -sortOrder='descending',
+        -maxRecords=$opts->find('posts_per_page'),
         $searchArgs,
-	-SkipRecords=$skip,
-        -InlineName='postsearch';
-            If: (Found_Count) == 0;
-		$speakBubble = (str:'No records were found');
-	    Else: (Found_Count) > 1 && $case == 'perma';
-		$speakBubble = (str:'Tried to interpret the address as a permalink, but failed. Please check the address!');
-		Include: $myInc + 'speakBubble.inc';
+	-skipRecords=$skip,
+        -inlineName='postsearch');
+            if( (found_count) == 0);
+		$speakBubble = (str('No records were found'));
+	    else( (found_count) > 1 && $case == 'perma');
+		MO_speakBubble(str('Tried to interpret the address as a permalink, but failed. Please check the address!'));
 		'searchArgs = '; $searchArgs;
-//		Include: $myInc + 'errorhandler_debug.inc';
-		Abort;
-            Else: (Error_CurrentError) != (Error_NoError);
-		$speakBubble = (Error_CurrentError);
-            // Else;
-		// $speakBubble = 'No error';
-            /If;
-// 	Include: $myInc + 'errorhandler_debug.inc';
+		abort;
+            else( error_currenterror != error_noerror );
+		MO_speakBubble(Error_CurrentError);
+            /if;
 
-    If: $case != 'p' && $case != 'page' && $case != 'perma';
-	// Var linkstuff (used in naviglinks) has been defined in cont/index.inc
-	Include: $myInc + 'snip_naviglinks.inc';
-    /If;
+    if( $case != 'p' && $case != 'page' && $case != 'perma');
+        MO_naviglinks(-rectype=$rectype,-rectype_pl=$rectype_plural);
+    /if;
 
-    Records:-InlineName='postSearch';
+    records(-inlineName='postSearch');
 
-	Var:'showCatLink'       = string; // postmetadata line
-	Var:'showEditLink'      = string; // postmetadata line
-	Var:'showCommentLink'   = string; // postmetadata line
-        Var:'showCommentModule' = string; 
-	Var:'url_topost'	= string;
+	$showCatLink       = string;
+	$showEditLink      = string;
+	$showCommentLink   = string;
+        $showCommentModule = string;
+	$postID            = string(field('id'));
+	$pos_status        = field('pos_status');
+	$pos_comment_status= field('pos_comment_status');
 
-	$postID = (Field:'id');
-	$pos_status = (Field:'pos_status');
-	$pos_comment_status = (Field:'pos_comment_status');
+        // compose link to post
+        $url_topost = $siteurl;
+          if( ! $opts->find('permalink_structure') ); // permalinks switched off
+            $url_topost += '?p=' + $postID;  
+          else;	// use permalink structure
+            // available - /%year%/%monthnum%/%day%/%postname%/%postid%  
+            var('year'      = date(field('pos_date')) -> Year);
+            var('month'     = date(field('pos_date')) -> Month);
+            var('day'       = date(field('pos_date')) -> Day);
+            var('postname'  = field('pos_name')); 
+            // string casting below is mandatory 
+            // otherwise L9 does not behave
+            // it modifies $opts->find('perma
+            // but for some reason only on first round
+            var('linkstuff' = string($opts->find('permalink_structure')));
+            $linkstuff -> removeLeading('/');
+            $linkstuff -> replace('%year%',string($year));
+            $linkstuff -> replace('%monthnum%',string($month));
+            $linkstuff -> replace('%day%',string($day));
+            $linkstuff -> replace('%postname%',string($postname));
+            $linkstuff -> replace('%postid%',$postID);
+            $url_topost += encode_url($linkstuff);
+          /if;
 
 	'<div class="post" id="post-'; (Loop_Count); '">\r';
 	  '<h3>';
-	  // compose link to post
-	      $url_topost = $siteurl;
-		If: $basicOptions -> 'permalink_structure' == ''; 
-		  // if option value is empty: no permalinks
-		$url_topost += '?p=' + $postID;  
-		Else;	// use permalink structure
-		// available: /%year%/%monthnum%/%day%/%postname%/ /%postid%  
-		  Var:'year' = (Date:(Field:'pos_date')) -> Year;
-		  Var:'month' = (Date:(Field:'pos_date')) -> Month;
-		  Var:'day' = (Date:(Field:'pos_date')) -> Day;
-		  Var:'postname' = (Field:'pos_name'); 
-		  Var:'linkstuff' = ($basicOptions -> 'permalink_structure');
-		  $linkstuff ->  (RemoveLeading:'/');
-		  $linkstuff -> (Replace:'%year%',$year);
-		  $linkstuff -> (Replace:'%monthnum%',$month);
-		  $linkstuff -> (Replace:'%day%',$day);
-		  $linkstuff -> (Replace:'%postname%',$postname);
-		  $linkstuff -> (Replace:'%postid%',$postID);
-		  $url_topost += (var:'linkstuff',-encodeURL);
-		/if;
-
-	  If: (Found_Count) > 1; // show link
+            // show link
 	        '<a href="'; $url_topost; 
-		If: $basicOptions -> 'permalink_structure' != ''; 
-		  '" TITLE="'; (str:'Permanent link to'); ' &#34;'; 
-		  Field:'pos_title';'&#34;';
-		/If;
+		if( $opts -> find('permalink_structure') ); 
+		  '" TITLE="'; (str('Permanent link to')); ' &#34;'; 
+		  field('pos_title');'&#34;';
+		/if;
 		'">';
-		Field:'pos_title'; '</A>';
-	  Else; 	// case found_count == 1 (-> no link needed)
-	      Field:'pos_title'; 
-	  /If;
+		field('pos_title'); '</A>';
 	  '</h3>\r';
-	  If: $pos_status != 'static';
+	  if( $pos_status != 'static');
 	    '<small>'; 
 
 // for multi-user blogs, just comment out the author display 
-
-	    LB_getAuthor:(Field:'pos_author'); ', ';
-
-	    LB_formatDateTime:(Field:'pos_date');
-
+	    LB_getAuthor(field('pos_author')); ', ';
+	    LB_formatDateTime(field('pos_date'));
 	    '</small>\r';
 	  /If;
 
-	// any uploaded files for this post?
-
-	Var:'aFiles' = (Array);
-	If: LB_Basicoptions -> 'use_fileupload' == '1';
-	  inline: $dbConfig, -table=$table_prefix+'uploads',
-		-Op='eq',
-		'upl_catid'= '-1',
-		-Op='eq',
-		'upl_postid'= $postid,
-		-Search;
-	  Records;
-	      // collect file data
-	      $aFiles -> (Insert:(Array:(Field:'upl_path'),(Field:'upl_name'),
-	      (Field:'upl_description'), (Field:'upl_imagedisplay'), 
-	      (field:'upl_linkurl')));
-	  /Records;
-	  /Inline;
-	/If;
 	    '<div class="entry">';
-//		'test: afiles = ' + $aFiles + '<br>';
-		Var:'summary' = '';
-		Var:'content' = '';
-		// first insert images/files (if any)
-		Var:'suffix' 	= '';
-		Var:'linked_files' = '<p>';
-		Var:'shown_files' = '';
-		Var:'i' 	= Array;
-		Iterate: $aFiles, $i;
-		    $suffix = $i -> (Get: 2)  -> (Split:'.') -> Last;
+		var('summary'     = string);
+		var('content'     = string);
 
-		    If:  $i -> (Get:4) == 'none'; // just skip the file
-		    Else: ($suffix == 'jpg' 
-			    ||  $suffix == 'jpeg'
-			    ||  $suffix == 'gif'
-			    ||  $suffix == 'png') 
-			    &&  $i -> (Get:4) != 'link'; // display that img
-			// define style class
-			Var:'imgclass' = '';
-			If: $i -> (Get:4) == 'right';
-			    $imgclass = 'alignright';
-			Else: $i -> (Get:4) == 'left';
-			    $imgclass = 'alignleft';
-			Else: $i -> (Get:4) == 'block';
-			    $imgclass = 'centered';
-			/If;
-			// is the image supposed to act as a link?
-//			if: $i -> (get:5);
-//			    $shown_files += '<a href="';
-//			    if: $i -> (get:5) -> (BeginsWith:'http');
-//				$shown_files += $i -> (get:5) + '">';
-//			    else: ($i -> (get:5) -> (BeginsWith:'/'));
-//				$shown_files += $i -> (get:5) + '">';
-//			    else;
-//				$shown_files += $basicOptions -> 'fileupload_realpath' + '/' + $i -> (get:5) + '">';
-//			/if;
-
-			$shown_files += '<IMG class="' + $imgclass + '" SRC="';
-			$shown_files += $i -> (Get:1) + $i -> (Get:2) + '" alt="';
-			$shown_files += $i -> (Get:3) + '" title="';
-			$shown_files += $i -> (Get:3) + '">\r';
-		       // close the a tag?
-			if: $i -> (get:5);
-			    $shown_files += '</a>';                
-			/if;
-		    Else; 			 	// just display link
-			$linked_files += '<A HREF="' +  $i -> (Get:1) + $i -> (Get:2);
-			$linked_files += '" TITLE="' +  $i -> (Get:3);
-			$linked_files += '">' + $i -> (Get:2) + '</A><br>\r';
-		    /If;
-		/Iterate;
-	        $linked_files += '</p>\r';
-
-
+		// first insert uploaded files (if any)
+                var('files') = MO_collectUploadData(-table='posts',
+                           -postid=integer($postid));
+                // returns array consisting of shown_files and linked_files
 		// process excerpt/summary and content
-		$summary += (Field:'pos_excerpt');
-		$summary -> (Replace:'\r\r','</p><p>');
-		$summary -> (Replace:'\r','<br>');
-		$summary -> (Replace:'<p>','<p>\r'); // for neater html source
+                // html_comment;
+                // 'test files is '; $files;
+                // /html_comment;
+                // loop_continue;
+		$summary += field('pos_excerpt');
+		$summary -> replace('\r\r','</p><p>');
+		$summary -> replace('\r','<br>');
+		$summary -> replace('<p>','<p>\r'); // for neater html source
 
-		$content += (Field:'pos_content');
-		$content -> (Replace:'\r\r','</p><p>');
-		$content -> (Replace:'\r','<br>');
-		$content -> (Replace:'<p>','<p>\r'); // for neater html source
+		$content += field('pos_content');
+		$content -> replace('\r\r','</p><p>');
+		$content -> replace('\r','<br>');
+		$content -> replace('<p>','<p>\r'); // for neater html source
 
 		// smilies
 
-		var:'smilies' = (map:
+		var('smilies' = map(
 		':)' = 'smile',
 		':-)' = 'smile',
 		':D' = 'biggrin',
@@ -211,16 +140,16 @@
 		':-|' = 'neutral',
 		';)' = 'wink',
 		';-)' = 'wink' 
-		);
+		));
 
-		if: ($basicOptions -> 'use_smilies') == 1;
-		    var:'i' = string;
-		    iterate:$smilies, $i;
-			$summary -> (replace:($i -> first),
+		if( ($opts -> find('use_smilies')) == 1);
+		    var('i' = string);
+		    iterate($smilies, $i);
+			$summary -> replace($i -> first,
 			  '<img src="' + $siteurl + 'images/smilies/icon_' 
 			  + ($i -> second) + '.gif" alt="smilie" title="' 
 			  + ($i -> second) + '">'); 
-			$content -> (replace:($i -> first),
+			$content -> replace($i -> first,
 			  '<img src="' + $siteurl + 'images/smilies/icon_' 
 			  + ($i -> second) + '.gif" alt="smilie" title="' 
 			  + ($i -> second) + '">'); 
@@ -228,23 +157,24 @@
 		/if;
 
 
-		If: ($basicOptions -> 'www_use_summary') == 1
-			&& $summary && ($case != 'p' && $case != 'perma');
+		If( $opts -> find('www_use_summary') == '1'
+			&& $summary && ($case != 'p' && $case != 'perma'));
 		    '<p class="summary">';$shown_files; 
-			(Var:'summary',-encodeSmart); 
+                        encode_smart($summary);
 		    '</p>\r';
 		    '<p class="linkfromsummary"><a href="' + $url_topost + '" TITLE="';
-		    (str:'Read the whole post');
+		    str('Read the whole post');
 		    '">';
-		    (str:'Read the whole post'); ' &#187;</a></p>\r';
+		    str('Read the whole post'); ' &#187;</a></p>\r';
 		Else;
-		    '<p class="summary">';$shown_files; 
-			(Var:'summary',-encodeSmart); 
+		    '<p class="summary">'; 
+                        $files -> get(1); // shown_files
+                        encode_smart($summary);
 		    '</p><p>';
-			(Var:'content',-encodeSmart); 
+                        encode_smart($content);
 		    '</p>\r';
 		/If;
-		If: $linked_files != '<p></p>\r'; $linked_files; /If;
+		If( $files->get(2)->size); $files->get(2); /If; //linked_files
 
 	    '</div>\r';	// end entry 
 
@@ -253,20 +183,21 @@
 
 	// first lay down logic
 
-	    If: $pos_status != 'static';
+	    If( $pos_status != 'static');
 		    $showCatLink = 'yes';
 	    /If;
-	    If: $use_level > 2;
+	    If( $use_level > 2);
 		    $showEditLink = 'yes';
 	    /If;
-	    If: (LB_getOption:'default_comment_status') == 1
-	      && (Field:'pos_comment_status') == 'open'
+	    If( $opts -> find('default_comment_status') == '1'
+	      && field('pos_comment_status') == 'open'
 	      && ( ( $comment_reg == 1 && $use_level > 0)
 		   || $comment_reg != 1
-		 );
+		 ));
 		// these will be checked once more on the 
 		// comment form response page (to prevent misuse)
-		If:$case == 'p'||  $case == 'page';
+
+		If($case == 'p'||  $case == 'page' || $case == 'perma' );
 		    $showCommentModule = 'yes';
 		Else;
 		    $showCommentLink = 'yes';
@@ -275,97 +206,83 @@
 
 	// now show
 
-/*  'TEST: level='; $use_level; ' ';
+/*  'TEST - level='; $use_level; ' ';
     'showCommentLink='; $showCommentLink; ' ';
     'showCommentModule='; $showCommentModule; ' ';
-    'comment_registration='; (LB_getOption:'comment_registration'); ' ';
+    'comment_registration='; $opts -> find('comment_registration'); ' ';
 */
 
-	If: $showCatLink == 'yes';
+	If( $showCatLink == 'yes');
 
 	    // maincat or subcat?
-	    var:'cat' = string, 'ix' = integer;
-	    If: $aCats_parents_ids -> (FindIndex:(Field:'pos_category'))->size;
-		$ix = $aCats_parents_ids -> (FindIndex:(Field:'pos_category')) 
-		    -> (get:1);
-		$cat = $aCats_parents -> (get:$ix) -> (get:3);
+	    var('cat' = string, 'ix' = integer);
+	    If( $catz->parentids -> FindIndex(Field('pos_category'))->size);
+		$ix = $catz->parentids -> FindIndex(Field('pos_category')) 
+		    -> (get(1));
+		$cat = $catz->parents -> get($ix) -> get(3);
 	    Else;
-		$ix = $aCats_children_ids -> (FindIndex:(Field:'pos_category'))
-		    -> (get:1);
-		$cat = $aCats_children -> (get:$ix) -> (get:3);
+		$ix = $catz->childids -> FindIndex(Field('pos_category'))
+		    -> get(1);
+		$cat = $catz->children -> get($ix) -> get(3);
 	    /If;
 
-//	    var:'cat' = $aCats_parents 
-//		   -> (Get:($aCats_parents_ids 
-//			   -> (FindIndex:(Field:'pos_category'))->(Get:1)))
-//		   -> (Get:3); // for title
-////	    Variable:'cat'= (LB_getCategory:(Field:'pos_category'));
-	    (str:'Posted in'); 
-	    ' <a href="'; $siteurl; '?cat='; Field:'pos_category'; '"'; 
-	    ' title="'; str:'View all posts in'; ' '; $cat;
+	    str('Posted in'); 
+	    ' <a href="'; $siteurl; '?cat='; Field('pos_category'); '"'; 
+	    ' title="'; str('View all posts in'); ' '; $cat;
 	    '" rel="category tag">'; $cat; '</a>';  
-	    If: $showEditLink == 'yes' || $showCommentLink == 'yes'
-	        || $comment_reg == 1;
+	    If( $showEditLink == 'yes' || $showCommentLink == 'yes'
+	        || $comment_reg == 1 );
 		' <strong>|</strong> ';  
 	    /If;
 	/If;
 
-	If: $showEditLink == 'yes';
+	If( $showEditLink == 'yes');
 	    '<a href="admin/';
-	    If: $pos_status == 'static';
+	    If( $pos_status == 'static');
 		'man-pageedit.lasso';
 		Else;
 		'man-postedit.lasso';
 	    /If;
 	    '?&amp;id=';
 	    $postID;
-	    '">'; (str:'Edit'); '</a>';
-	    If: $showCommentLink == 'yes' || $comment_reg == 1;
+	    '">'; (str('Edit')); '</a>';
+	    If( $showCommentLink == 'yes' || $comment_reg == 1);
 		' <strong>|</strong> ';  
 	    /If;
 	/If;
 
 	// link to comments / commenting
 
-	If: $showCommentLink == 'yes';
-	  /* NOTE: for case=perma we show comment *links*, because
-	     if we would show comment *form* on the perma page
-	     (as is done on single-post pages normally, 
-	     that is, when case=p)
-	     the user cookies could not be read, because the "virtual
-	     directory" is different from that stored in
-	     cookies; :-) if someone knows a way around this,
-	     let me know; maybe in Lasso 8...
-	  */
-
+	If( $showCommentLink == 'yes');
 	    '<a href="'; $siteurl;
-		If: $pos_status == 'static';
+		If( $pos_status == 'static');
 		    '?page=';
 		Else;
 		    '?p=';
 		/If;
 		$postID; '#comments">'; 
-		LB_getCommentLink:$postID,-EncodeNone;
+		LB_getCommentLink($postID);
 	    '</a>';
-	Else: $comment_reg == '1';
-	str:'You have to be registered and logged in to be able to comment';
+	Else( $comment_reg == '1');
+	str('You have to be registered and logged in to be able to comment');
 	/If;
 	'</p>';
 
     '</div>\r'; 	// end post
 
 
-	Variable:'pos_title' = (Field:'pos_title');
+	var('pos_title' = Field('pos_title'));
     /Records;
     /Inline;
 	// show error, if any
-	If: $speakBubble != '';
-	Include: $myInc + 'speakBubble.inc';
+	If( $speakBubble);
+	MO_speakBubble($speakBubble);
 	/If;
 
 // comments module
-
-If: $showCommentModule == 'yes';
-    Include: $myinc + 'module_comments.inc';
+If( $showCommentModule == 'yes');
+    Include( $myinc + 'module_comments.inc');
 /If; 
+
+/loop;
 ?>

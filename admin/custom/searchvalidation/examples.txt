@@ -1,0 +1,23 @@
+<?LassoScript
+
+// If( $action == '');
+//     $emptyForm = 'yes';
+// /If;
+// 
+// If( ($action == 'lisaa' && $dbChange_error == '') || $action == 'paivita'); 
+//     $buttonlist = Array('add'='no','update'='yes','delete'='yes');
+// /If;
+// 
+// If( ($action == 'lisaa' && $dbChange_error == ''));
+//     '<p style="margin-left:auto; margin-right:auto;">';
+//     '<b>Kiitos tilauksesta!</b></p>\r';
+// /If;
+// 
+// If( $user_ses == '' );
+//     $newUser = 'yes';
+//     var('emptyform' = 'yes');
+// 	$speakBubble = 'Tallenna ensin yrityksen tiedot!';
+// 	Include( $fromMeToRoot + 'inc/speakBubble.inc' );
+//     Abort;
+// /If;
+?>

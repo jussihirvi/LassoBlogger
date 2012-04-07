@@ -1,0 +1,30 @@
+html {
+        background: #eee;
+}
+body {
+        background: #fff;
+        color: #000;
+        font-family: Georgia, "Times New Roman", Times, serif;
+        width:500px;
+        margin:0 auto 0 auto;
+        padding: .2em 2em;
+}
+
+h1 {
+        color: #006;
+        font-size: 18px;
+        font-weight: lighter;
+}
+
+h2 {
+        font-size: 16px;
+}
+
+p, li, dt {
+        line-height: 130%;
+        padding-bottom: 2px;
+}
+
+ul, ol {
+        padding: 5px 5px 5px 20px;
+}

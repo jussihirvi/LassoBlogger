@@ -16,18 +16,18 @@ last edited: 24th June 2008
 
 // replace the month names below with those in the target language
 
-Variable:'aMonths'=(Array:'January','February','March','April','May','June','July','August','September','October','November','December');
+var('aMonths')=Array('January','February','March','April','May','June','July','August','September','October','November','December');
 
 // #2. day names - not used in 0.7, but may be used later
 
 // replace the day names below with those in the target language
 
-Variable:'aDays'=(Array:'Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday');
-Variable:'aDays_short'=(Array:'Mon','Tue','Wed','Thu','Fri','Sat','Sun');
+var('aDays')=Array('Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday');
+var('aDays_short')=Array('Mon','Tue','Wed','Thu','Fri','Sat','Sun');
 
-// #3. "emptyString": optional; strings to be used in places where there is no equivalent phrase in English. The string will correspond to the portion in the explanation text that is in BLOCK LETTERS
+// #3. "emptyString" (optional); strings to be used in places where there is no equivalent phrase in English. The string will correspond to the portion in the explanation text that is in BLOCK LETTERS
 
-Variable:'mEmptyString' = (Map:
+var('mEmptyString') = Map(
 1 = '*** replace this ***', // [blogname] uses LassoBlogger BLOGWARE (see footer)
 2 = '*** replace this ***', // IT WERE FOUND [NN] records (see naviglinks)
 );
@@ -42,7 +42,7 @@ Variable:'mEmptyString' = (Map:
 * see languages/strings.txt for information about where each string is used
 */
 
-Variable:'mTranslations' = (Map:
+var('mTranslations') = Map(
 'A comment has been added to your blog at'	= '', // used in email message
 'and start writing posts (if your initial permissions allow it)' = '', //
 use-registered.inc

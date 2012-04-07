@@ -1,0 +1,1146 @@
+130c130
+< // 	Local('testing' = '');
+---
+> // 	Local('tst' = '');
+139c139
+< //         self->'testing' = #username;
+---
+> //         self->'tst' = #username;
+183c183
+< // 		(Self->'testing') = Field('use_login') + ', ' + Field('use_pass');
+---
+> // 		(Self->'tst') = Field('use_login') + ', ' + Field('use_pass');
+188c188
+< // 	    (Self->'testing') = Cookie('siteuser_' + #hash);
+---
+> // 	    (Self->'tst') = Cookie('siteuser_' + #hash);
+198,200c198,200
+< //     self->'testing' = 'do you see?';
+< //     Define_Tag('testing');
+< // 	Return( Self -> 'testing');
+---
+> //     self->'tst' = 'do you see?';
+> //     Define_Tag('tst');
+> // 	Return( Self -> 'tst');
+510a511
+> // commented out for LassoBlogger
+526,527d526
+< //     local('sitepath'  = string);
+< // 
+530c529
+< //     Define_Tag('onCreate',-optional='page',-optional='sitepath');
+---
+> //     Define_Tag('onCreate',-optional='page');
+535,538d533
+< //         // use sitepath if the whole site is in a subdirectory
+< // 	if(!(local_defined('sitepath')));
+< //           local('sitepath') = string;
+< //         /if;
+540d534
+< //           self -> 'sitepath' = #sitepath;
+641,643c635
+< //                     if(self->'sitepath');
+< //                         #subdirs -> insert(self->'sitepath');
+< //                     else( field('subdir') ); 
+---
+> //                     if( field('subdir') ); // use secure server
+702,704c694
+< //                     if(self->'sitepath');
+< //                         #subdirs -> insert(self->'sitepath');
+< //                     else( field('subdir') ); 
+---
+> //                     if( field('subdir') ); // use secure server
+974c964
+<     inline( -search, -database=$myDb, -table=$table_prefix + #myTable,
+---
+>     inline( -search, -database=$myDb, -table=$tablePrefix + #myTable,
+1065,1502c1055,1492
+< Define_Type('SC_order');
+<   local('err' = string);
+<   local('test' = string);
+< 
+<   // orders table
+<   local('ID' = string ); 
+<   local('etunimi' = string ); 
+<   local('sukunimi' = string ); 
+<   local('yritys' = string ); 
+<   local('katuosoite' = string ); 
+<   local('postinumero' = string ); 
+<   local('postitoimipaikka' = string ); 
+<   local('maa' = string ); 
+<   local('email' = string ); 
+<   local('puh' = string ); 
+<   local('matkapuh' = string ); 
+<   local('perm' = string ); 
+<   local('selain' = string ); 
+<   local('luontipvm' = string ); 
+<   local('komm' = string ); 
+<   local('muokkauspvm' = string ); 
+<   local('maksutapa' = string ); 
+<   local('asiakasid' = string ); 
+<   local('hetu' = string ); 
+<   local('sivusto' = string ); 
+<   local('status' = string ); 
+<   local('verkkomaksuaika' = string ); 
+<   local('verkkomaksuid' = string ); 
+<   local('verkkomaksutapa' = string ); 
+< 
+<   // prod info
+<   local('tuotenumerot' = array ); 
+<   local('tuotenimet' = array ); 
+<   local('tuotemaarat' = array ); 
+<   local('tuotetarjoukset' = array ); 
+<   local('tuotehinnat' = array ); 
+< 
+<   local('paino' = decimal ); 
+<   local('toimituskulut' = decimal ); 
+<   local('kokonaishinta' = decimal ); 
+<   local('maksutapaviesti' = string ); 
+< 
+<   // define methods
+<   Define_Tag('onCreate',-required='orderid');
+<           inline( -search, $dbConfig, -table='orders',
+<                    -op = 'eq',
+<                    'id' = #orderid);
+<                self -> 'test' = #orderid;
+<                if(found_count == 1);
+<                   self->'ID'      = field('ID'); 
+<                   self->'etunimi' = field('etunimi'); 
+<                   self->'sukunimi'= field('sukunimi'); 
+<                   self->'yritys'      = field('yritys'); 
+<                   self->'katuosoite'      = field('katuosoite'); 
+<                   self->'postinumero'     = field('postinumero'); 
+<                   self->'postitoimipaikka'= field('postitoimipaikka'); 
+<                   self->'maa'     = field('maa'); 
+<                   self->'email'       = field('email'); 
+<                   self->'puh'     = field('puh'); 
+<                   self->'matkapuh'     = field('matkapuh'); 
+<                   self->'perm'        = field('perm'); 
+<                   self->'selain'      = field('selain'); 
+<                   self->'luontipvm'       = field('luontipvm'); 
+<                   self->'komm'        = field('komm'); 
+<                   self->'muokkauspvm'     = field('muokkauspvm'); 
+<                   self->'maksutapa'       = field('maksutapa'); 
+<                   self->'asiakasid'       = field('asiakasid'); 
+<                   self->'hetu'        = field('hetu'); 
+<                   self->'sivusto'     = field('sivusto'); 
+<                   self->'status'      = field('status'); 
+<                   self->'verkkomaksuaika'      = field('verkkomaksuaika'); 
+<                   self->'verkkomaksuid'      = field('verkkomaksuid'); 
+<                   self->'verkkomaksutapa'      = field('verkkomaksutapa');
+<                /if;
+<           /inline;
+< 
+<       // compose list of ordered items
+<       inline( -search, $dbConfig, 
+<           -table='orderitems',
+<           'tilausid'=#orderid);
+<           records;
+<             (self -> 'tuotenumerot') -> insert( field('tuoteid'));
+<             (self -> 'tuotemaarat') -> insert( field('tuotekpl'));
+<           /records;
+<       /inline;
+< 
+<       // get item info
+<       local('rivihinta' = decimal);
+<       local('kokonaishinta' = decimal);
+<       Loop(self -> 'tuotenumerot' -> size);
+<           inline( $dbConfig, -table = $myProdTable,
+<                 -Op = 'eq',
+<                 $myProdidField = (self -> 'tuotenumerot') -> Get(Loop_Count),
+<                 -search);
+<               // calculate paino
+<                 if( field('annosyksikko') == 'g' );
+<                   self -> 'paino' += decimal(field('annos'))
+<                     * (self -> tuotemaarat -> get(loop_count));
+<                 /if;
+<               // product hame
+<                 self -> 'tuotenimet' -> insert(field('nimi'));
+<               // get the right price
+<               local('tarj_apvm'= Date(Field('tarj_apvm')));
+<               local('tarj_lpvm'= Date(Field('tarj_lpvm'))); 
+<               If( #tarj_apvm <= Date && #tarj_lpvm >= Date);
+<                   // tarjoushinta: kaikille
+<                   (self -> 'tuotetarjoukset') -> insert(1);
+<                   (self -> 'tuotehinnat')	 -> insert(Field('tarj_hinta'));
+<                   #rivihinta = decimal(field('tarj_hinta')) 
+<                     * (self -> tuotemaarat -> get(loop_count));
+<               Else;
+<                   (self -> 'tuotetarjoukset') -> insert(0);
+<                   (self -> 'tuotehinnat')	 -> insert(Field('hinta'));
+<                   #rivihinta = decimal(field('hinta')) 
+<                     * (self -> tuotemaarat -> get(loop_count));
+<               /If;
+<               local('testvalue' = error_msg);
+< 
+<               #kokonaishinta = #kokonaishinta + #rivihinta;
+<           /inline;
+<       /loop;
+<       self->'paino' -> SetFormat(-Precision=0,-DecimalChar=',');
+< 
+<       // set shipping & payment parameters
+<       // self -> 'toimituskulut' = 5.00;  // default value
+<       if(   self -> 'paino' <= 80);
+<             self -> 'toimituskulut' = 4.50;  
+<       else( self -> 'paino' <= 220);
+<             self -> 'toimituskulut' = 6.00;  
+<       else( self -> 'paino' <= 460);
+<             self -> 'toimituskulut' = 8.00;  
+<       else( self -> 'paino' <= 1700);
+<             self -> 'toimituskulut' = 12.00;  
+<       else( self -> 'paino' <= 4600);
+<             self -> 'toimituskulut' = 14.00;  
+<       else( self -> 'paino' <= 14500);
+<             self -> 'toimituskulut' = 16.00;  
+<       else;
+<             self -> 'toimituskulut' = 18.00;  
+<       /if; 
+<       if( self -> 'maksutapa' == 'postiennakko' );
+<             self -> 'toimituskulut' += 5.00;  
+<       /if;
+< 
+<       If (self -> 'maksutapa' == 'ennakkolasku');
+<         self -> 'maksutapaviesti' = 'postitse, ennakkolasku';
+<       Else (self -> 'maksutapa' == 'postiennakko');
+<         self -> 'maksutapaviesti' = 'postitse, maksetaan noudettaessa (postiennakko)';
+<       Else( (self -> 'maksutapa') == 'verkkomaksu');
+<         self -> 'maksutapaviesti' = 'postitse, verkkomaksu tilattaessa';
+<       /If;
+<     
+<       #kokonaishinta += (self -> 'toimituskulut'); 
+<       #kokonaishinta -> (SetFormat(-Precision=2,-DecimalChar=','));
+<       self -> 'kokonaishinta' = #kokonaishinta;
+<   /Define_Tag;
+< 
+<   // getters
+<   // not needed!
+<   //  Define_Tag('test');	Return( Self -> 'test'); /Define_Tag;
+< 
+<   Define_Tag( 'orderConfirmEmail',-Optional='receiver' );
+<       local('out'	      = string);
+<       local('kappalehinta'    = decimal);
+<       local('rivihinta'	      = decimal);
+<       local('kokonaishinta'   = decimal);
+< 
+<       local('toimituskulut'   = self -> 'toimituskulut');
+<       #toimituskulut  -> SetFormat(-Precision=2,-DecimalChar=',');
+< 
+<       // receiver, allowed values: customer, vendor
+<       if( ! Local_Defined:'receiver' );
+<           local('receiver'='customer');
+<       /if;
+<       if( #receiver != 'customer' && #receiver != 'vendor');
+<           #receiver == 'customer'; // illegal input, use default value
+<       /if;
+< 
+<       if( #receiver == 'customer'); // not to vendor
+<           #out = 'Kiitos tilauksestasi. Olet tilannut Hyötykasviyhdistykseltä '
+<               + 'tuotteita seuraavasti:\n\n';
+<       /if;
+<       #out += 'Tilauksen numero: ' + (self -> 'id');
+<       #out += '\n\nMaksutapa: ' + (self -> 'maksutapaviesti');
+< 
+<       #out += '\n\nTilaajan nimi: ' + (self -> 'etunimi') 
+<               + ' ' + (self -> 'sukunimi');
+<       // replace tag: \r removed from replace-string, 080602 jh
+<       #out += '\nOsoite: ' 
+<               + self -> 'katuosoite' + ', '
+<               + self -> 'postinumero' + ' '
+<               + self -> 'postitoimipaikka';
+<       #out += '\nEmail: ' + (self -> 'email');
+<       #out += '\nPuh: ' + (self -> 'puh');
+<       #out += '\nKommentit: ' + (String_Replace: -Find='\r', -Replace='\n           ',(self -> 'komm'));
+<       #out += '\n\nTilatut tuotteet:\n';
+< 
+<       // tilatut tuotteet
+<       loop( (self -> 'tuotenumerot') -> size );
+<           #out += '\n' + (self -> 'tuotenumerot') -> get(loop_count);
+<           If((self -> 'tuotenimet') -> get(loop_count));
+<             #out += ' (' + (self -> 'tuotenimet') -> get(loop_count) + ')';
+<           /If;
+<           If((self -> 'tuotetarjoukset') -> get(loop_count));
+<               #out += ' (TARJOUSHINTA!)';
+<           /If;
+<           #out += '. ' + self -> 'tuotemaarat' -> get(loop_count) + ' kpl, ';
+<               #kappalehinta = decimal(self -> 'tuotehinnat' -> get(loop_count));
+<               #kappalehinta -> (SetFormat(-Precision=2,-DecimalChar=','));
+<           #out += #kappalehinta;
+<           #out += ' e/kpl, ';
+<               #rivihinta = (decimal(self -> 'tuotehinnat' -> get(loop_count))) 
+<                   * (self -> 'tuotemaarat' -> get(loop_count));
+<               #rivihinta = decimal(#rivihinta);
+<               #rivihinta -> SetFormat(-Precision=2,-DecimalChar=',');
+<               #kokonaishinta = #kokonaishinta + #rivihinta;
+<               #kokonaishinta = Decimal(#kokonaishinta);
+<               #kokonaishinta -> SetFormat(-Precision=2,-DecimalChar=',');
+<           #out += 'yht. ' + #rivihinta + ' e\n';
+<       /loop;
+< 
+<       #out += '\nTuotteiden paino noin:: '; 
+<       #out += self -> 'paino' + ' g'; 
+<       #out += '\nToimituskulut: '; 
+<       #out += #toimituskulut;
+<           #kokonaishinta += self -> 'toimituskulut'; 
+<           #kokonaishinta -> SetFormat(-Precision=2,-DecimalChar=',');
+<       #out += '\n\nKaikki yhteensä: ' + #kokonaishinta + ' e';
+< 
+<       If( (self -> 'maksutapa') == 'l');
+<           if( #receiver == 'customer');
+<               #out += '\n\nTuotteet maksetaan mukana seuraavalla laskulla.';
+<           else; // receiver is vendor
+<               #out += '\n\nLaskun tiedot:\n';
+<               #out += 'Summa ' + #kokonaishinta + ' e\n'; 
+<               #out += 'Tilinumero Nordea 101530-30267\n';
+<               #out += 'Viite ' + 
+<                 (SC_bankReference(-basis = self -> 'id')) + '\n\n';
+<           /if;
+<       else( (self -> 'maksutapa') == 'ennakkolasku');
+<           #out += '\n\nEnnakkolasku:\n';
+<           #out += 'Summa ' + #kokonaishinta + ' e\n'; 
+<           #out += 'Tilinumero MEIDÄN_PANKKI 123456-123456\n';
+<           #out += 'Viite ' + 
+<                 (SC_bankReference(-basis = self -> 'id')) + '\n\n';
+<           #out += 'Toimitamme tuotteet postitse kun suoritus näkyy Hyötykasviyhdistyksen tilillä.';
+<       else( (self -> 'maksutapa') == 'postiennakko');
+<           #out += 'Toimitamme tuotteet postitse. ';
+<           #out += '\n\nTuotteet maksetaan noudettaessa (postiennakko).';
+<       else( (self -> 'maksutapa') == 'verkkomaksu');
+<           #out += '\n\nTuotteet on maksettu verkkomaksuna. ';
+<           #out += 'Toimitamme tuotteet postitse.';
+<       /If;
+<       Return(#out);
+<   /Define_Tag;
+< 
+<   Define_Tag( 'orderDisplay');
+<       local('out' = string);
+<       local('kokonaishinta' = self -> 'kokonaishinta');
+< 
+<       #out += '<table BORDER="0" CELLPADDING="0" CELLSPACING="0" style="margin-left:auto;margin-right:auto;border:0px solid black;">\n';
+<       #out += '<tr>\n';
+<       #out += '<td>\n';
+< 
+<       // emb table tilaaja
+<       #out += '<table id="tilaajantiedot" class="containstext" cellpadding="0" cellspacing="4" width="100%">\n';
+<       #out += '<tr>\n';
+<       #out += '<td colspan="2"><h2>Tilaajan tiedot</h2></td>\n';
+<       #out += '</tr>\n';
+<       #out += '<tr>\n';
+<       #out += '<td><b>Tilausnumero</b></td>\n';
+<       #out += '<td>' + (self -> 'id') +  ' (';
+<       // #out += (Date_Format((self -> 'luontipvm'),-Format="%d.%m.%Y"));
+<       #out += self -> 'luontipvm';
+<       #out += ')</td>\n';
+<       #out += '</tr>\n';
+<       #out += '<tr>\n';
+<       #out += '<td><b>Maksutapa</b></td>\n';
+<       #out += '<td>' + (self -> 'maksutapaviesti') + '</td>\n';
+<       #out += '</tr>\n';
+<       #out += '<tr>\n';
+<       #out += '<td><b>Tilaajan nimi</b></td>\n';
+<       #out += '<td>' + (self -> 'etunimi') + ' ' + (self -> 'sukunimi') + '</td>\n';
+<       #out += '</tr>\n';
+<       #out += '<tr>\n';
+<       #out += '<td valign="top"><b>Osoite</b></td>\n';
+<       #out += '<td>';
+<       #out += (self -> 'katuosoite') + '<br>';
+<       #out += (self -> 'postinumero') + ' ' + (self -> 'postitoimipaikka');
+<       #out += '</td>\n';
+<       #out += '</tr>\n';
+<       #out += '<tr>\n';
+<       #out += '<td><b>Email</b></td>\n';
+<       #out += '<td>'+ (self -> 'email') + '</td>\n';
+<       #out += '</tr>\n';
+<       #out += '<tr>\n';
+<       #out += '<td><b>Puh.</b></td>\n';
+<       #out += '<td>' + (self -> 'puh') + '</td>\n';
+<       #out += '</tr>\n';
+<       #out += '<tr>\n';
+<       #out += '<td valign="top"><b>Tilaajan kommentit</b></td>\n';
+<       #out += '<td>';
+<       If((self -> 'komm'));
+<           local('komm_temp' = self -> 'komm');
+<           #komm_temp -> (replace('\r','<br>'));
+<           #out += encode_smart(#komm_temp);
+<       Else;
+<           #out += '--';
+<       /If;
+<       #out += '</td>\n';
+<       #out += '</tr>\n';
+<       #out += '<tr>\n';
+<       #out += '<td>&nbsp;</td>\n';
+<       #out += '<td>&nbsp;</td>\n';
+<       #out += '</tr>\n';
+<       #out += '</table>\n'; // end emb table tilaaja
+< 
+<       #out += '<!-- emb table tilatut -->\n';
+<       #out += '<table class="containstext" cellpadding="0" cellspacing="4" width="100%">\n';
+<       #out += '<tr>\n';
+<       #out += '<td colspan="4"><h2>Tilatut tuotteet</h2></td>\n';
+<       #out += '</tr>\n';
+< 
+<       // tilatut tuotteet
+<       local('prodlines' = self -> orderDisplayProdlines);
+< 
+<       #out += #prodlines;
+<       #out += '<tr>\n';
+<       #out += '<td colspan="4" style="padding:10px 0 0 5px;">\n';
+<       if( (self -> 'maksutapa') == 'l');
+<           #out += 'Tuotteet maksetaan mukana seuraavalla laskulla.\n';
+<       else( (self -> 'maksutapa') == 'ennakkolasku');
+< 	#out += '<h2>Ennakkolasku</h2>\n';
+<           #kokonaishinta -> (SetFormat(-Precision=2,-DecimalChar=','));
+< 	#out += '<p>Summa ' + #kokonaishinta + ' €<br>\n';
+< 	#out += 'Tilinumero Nordea 101530-30267<br>\n';
+< 	#out += 'Viitenumero '+(SC_bankReference(-basis = self->'id'))+'<br>\n';
+< 	#out += '&nbsp;<br>\n';
+< 	#out += 'Toimitamme tuotteet postitse kun suoritus näkyy Hyötykasviyhdistyksen tilillä.</p>\n';
+<       Else( (self -> 'maksutapa') == 'postiennakko');
+<               #out += '<p>Toimitamme tuotteet postitse.\n';
+<               #out += 'Tuotteet maksetaan noudettaessa (postiennakko).</p>\n';
+<       Else( (self -> 'maksutapa') == 'verkkomaksu');
+<           if (self->'status' == 'order_ok_waiting_for_payment');// ennen maksua
+<               #out += '<p>Maksu suoritetaan verkkomaksuna tilauksen '
+<                       + 'teon yhteydessä.';
+<               #out += '&nbsp;<br>\n';
+<               #out += 'Toimitamme tuotteet postitse kun suoritus 
+<                 on hyväksytty.</p>\n';
+<           else(self->'status' == 'order_ok');
+<               #out += '<p>Verkkkomaksu on suoritettu. ';
+<               #out += 'Toimitamme tuotteet postitse.</p>\n';
+<           /if;
+<       /If;
+<       #out += '</td>\n';
+<       #out += '</tr>\n';
+<       #out += '</table>\n';
+<       Return(#out);
+<   /Define_Tag;
+< 
+< 
+<   Define_Tag( 'orderDisplayProdlines', -Optional='admin'
+<       );
+<       local('out' = string);
+<       local('kappalehinta' = decimal);
+<       local('rivihinta' = decimal);
+<       local('kokonaishinta' = decimal);
+< 
+<       local('toimituskulut'   = self -> 'toimituskulut');
+<       #toimituskulut  -> SetFormat(-Precision=2,-DecimalChar=',');
+< 
+<       if(! local_defined('admin') );
+<           local('admin' = 'no');
+<       /if;
+< 
+<       loop( self -> 'tuotenumerot' -> size);
+<           #out += '<tr>\n';
+<           #out += '<td valign="top">\n';
+<                   
+<           if(#admin=='yes');
+<               #out += '<a href="siepussit-form.html?tilnro=' 
+<                   + (self -> 'tuotenumerot') -> get(loop_count) + '">';
+<               #out += (self -> 'tuotenumerot') -> get(loop_count);
+<               #out += '</a>';
+<           else;
+<               #out += (self -> 'tuotenumerot') -> get(loop_count);
+<           /if;
+<           #out += ' (';
+<           #out += self -> 'tuotenimet' -> get(loop_count);
+<           #out += ')';
+<           If( self -> 'tuotetarjoukset' -> get(loop_count));
+<               #out += ' (TARJOUSHINTA!)';
+<           /If;
+<           #out += '</td>\n';
+<           #out += '<td valign="top" style="text-align:right;">\n';
+<           #out += self -> 'tuotemaarat' -> get(loop_count);
+<           #out += '&nbsp;kpl</td>\n';
+<           #out += '<td valign="top" style="text-align:right;">\n';
+<             #kappalehinta = decimal(self -> 'tuotehinnat' -> get(loop_count));
+<             #kappalehinta -> SetFormat(-Precision=2,-DecimalChar=',');
+<           #out += #kappalehinta;
+<           #out += '&nbsp;€/kpl</td>\n';
+<           #out += '<td valign="top" style="text-align:right;">';
+<               #rivihinta = decimal(self -> 'tuotehinnat' -> get(loop_count)) 
+<                   * (self -> 'tuotemaarat' -> get(loop_count));
+<               #rivihinta = decimal(#rivihinta);
+<               #rivihinta -> SetFormat(-Precision=2,-DecimalChar=',');
+<               #kokonaishinta = #kokonaishinta + #rivihinta;
+<               #kokonaishinta = Decimal(#kokonaishinta);
+<               #kokonaishinta -> SetFormat(-Precision=2,-DecimalChar=',');
+<           #out += 'Yht.&nbsp;' + #rivihinta + '&nbsp;€</td>\n';
+<           #out += '</tr>\n';
+<       /loop;
+<       #out += '<tr>\n';
+<       #out += '<td colspan="3">Tuotteiden paino (noin)</td>\n';
+<       #out += '<td style="text-align:right;"> \n';
+<       #out += self -> 'paino' + '&nbsp;g';
+<       #out += '</td>\n';
+<       #out += '</tr>\n';
+<       #out += '<tr>\n';
+<       #out += '<td colspan="3">Toimituskulut</td>\n';
+<       #out += '<td style="text-align:right;"> \n';
+<       #out += #toimituskulut + '&nbsp;€';
+<       #out += '</td>\n';
+<           #kokonaishinta += self -> 'toimituskulut'; 
+<           #kokonaishinta -> SetFormat(-Precision=2,-DecimalChar=',');
+<       #out += '</tr>\n';
+<       #out += '<tr>\n';
+<       #out += '<td colspan="3"><b>Kaikki yhteensä</b></td>\n';
+<       #out += '<td style="text-align:right;"> \n';
+<       #out += '<b>' + #kokonaishinta + '&nbsp;€</b></td>\n';
+<       #out += '</tr>\n';
+<       #out += '</table>\n'; // end emb table tilatut
+<       #out += '</td></tr>\n';
+<       Return(#out);
+<   /Define_Tag;
+< 
+< /Define_Type;
+---
+> // Define_Type('SC_order');
+> //   local('err' = string);
+> //   local('test' = string);
+> // 
+> //   // orders table
+> //   local('ID' = string ); 
+> //   local('etunimi' = string ); 
+> //   local('sukunimi' = string ); 
+> //   local('yritys' = string ); 
+> //   local('katuosoite' = string ); 
+> //   local('postinumero' = string ); 
+> //   local('postitoimipaikka' = string ); 
+> //   local('maa' = string ); 
+> //   local('email' = string ); 
+> //   local('puh' = string ); 
+> //   local('matkapuh' = string ); 
+> //   local('perm' = string ); 
+> //   local('selain' = string ); 
+> //   local('luontipvm' = string ); 
+> //   local('komm' = string ); 
+> //   local('muokkauspvm' = string ); 
+> //   local('maksutapa' = string ); 
+> //   local('asiakasid' = string ); 
+> //   local('hetu' = string ); 
+> //   local('sivusto' = string ); 
+> //   local('status' = string ); 
+> //   local('verkkomaksuaika' = string ); 
+> //   local('verkkomaksuid' = string ); 
+> //   local('verkkomaksutapa' = string ); 
+> // 
+> //   // prod info
+> //   local('tuotenumerot' = array ); 
+> //   local('tuotenimet' = array ); 
+> //   local('tuotemaarat' = array ); 
+> //   local('tuotetarjoukset' = array ); 
+> //   local('tuotehinnat' = array ); 
+> // 
+> //   local('paino' = decimal ); 
+> //   local('toimituskulut' = decimal ); 
+> //   local('kokonaishinta' = decimal ); 
+> //   local('maksutapaviesti' = string ); 
+> // 
+> //   // define methods
+> //   Define_Tag('onCreate',-required='orderid');
+> //           inline( -search, $dbConfig, -table='orders',
+> //                    -op = 'eq',
+> //                    'id' = #orderid);
+> //                self -> 'test' = #orderid;
+> //                if(found_count == 1);
+> //                   self->'ID'      = field('ID'); 
+> //                   self->'etunimi' = field('etunimi'); 
+> //                   self->'sukunimi'= field('sukunimi'); 
+> //                   self->'yritys'      = field('yritys'); 
+> //                   self->'katuosoite'      = field('katuosoite'); 
+> //                   self->'postinumero'     = field('postinumero'); 
+> //                   self->'postitoimipaikka'= field('postitoimipaikka'); 
+> //                   self->'maa'     = field('maa'); 
+> //                   self->'email'       = field('email'); 
+> //                   self->'puh'     = field('puh'); 
+> //                   self->'matkapuh'     = field('matkapuh'); 
+> //                   self->'perm'        = field('perm'); 
+> //                   self->'selain'      = field('selain'); 
+> //                   self->'luontipvm'       = field('luontipvm'); 
+> //                   self->'komm'        = field('komm'); 
+> //                   self->'muokkauspvm'     = field('muokkauspvm'); 
+> //                   self->'maksutapa'       = field('maksutapa'); 
+> //                   self->'asiakasid'       = field('asiakasid'); 
+> //                   self->'hetu'        = field('hetu'); 
+> //                   self->'sivusto'     = field('sivusto'); 
+> //                   self->'status'      = field('status'); 
+> //                   self->'verkkomaksuaika'      = field('verkkomaksuaika'); 
+> //                   self->'verkkomaksuid'      = field('verkkomaksuid'); 
+> //                   self->'verkkomaksutapa'      = field('verkkomaksutapa');
+> //                /if;
+> //           /inline;
+> // 
+> //       // compose list of ordered items
+> //       inline( -search, $dbConfig, 
+> //           -table='orderitems',
+> //           'tilausid'=#orderid);
+> //           records;
+> //             (self -> 'tuotenumerot') -> insert( field('tuoteid'));
+> //             (self -> 'tuotemaarat') -> insert( field('tuotekpl'));
+> //           /records;
+> //       /inline;
+> // 
+> //       // get item info
+> //       local('rivihinta' = decimal);
+> //       local('kokonaishinta' = decimal);
+> //       Loop(self -> 'tuotenumerot' -> size);
+> //           inline( $dbConfig, -table = $myProdTable,
+> //                 -Op = 'eq',
+> //                 $myProdidField = (self -> 'tuotenumerot') -> Get(Loop_Count),
+> //                 -search);
+> //               // calculate paino
+> //                 if( field('annosyksikko') == 'g' );
+> //                   self -> 'paino' += decimal(field('annos'))
+> //                     * (self -> tuotemaarat -> get(loop_count));
+> //                 /if;
+> //               // product hame
+> //                 self -> 'tuotenimet' -> insert(field('nimi'));
+> //               // get the right price
+> //               local('tarj_apvm'= Date(Field('tarj_apvm')));
+> //               local('tarj_lpvm'= Date(Field('tarj_lpvm'))); 
+> //               If( #tarj_apvm <= Date && #tarj_lpvm >= Date);
+> //                   // tarjoushinta: kaikille
+> //                   (self -> 'tuotetarjoukset') -> insert(1);
+> //                   (self -> 'tuotehinnat')	 -> insert(Field('tarj_hinta'));
+> //                   #rivihinta = decimal(field('tarj_hinta')) 
+> //                     * (self -> tuotemaarat -> get(loop_count));
+> //               Else;
+> //                   (self -> 'tuotetarjoukset') -> insert(0);
+> //                   (self -> 'tuotehinnat')	 -> insert(Field('hinta'));
+> //                   #rivihinta = decimal(field('hinta')) 
+> //                     * (self -> tuotemaarat -> get(loop_count));
+> //               /If;
+> //               local('testvalue' = error_msg);
+> // 
+> //               #kokonaishinta = #kokonaishinta + #rivihinta;
+> //           /inline;
+> //       /loop;
+> //       self->'paino' -> SetFormat(-Precision=0,-DecimalChar=',');
+> // 
+> //       // set shipping & payment parameters
+> //       // self -> 'toimituskulut' = 5.00;  // default value
+> //       if(   self -> 'paino' <= 80);
+> //             self -> 'toimituskulut' = 4.50;  
+> //       else( self -> 'paino' <= 220);
+> //             self -> 'toimituskulut' = 6.00;  
+> //       else( self -> 'paino' <= 460);
+> //             self -> 'toimituskulut' = 8.00;  
+> //       else( self -> 'paino' <= 1700);
+> //             self -> 'toimituskulut' = 12.00;  
+> //       else( self -> 'paino' <= 4600);
+> //             self -> 'toimituskulut' = 14.00;  
+> //       else( self -> 'paino' <= 14500);
+> //             self -> 'toimituskulut' = 16.00;  
+> //       else;
+> //             self -> 'toimituskulut' = 18.00;  
+> //       /if; 
+> //       if( self -> 'maksutapa' == 'postiennakko' );
+> //             self -> 'toimituskulut' += 5.00;  
+> //       /if;
+> // 
+> //       If (self -> 'maksutapa' == 'ennakkolasku');
+> //         self -> 'maksutapaviesti' = 'postitse, ennakkolasku';
+> //       Else (self -> 'maksutapa' == 'postiennakko');
+> //         self -> 'maksutapaviesti' = 'postitse, maksetaan noudettaessa (postiennakko)';
+> //       Else( (self -> 'maksutapa') == 'verkkomaksu');
+> //         self -> 'maksutapaviesti' = 'postitse, verkkomaksu tilattaessa';
+> //       /If;
+> //     
+> //       #kokonaishinta += (self -> 'toimituskulut'); 
+> //       #kokonaishinta -> (SetFormat(-Precision=2,-DecimalChar=','));
+> //       self -> 'kokonaishinta' = #kokonaishinta;
+> //   /Define_Tag;
+> // 
+> //   // getters
+> //   // not needed!
+> //   //  Define_Tag('test');	Return( Self -> 'test'); /Define_Tag;
+> // 
+> //   Define_Tag( 'orderConfirmEmail',-Optional='receiver' );
+> //       local('out'	      = string);
+> //       local('kappalehinta'    = decimal);
+> //       local('rivihinta'	      = decimal);
+> //       local('kokonaishinta'   = decimal);
+> // 
+> //       local('toimituskulut'   = self -> 'toimituskulut');
+> //       #toimituskulut  -> SetFormat(-Precision=2,-DecimalChar=',');
+> // 
+> //       // receiver, allowed values: customer, vendor
+> //       if( ! Local_Defined:'receiver' );
+> //           local('receiver'='customer');
+> //       /if;
+> //       if( #receiver != 'customer' && #receiver != 'vendor');
+> //           #receiver == 'customer'; // illegal input, use default value
+> //       /if;
+> // 
+> //       if( #receiver == 'customer'); // not to vendor
+> //           #out = 'Kiitos tilauksestasi. Olet tilannut Hyötykasviyhdistykseltä '
+> //               + 'tuotteita seuraavasti:\n\n';
+> //       /if;
+> //       #out += 'Tilauksen numero: ' + (self -> 'id');
+> //       #out += '\n\nMaksutapa: ' + (self -> 'maksutapaviesti');
+> // 
+> //       #out += '\n\nTilaajan nimi: ' + (self -> 'etunimi') 
+> //               + ' ' + (self -> 'sukunimi');
+> //       // replace tag: \r removed from replace-string, 080602 jh
+> //       #out += '\nOsoite: ' 
+> //               + self -> 'katuosoite' + ', '
+> //               + self -> 'postinumero' + ' '
+> //               + self -> 'postitoimipaikka';
+> //       #out += '\nEmail: ' + (self -> 'email');
+> //       #out += '\nPuh: ' + (self -> 'puh');
+> //       #out += '\nKommentit: ' + (String_Replace: -Find='\r', -Replace='\n           ',(self -> 'komm'));
+> //       #out += '\n\nTilatut tuotteet:\n';
+> // 
+> //       // tilatut tuotteet
+> //       loop( (self -> 'tuotenumerot') -> size );
+> //           #out += '\n' + (self -> 'tuotenumerot') -> get(loop_count);
+> //           If((self -> 'tuotenimet') -> get(loop_count));
+> //             #out += ' (' + (self -> 'tuotenimet') -> get(loop_count) + ')';
+> //           /If;
+> //           If((self -> 'tuotetarjoukset') -> get(loop_count));
+> //               #out += ' (TARJOUSHINTA!)';
+> //           /If;
+> //           #out += '. ' + self -> 'tuotemaarat' -> get(loop_count) + ' kpl, ';
+> //               #kappalehinta = decimal(self -> 'tuotehinnat' -> get(loop_count));
+> //               #kappalehinta -> (SetFormat(-Precision=2,-DecimalChar=','));
+> //           #out += #kappalehinta;
+> //           #out += ' e/kpl, ';
+> //               #rivihinta = (decimal(self -> 'tuotehinnat' -> get(loop_count))) 
+> //                   * (self -> 'tuotemaarat' -> get(loop_count));
+> //               #rivihinta = decimal(#rivihinta);
+> //               #rivihinta -> SetFormat(-Precision=2,-DecimalChar=',');
+> //               #kokonaishinta = #kokonaishinta + #rivihinta;
+> //               #kokonaishinta = Decimal(#kokonaishinta);
+> //               #kokonaishinta -> SetFormat(-Precision=2,-DecimalChar=',');
+> //           #out += 'yht. ' + #rivihinta + ' e\n';
+> //       /loop;
+> // 
+> //       #out += '\nTuotteiden paino noin:: '; 
+> //       #out += self -> 'paino' + ' g'; 
+> //       #out += '\nToimituskulut: '; 
+> //       #out += #toimituskulut;
+> //           #kokonaishinta += self -> 'toimituskulut'; 
+> //           #kokonaishinta -> SetFormat(-Precision=2,-DecimalChar=',');
+> //       #out += '\n\nKaikki yhteensä: ' + #kokonaishinta + ' e';
+> // 
+> //       If( (self -> 'maksutapa') == 'l');
+> //           if( #receiver == 'customer');
+> //               #out += '\n\nTuotteet maksetaan mukana seuraavalla laskulla.';
+> //           else; // receiver is vendor
+> //               #out += '\n\nLaskun tiedot:\n';
+> //               #out += 'Summa ' + #kokonaishinta + ' e\n'; 
+> //               #out += 'Tilinumero Nordea 101530-30267\n';
+> //               #out += 'Viite ' + 
+> //                 (SC_bankReference(-basis = self -> 'id')) + '\n\n';
+> //           /if;
+> //       else( (self -> 'maksutapa') == 'ennakkolasku');
+> //           #out += '\n\nEnnakkolasku:\n';
+> //           #out += 'Summa ' + #kokonaishinta + ' e\n'; 
+> //           #out += 'Tilinumero MEIDÄN_PANKKI 123456-123456\n';
+> //           #out += 'Viite ' + 
+> //                 (SC_bankReference(-basis = self -> 'id')) + '\n\n';
+> //           #out += 'Toimitamme tuotteet postitse kun suoritus näkyy Hyötykasviyhdistyksen tilillä.';
+> //       else( (self -> 'maksutapa') == 'postiennakko');
+> //           #out += 'Toimitamme tuotteet postitse. ';
+> //           #out += '\n\nTuotteet maksetaan noudettaessa (postiennakko).';
+> //       else( (self -> 'maksutapa') == 'verkkomaksu');
+> //           #out += '\n\nTuotteet on maksettu verkkomaksuna. ';
+> //           #out += 'Toimitamme tuotteet postitse.';
+> //       /If;
+> //       Return(#out);
+> //   /Define_Tag;
+> // 
+> //   Define_Tag( 'orderDisplay');
+> //       local('out' = string);
+> //       local('kokonaishinta' = self -> 'kokonaishinta');
+> // 
+> //       #out += '<table BORDER="0" CELLPADDING="0" CELLSPACING="0" style="margin-left:auto;margin-right:auto;border:0px solid black;">\n';
+> //       #out += '<tr>\n';
+> //       #out += '<td>\n';
+> // 
+> //       // emb table tilaaja
+> //       #out += '<table id="tilaajantiedot" class="containstext" cellpadding="0" cellspacing="4" width="100%">\n';
+> //       #out += '<tr>\n';
+> //       #out += '<td colspan="2"><h2>Tilaajan tiedot</h2></td>\n';
+> //       #out += '</tr>\n';
+> //       #out += '<tr>\n';
+> //       #out += '<td><b>Tilausnumero</b></td>\n';
+> //       #out += '<td>' + (self -> 'id') +  ' (';
+> //       // #out += (Date_Format((self -> 'luontipvm'),-Format="%d.%m.%Y"));
+> //       #out += self -> 'luontipvm';
+> //       #out += ')</td>\n';
+> //       #out += '</tr>\n';
+> //       #out += '<tr>\n';
+> //       #out += '<td><b>Maksutapa</b></td>\n';
+> //       #out += '<td>' + (self -> 'maksutapaviesti') + '</td>\n';
+> //       #out += '</tr>\n';
+> //       #out += '<tr>\n';
+> //       #out += '<td><b>Tilaajan nimi</b></td>\n';
+> //       #out += '<td>' + (self -> 'etunimi') + ' ' + (self -> 'sukunimi') + '</td>\n';
+> //       #out += '</tr>\n';
+> //       #out += '<tr>\n';
+> //       #out += '<td valign="top"><b>Osoite</b></td>\n';
+> //       #out += '<td>';
+> //       #out += (self -> 'katuosoite') + '<br>';
+> //       #out += (self -> 'postinumero') + ' ' + (self -> 'postitoimipaikka');
+> //       #out += '</td>\n';
+> //       #out += '</tr>\n';
+> //       #out += '<tr>\n';
+> //       #out += '<td><b>Email</b></td>\n';
+> //       #out += '<td>'+ (self -> 'email') + '</td>\n';
+> //       #out += '</tr>\n';
+> //       #out += '<tr>\n';
+> //       #out += '<td><b>Puh.</b></td>\n';
+> //       #out += '<td>' + (self -> 'puh') + '</td>\n';
+> //       #out += '</tr>\n';
+> //       #out += '<tr>\n';
+> //       #out += '<td valign="top"><b>Tilaajan kommentit</b></td>\n';
+> //       #out += '<td>';
+> //       If((self -> 'komm'));
+> //           local('komm_temp' = self -> 'komm');
+> //           #komm_temp -> (replace('\r','<br>'));
+> //           #out += encode_smart(#komm_temp);
+> //       Else;
+> //           #out += '--';
+> //       /If;
+> //       #out += '</td>\n';
+> //       #out += '</tr>\n';
+> //       #out += '<tr>\n';
+> //       #out += '<td>&nbsp;</td>\n';
+> //       #out += '<td>&nbsp;</td>\n';
+> //       #out += '</tr>\n';
+> //       #out += '</table>\n'; // end emb table tilaaja
+> // 
+> //       #out += '<!-- emb table tilatut -->\n';
+> //       #out += '<table class="containstext" cellpadding="0" cellspacing="4" width="100%">\n';
+> //       #out += '<tr>\n';
+> //       #out += '<td colspan="4"><h2>Tilatut tuotteet</h2></td>\n';
+> //       #out += '</tr>\n';
+> // 
+> //       // tilatut tuotteet
+> //       local('prodlines' = self -> orderDisplayProdlines);
+> // 
+> //       #out += #prodlines;
+> //       #out += '<tr>\n';
+> //       #out += '<td colspan="4" style="padding:10px 0 0 5px;">\n';
+> //       if( (self -> 'maksutapa') == 'l');
+> //           #out += 'Tuotteet maksetaan mukana seuraavalla laskulla.\n';
+> //       else( (self -> 'maksutapa') == 'ennakkolasku');
+> // 	#out += '<h2>Ennakkolasku</h2>\n';
+> //           #kokonaishinta -> (SetFormat(-Precision=2,-DecimalChar=','));
+> // 	#out += '<p>Summa ' + #kokonaishinta + ' €<br>\n';
+> // 	#out += 'Tilinumero Nordea 101530-30267<br>\n';
+> // 	#out += 'Viitenumero '+(SC_bankReference(-basis = self->'id'))+'<br>\n';
+> // 	#out += '&nbsp;<br>\n';
+> // 	#out += 'Toimitamme tuotteet postitse kun suoritus näkyy Hyötykasviyhdistyksen tilillä.</p>\n';
+> //       Else( (self -> 'maksutapa') == 'postiennakko');
+> //               #out += '<p>Toimitamme tuotteet postitse.\n';
+> //               #out += 'Tuotteet maksetaan noudettaessa (postiennakko).</p>\n';
+> //       Else( (self -> 'maksutapa') == 'verkkomaksu');
+> //           if (self->'status' == 'order_ok_waiting_for_payment');// ennen maksua
+> //               #out += '<p>Maksu suoritetaan verkkomaksuna tilauksen '
+> //                       + 'teon yhteydessä.';
+> //               #out += '&nbsp;<br>\n';
+> //               #out += 'Toimitamme tuotteet postitse kun suoritus 
+> //                 on hyväksytty.</p>\n';
+> //           else(self->'status' == 'order_ok');
+> //               #out += '<p>Verkkkomaksu on suoritettu. ';
+> //               #out += 'Toimitamme tuotteet postitse.</p>\n';
+> //           /if;
+> //       /If;
+> //       #out += '</td>\n';
+> //       #out += '</tr>\n';
+> //       #out += '</table>\n';
+> //       Return(#out);
+> //   /Define_Tag;
+> // 
+> // 
+> //   Define_Tag( 'orderDisplayProdlines', -Optional='admin'
+> //       );
+> //       local('out' = string);
+> //       local('kappalehinta' = decimal);
+> //       local('rivihinta' = decimal);
+> //       local('kokonaishinta' = decimal);
+> // 
+> //       local('toimituskulut'   = self -> 'toimituskulut');
+> //       #toimituskulut  -> SetFormat(-Precision=2,-DecimalChar=',');
+> // 
+> //       if(! local_defined('admin') );
+> //           local('admin' = 'no');
+> //       /if;
+> // 
+> //       loop( self -> 'tuotenumerot' -> size);
+> //           #out += '<tr>\n';
+> //           #out += '<td valign="top">\n';
+> //                   
+> //           if(#admin=='yes');
+> //               #out += '<a href="siepussit-form.html?tilnro=' 
+> //                   + (self -> 'tuotenumerot') -> get(loop_count) + '">';
+> //               #out += (self -> 'tuotenumerot') -> get(loop_count);
+> //               #out += '</a>';
+> //           else;
+> //               #out += (self -> 'tuotenumerot') -> get(loop_count);
+> //           /if;
+> //           #out += ' (';
+> //           #out += self -> 'tuotenimet' -> get(loop_count);
+> //           #out += ')';
+> //           If( self -> 'tuotetarjoukset' -> get(loop_count));
+> //               #out += ' (TARJOUSHINTA!)';
+> //           /If;
+> //           #out += '</td>\n';
+> //           #out += '<td valign="top" style="text-align:right;">\n';
+> //           #out += self -> 'tuotemaarat' -> get(loop_count);
+> //           #out += '&nbsp;kpl</td>\n';
+> //           #out += '<td valign="top" style="text-align:right;">\n';
+> //             #kappalehinta = decimal(self -> 'tuotehinnat' -> get(loop_count));
+> //             #kappalehinta -> SetFormat(-Precision=2,-DecimalChar=',');
+> //           #out += #kappalehinta;
+> //           #out += '&nbsp;€/kpl</td>\n';
+> //           #out += '<td valign="top" style="text-align:right;">';
+> //               #rivihinta = decimal(self -> 'tuotehinnat' -> get(loop_count)) 
+> //                   * (self -> 'tuotemaarat' -> get(loop_count));
+> //               #rivihinta = decimal(#rivihinta);
+> //               #rivihinta -> SetFormat(-Precision=2,-DecimalChar=',');
+> //               #kokonaishinta = #kokonaishinta + #rivihinta;
+> //               #kokonaishinta = Decimal(#kokonaishinta);
+> //               #kokonaishinta -> SetFormat(-Precision=2,-DecimalChar=',');
+> //           #out += 'Yht.&nbsp;' + #rivihinta + '&nbsp;€</td>\n';
+> //           #out += '</tr>\n';
+> //       /loop;
+> //       #out += '<tr>\n';
+> //       #out += '<td colspan="3">Tuotteiden paino (noin)</td>\n';
+> //       #out += '<td style="text-align:right;"> \n';
+> //       #out += self -> 'paino' + '&nbsp;g';
+> //       #out += '</td>\n';
+> //       #out += '</tr>\n';
+> //       #out += '<tr>\n';
+> //       #out += '<td colspan="3">Toimituskulut</td>\n';
+> //       #out += '<td style="text-align:right;"> \n';
+> //       #out += #toimituskulut + '&nbsp;€';
+> //       #out += '</td>\n';
+> //           #kokonaishinta += self -> 'toimituskulut'; 
+> //           #kokonaishinta -> SetFormat(-Precision=2,-DecimalChar=',');
+> //       #out += '</tr>\n';
+> //       #out += '<tr>\n';
+> //       #out += '<td colspan="3"><b>Kaikki yhteensä</b></td>\n';
+> //       #out += '<td style="text-align:right;"> \n';
+> //       #out += '<b>' + #kokonaishinta + '&nbsp;€</b></td>\n';
+> //       #out += '</tr>\n';
+> //       #out += '</table>\n'; // end emb table tilatut
+> //       #out += '</td></tr>\n';
+> //       Return(#out);
+> //   /Define_Tag;
+> // 
+> // /Define_Type;
+1531,1635c1521,1625
+< define_tag('horizontalmenu',-namespace='JH',
+<                             -required='pairs',
+<                             -required='current',-type='string',
+<                             -encodeNone);
+< /* example use
+< JH_horizontalmenu(-pairs=('logout.html'=str('Logout')),-current=$myfilename);
+< */
+<   local('out' = string);
+<   local('i' = array);
+<   iterate(#pairs,#i);
+<     if(#i->first == #current);
+<         #out += '<b>' + #i->second + '</b>';
+<     else;
+<       #out += '<a href="' + #i->first + '">';
+<         #out += #i->second;
+<       #out += '</a>';
+<     /if;
+<     if(loop_count < #pairs -> size);
+<       #out += '&nbsp;&nbsp;|&nbsp;&nbsp;';
+<     /if;
+<   /iterate;
+<   return(#out);
+< /define_tag;
+< define_tag('horizontalmenuv2',-namespace='JH',
+<                             -required='in',-type='array',
+<                             -required='current',-type='string',
+<                             -optional='separator',-type='string',
+<                             -encodeNone);
+< /* example use
+<   JH_horizontalmenuv2(-in=('logout.html'=str('Logout')),-current=$myfilename);
+< */
+<   local('out' = string);
+<   local('i'   = array);
+<   if(! local_defined('separator'));
+<     local('separator' = '&nbsp;|&nbsp;');
+<   /if;
+< 
+<   iterate(#in,#i);
+<       // zap the locals
+<       local('href'        = string); // required
+<       local('text'        = string); // required
+<       local('href_addons' = string);
+<       local('title'       = string);
+<       local('id'          = string);
+<       local('li_style'    = string);
+<       local('href_style'  = string);
+<       local('href_total'  = string);
+<       local('target'      = string);
+< 
+<     // define locals
+<     if(#i -> find('href'));
+<       #href       = #i -> find('href') -> get(1) -> get(2);
+<     /if;
+<     if(#i -> find('href_addons'));
+<       #href_addons= #i -> find('href_addons') -> get(1) -> get(2);
+<     /if;
+<     if(#i -> find('title'));
+<       #title      = #i -> find('title') -> get(1) -> get(2);
+<     /if;
+<     if(#i -> find('id'));
+<       #id       = #i -> find('id') -> get(1) -> get(2);
+<     /if;
+<     if(#i -> find('li_style'));
+<       #li_style    = #i -> find('li_style') -> get(1) -> get(2);
+<     /if;
+<     if(#i -> find('href_style'));
+<       #href_style    = #i -> find('href_style') -> get(1) -> get(2);
+<     /if;
+<     if(#i -> find('text'));
+<       #text    = #i -> find('text') -> get(1) -> get(2);
+<     /if;
+<     if(#i -> find('target'));
+<       #target    = #i -> find('target') -> get(1) -> get(2);
+<     /if;
+< 
+<     // define href_total
+<     #href_total = #href;
+<     if(#href_addons);
+<       #href_total += '?' + #href_addons;
+<     /if;
+< 
+<     if(#href_total == #current); // no link needed
+<         #out += '<li><b>' + #text + '</b></li>';
+<     else;
+<       #out += '<li';
+<       if(#li_style);
+<         #out += ' style="' + #li_style + '"';
+<       /if;
+<         #out += '><a href="' + #href;
+<         if(#href_addons); #out += '?' + #href_addons;         /if;
+<       #out += '" ';
+<         if(#id);        #out += 'id="' + #id + '" ';      /if;
+<         if(#href_style);     #out += 'style="' + #href_style + '" '; /if;
+<         if(#title);      #out += 'title="'  + #title + '" ';  /if;
+<         if(#target);     #out += 'target="' + #target + '" '; /if;
+<       #out += '>';
+<         #out += #text;
+<       #out += '</a></li>';
+<     /if;
+<     if(loop_count < #in -> size);
+<       #out += #separator;
+<     /if;
+<   /iterate;
+<   return(#out);
+< /define_tag;
+---
+> // define_tag('horizontalmenu',-namespace='JH',
+> //                             -required='pairs',
+> //                             -required='current',-type='string',
+> //                             -encodeNone);
+> // /* example use
+> // JH_horizontalmenu(-pairs=('logout.html'=str('Logout')),-current=$myfilename);
+> // */
+> //   local('out' = string);
+> //   local('i' = array);
+> //   iterate(#pairs,#i);
+> //     if(#i->first == #current);
+> //         #out += '<b>' + #i->second + '</b>';
+> //     else;
+> //       #out += '<a href="' + #i->first + '">';
+> //         #out += #i->second;
+> //       #out += '</a>';
+> //     /if;
+> //     if(loop_count < #pairs -> size);
+> //       #out += '&nbsp;&nbsp;|&nbsp;&nbsp;';
+> //     /if;
+> //   /iterate;
+> //   return(#out);
+> // /define_tag;
+> // define_tag('horizontalmenuv2',-namespace='JH',
+> //                             -required='in',-type='array',
+> //                             -required='current',-type='string',
+> //                             -optional='separator',-type='string',
+> //                             -encodeNone);
+> // /* example use
+> //   JH_horizontalmenuv2(-in=('logout.html'=str('Logout')),-current=$myfilename);
+> // */
+> //   local('out' = string);
+> //   local('i'   = array);
+> //   if(! local_defined('separator'));
+> //     local('separator' = '&nbsp;|&nbsp;');
+> //   /if;
+> // 
+> //   iterate(#in,#i);
+> //       // zap the locals
+> //       local('href'        = string); // required
+> //       local('text'        = string); // required
+> //       local('href_addons' = string);
+> //       local('title'       = string);
+> //       local('id'          = string);
+> //       local('li_style'    = string);
+> //       local('href_style'  = string);
+> //       local('href_total'  = string);
+> //       local('target'      = string);
+> // 
+> //     // define locals
+> //     if(#i -> find('href'));
+> //       #href       = #i -> find('href') -> get(1) -> get(2);
+> //     /if;
+> //     if(#i -> find('href_addons'));
+> //       #href_addons= #i -> find('href_addons') -> get(1) -> get(2);
+> //     /if;
+> //     if(#i -> find('title'));
+> //       #title      = #i -> find('title') -> get(1) -> get(2);
+> //     /if;
+> //     if(#i -> find('id'));
+> //       #id       = #i -> find('id') -> get(1) -> get(2);
+> //     /if;
+> //     if(#i -> find('li_style'));
+> //       #li_style    = #i -> find('li_style') -> get(1) -> get(2);
+> //     /if;
+> //     if(#i -> find('href_style'));
+> //       #href_style    = #i -> find('href_style') -> get(1) -> get(2);
+> //     /if;
+> //     if(#i -> find('text'));
+> //       #text    = #i -> find('text') -> get(1) -> get(2);
+> //     /if;
+> //     if(#i -> find('target'));
+> //       #target    = #i -> find('target') -> get(1) -> get(2);
+> //     /if;
+> // 
+> //     // define href_total
+> //     #href_total = #href;
+> //     if(#href_addons);
+> //       #href_total += '?' + #href_addons;
+> //     /if;
+> // 
+> //     if(#href_total == #current); // no link needed
+> //         #out += '<li><b>' + #text + '</b></li>';
+> //     else;
+> //       #out += '<li';
+> //       if(#li_style);
+> //         #out += ' style="' + #li_style + '"';
+> //       /if;
+> //         #out += '><a href="' + #href;
+> //         if(#href_addons); #out += '?' + #href_addons;         /if;
+> //       #out += '" ';
+> //         if(#id);        #out += 'id="' + #id + '" ';      /if;
+> //         if(#href_style);     #out += 'style="' + #href_style + '" '; /if;
+> //         if(#title);      #out += 'title="'  + #title + '" ';  /if;
+> //         if(#target);     #out += 'target="' + #target + '" '; /if;
+> //       #out += '>';
+> //         #out += #text;
+> //       #out += '</a></li>';
+> //     /if;
+> //     if(loop_count < #in -> size);
+> //       #out += #separator;
+> //     /if;
+> //   /iterate;
+> //   return(#out);
+> // /define_tag;

@@ -13,18 +13,18 @@
 
 // replace the month names below with those in the target language
 
-Variable:'aMonths'=(Array:'Januari','Februari','Maart','April','Mei','Juni','Juli','Augustus','September','Oktober','November','December');
+var('aMonths')=Array('Januari','Februari','Maart','April','Mei','Juni','Juli','Augustus','September','Oktober','November','December');
 
 // #2. day names - not used in 0.7, but may be used later
 
 // replace the day names below with those in the target language
 
-Variable:'aDays'=(Array:'Maandag','Dinsdag','Woensdag','Donderdag','Vrijdag','Zaterdag','Zondag');
-Variable:'aDays_short'=(Array:'Maa','Din','Woe','Don','Vrij','Zat','Zon');
+var('aDays')=Array('Maandag','Dinsdag','Woensdag','Donderdag','Vrijdag','Zaterdag','Zondag');
+var('aDays_short')=Array('Maa','Din','Woe','Don','Vrij','Zat','Zon');
 
 // #3. "emptyString": optional; strings to be used in places where there is no equivalent phrase in English. The string will correspond to the portion in the explanation text that is in BLOCK LETTERS
 
-Variable:'mEmptyString' = (Map:
+var('mEmptyString') = Map(
 1 = '', // [blogname] uses LassoBlogger BLOGWARE (see footer)
 2 = '', // IT WERE FOUND [NN] records (see naviglinks)
 );
@@ -39,7 +39,7 @@ Variable:'mEmptyString' = (Map:
 * see languages/strings.txt for information about where each string is used
 */
 
-Variable:'mTranslations' = (Map:
+var('mTranslations') = Map(
 'A comment has been added to your blog at'	= 'Nieuwe commentaar is toegevoegd aan uw blog op', // used in email message
 'and start writing posts (if your initial permissions allow it)' = 'en schrijf een artikel (indien u voldoende rechten hebt)', // use-registered.inc
 'and your password' =  'en uw passwoord',	// use-registered.inc
