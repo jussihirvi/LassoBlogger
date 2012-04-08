@@ -268,7 +268,7 @@ Define_Tag( 'LB_getCategory',-Required='id');
 
 // get commentlink
 
-Define_Tag( 'LB_getCommentlink',-Required='id');
+Define_Tag( 'LB_getCommentlink',-Required='id',-encodeNone);
             Local('output' = '');
             Local('errorCode' = '');
             Inline(-search,$dbConfig,

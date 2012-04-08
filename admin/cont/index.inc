@@ -5,7 +5,7 @@
 
 <?LassoScript
 '<div id="posts">\n';
-'<h3>Posts <a href="man-postlist.lasso" title="More posts...">&raquo;</a></h3>\n';
+'<h3>Posts <a href="man-post-list.lasso" title="More posts...">&raquo;</a></h3>\n';
 
     var('searchargs') = array;
     var('skip') = integer;
@@ -36,7 +36,7 @@
 //    Include( $myInc + 'snip_naviglinks.inc');
     '<ul>';
     Records(-InlineName='postSearch');
-    '<li><a href="man-postedit.lasso?id=' + Field('id') + '">';
+    '<li><a href="man-post-form.lasso?id=' + Field('id') + '">';
     Field('pos_title');
     '</a></li>\r';
     /Records;
@@ -49,7 +49,7 @@
 
 <?LassoScript
 '<div id="comments">\n';
-'<h3>Comments <a href="man-commlist.lasso" title="More comments...">&raquo;</a></h3>\n';
+'<h3>Comments <a href="man-comm-list.lasso" title="More comments...">&raquo;</a></h3>\n';
     // comments search
 
      Inline(-search,$dbConfig,-Table=$table_prefix + 'comments',
@@ -71,7 +71,7 @@
 
     '<ul>';
     Records;
-    '<li><a href="man-commedit.lasso?id=' + Field('id') +'">';
+    '<li><a href="man-comm-form.lasso?id=' + Field('id') +'">';
 	If( Field('com_title') != '');
 	    Field('com_title');
 	    Else;
