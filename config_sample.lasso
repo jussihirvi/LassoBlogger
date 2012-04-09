@@ -42,9 +42,10 @@
 
     // table prefix
 
-	// fill this, if you want to store several blogs
-	// into a single database; otherwise, you
+	// fill this, if you want to use a single database
+	// for several blogs or other apps; otherwise, you
 	// can leave it empty
+        // example: 'spo_'
 
 	var('table_prefix' = string);
 
