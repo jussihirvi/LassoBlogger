@@ -9,6 +9,7 @@ loop(1); // hack for imitating abort on L9
 //   upload_projectid
 // END LOCAL
 /*
+update 2012-04-08 set emptyform=yes before empty form is displayed in formview
 update 2011-09-21 vars rectype_en, rectype_en_part etc. deprecated; use rectype and rectype_pl (for plural) instead
 featur 2011-09-20 new ctag MO_update for quick updates
 update 2010-12-09 searchform break behavior changed. Now linebreak must be 
@@ -996,7 +997,6 @@ if( $viewtype == 'listview'  			// case listview
     && !($action == 'delet2' && found_count == 0) 
     && $customform != 'yes'
     );
-
   // for listview, show empty form above the results
         if($buttonlist->find('add') == 'yes' );
           MO_listview_emptyform(-editfields=$editfields);
@@ -1005,8 +1005,7 @@ if( $viewtype == 'listview'  			// case listview
               MO_listview_fieldlabels($editfields);
               MO_listview_helptexts($editfields);
             /if;
-        /If; 					
-  // end case listview
+/if;   // end case listview
 
   var('formShown') = string;
   Records; 
@@ -1025,7 +1024,6 @@ if( $viewtype == 'listview'  			// case listview
             /iterate;
             MO_speakBubble($speakBubble,-style='color:#c00;font-size:1.4em;');
           /if;
-
     if($emptyform != 'yes');
       If( variable_defined('customform') &&  var('customform') == 'yes');
         Include('custom/form/' + $myfilebody + '.inc');
@@ -1037,7 +1035,8 @@ if( $viewtype == 'listview'  			// case listview
   /Records;
 
 if( $viewtype == 'formview' && ! $formShown && $buttonlist->Find('add') == 'yes' );
-     include( 'inc/editform.inc');
+    $emptyform = 'yes'; // a way to inform form elements about empty form
+    include('inc/editform.inc');
 /if;
 
 /inline;
