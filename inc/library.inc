@@ -1830,7 +1830,8 @@ Define_tag('collectUploaddata',-namespace='MO',
   -optional='sortstuff',-type='array',
   -encodeNone);
   local('out'      = string);
-  local('imgclass' = string);
+  local('divclass' = string);
+  local('last_divclass' = string);
 /*
 old tag name collectImageData
 example usage
@@ -1886,7 +1887,7 @@ example usage
           /Records;
           /Inline;
 
-          // first insert images/files (if any)
+          // prepare for iterating filedata
           local('suffix' 	    = string);
           local('linked_files'= '<p>');
           local('shown_files' = string);
@@ -1904,45 +1905,55 @@ example usage
               local('desc' = #i -> get(3));
               local('disp' = #i -> get(4));
               local('url'  = #i -> get(5));
-              local('display_size' = string);
-              local('linked_size' = string);
+              local('display_size'  = string);
+              local('linked_size'   = string);
+              local('atag'          = string);
               #suffix = #name  -> split('.') -> Last;
 
               // get image logic
               local('imagelogic') = MO_imagelogic(#paths,#disp);
               // return('imagelogic is ' + #imagelogic);
               #display_size = #imagelogic->find('display_size');
-              #imgclass     = #imagelogic->find('imgclass');
+              #divclass     = #imagelogic->find('divclass');
               #linked_size  = #imagelogic->find('linked_size');
 
-              If(  #disp == 'none'); // just skip the file
-              Else( (#suffix == 'jpg' 
+              if(  #disp == 'none'); // just skip the file
+              else( (#suffix == 'jpg' 
                       ||  #suffix == 'jpeg'
                       ||  #suffix == 'gif'
                       ||  #suffix == 'png') 
                       &&  #disp != 'link'); // display that img
 
+                  // start handling div
+                  if( ! #shown_files ); // first image to be shown
+                    #shown_files += '<div class="' + #divclass + '">\n';
+                  else( #divclass != #last_divclass ); // switch div
+                    #shown_files += '</div>\n<!--' + #last_divclass + '-->';
+                    #shown_files += '<div class="' + #divclass + '">\n';
+                    // the (last) div will be closed after iterate
+                  /if;
+                  // end handling div
 
                   // compose a tag, if any
                   if( #url );
-                      #shown_files += '<a href="';
-                      if( #url  -> beginsWith('http'));
-                          #shown_files += #url  + '">';
-                      else( (#url  -> beginsWith('/')));
-                          #shown_files += #url  + '">';
+                      #atag += '<a href="';
+                      if(   #url  -> beginsWith('http'));
+                          #atag += #url + '">';
+                      else( #url  -> beginsWith('/'));
+                          #atag += #url + '">';
                       /if;
                   else(#linked_size);
-                      #shown_files += '<a href="';
-                      #shown_files += #basepath + #linked_size;
-                      #shown_files += '/' + #name + '">';
+                      #atag += '<a href="' + #basepath + #linked_size;
+                      #atag += '/' + #name + '">';
                   /if;
+                  #shown_files += #atag;
                   // end compose a a tag
 
                   local('subdir') = string;
-                    // orig-size pics saved at root level
+                    // orig-size pics are saved at root level
                   #subdir = #display_size;
 
-                  #shown_files += '<IMG class="' + #imgclass + '" SRC="';
+                  #shown_files += '<img src="';
                   #shown_files += #basepath + #subdir + '/' + #name + '" alt="';
                   #shown_files += #desc + '" title="';
                   #shown_files += #desc + '">\r';
@@ -1950,13 +1961,16 @@ example usage
                   if( #url || #linked_size);
                       #shown_files += '</a>';                
                   /if;
-              Else; 	  // just display link
+                  // memorize divclass; string ensures that var is copied in L9
+                  #last_divclass = string(#divclass); 
+              else; 	  // just display link
                   #linked_files += ('<A HREF="' +  #basepath 
                     + #linked_size + '/' + #name);
                   #linked_files += '" TITLE="' +  #desc;
                   #linked_files += '">' + #name + '</A><br>\r';
-              /If;
-          /Iterate;
+              /if;
+          /iterate;
+          #shown_files += '</div>\n'; // close the (last) div
   return(array(#shown_files,#linked_files));
 /define_tag;
 define_tag('imagelogic',-namespace='MO',
@@ -1966,7 +1980,7 @@ define_tag('imagelogic',-namespace='MO',
   if( #display_on_page == 'right');
       if(#paths >> 'halfcolumn');
           #out -> insert('display_size' = 'halfcolumn');
-          #out -> insert('imgclass' = 'alignright');
+          #out -> insert('divclass' = 'alignright');
           if(#paths >> 'fullscreen');
               #out -> insert('linked_size' = 'fullscreen');
           else(#paths >> 'fullcolumn');
@@ -1974,18 +1988,18 @@ define_tag('imagelogic',-namespace='MO',
           /if;
       else(#paths >> 'original');
           #out -> insert('display_size' = ''); // file is saved at root level
-          #out -> insert('imgclass' = 'alignright');
+          #out -> insert('divclass' = 'alignright');
       else(#paths >> 'fullcolumn');
               #out -> insert('display_size' = 'fullcolumn');
-              #out -> insert('imgclass' = 'centered');
+              #out -> insert('divclass' = 'centered');
       else; // could be image from an earlier LB version
           #out -> insert('display_size' = '');
-          #out -> insert('imgclass' = 'alignright');
+          #out -> insert('divclass' = 'alignright');
       /if;
   else( #display_on_page == 'left');
       if(#paths >> 'halfcolumn');
           #out -> insert('display_size' = 'halfcolumn');
-          #out -> insert('imgclass' = 'alignleft');
+          #out -> insert('divclass' = 'alignleft');
           if(#paths >> 'fullscreen');
               #out -> insert('linked_size' = 'fullscreen');
           else(#paths >> 'fullcolumn');
@@ -1993,13 +2007,13 @@ define_tag('imagelogic',-namespace='MO',
           /if;
       else(#paths >> 'original');
           #out -> insert('display_size' = '');
-          #out -> insert('imgclass' = 'alignright');
+          #out -> insert('divclass' = 'alignright');
       else(#paths >> 'fullcolumn');
               #out -> insert('display_size' = 'fullcolumn');
-              #out -> insert('imgclass' = 'centered');
+              #out -> insert('divclass' = 'centered');
       else; // could be image from an earlier LB version
             #out -> insert('display_size' = '');
-            #out -> insert('imgclass' = 'alignleft');
+            #out -> insert('divclass' = 'alignleft');
       /if;
   else( #display_on_page == 'block');
       if(#paths >> 'original');
@@ -2007,7 +2021,7 @@ define_tag('imagelogic',-namespace='MO',
       else(#paths >> 'fullcolumn');
           #out -> insert('display_size' = 'fullcolumn');
       /if;
-      #out -> insert('imgclass' = 'centered');
+      #out -> insert('divclass' = 'centered');
   else( #display_on_page == 'link');
       if(#paths >> 'original');
           #out -> insert('linked_size' = '');

@@ -239,36 +239,32 @@ p img {
 	max-width: 100%;
 	}
 
-/*	Using 'class="alignright"' on an image will (who would've
-	thought?!) align the image to the right. And using 'class="centered',
-	will of course center the image. This is much better than using
-	align="center", being much more futureproof (and valid) */
-	
-img.centered {
+div.centered img {
 	display: block;
 	margin-left: auto;
 	margin-right: auto;
-	}
+}
 	
-img.alignright {
-	padding: 4px;
-	margin: 0 0 2px 7px;
-	display: inline;
-	}
-
-img.alignleft {
-	padding: 4px;
-	margin: 0 7px 2px 0;
-	display: inline;
-	}
-
-.alignright {
+div.alignright {
 	float: right;
+        padding-top:4px;
+        padding-left: 6px;
 	}
-	
-.alignleft {
-	float: left
+div.alignright img {
+        display:block;
+        padding-bottom: 6px;
+}
+
+div.alignleft {
+	float: left;
+        padding-top:4px;
+	padding-right: 12px;
 	}
+div.alignleft img {
+        display:block;
+        padding-bottom: 6px;
+}
+
 
 /* End Images */
 
