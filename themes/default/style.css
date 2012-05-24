@@ -378,9 +378,9 @@ ol li {
 
 /* Begin Form Elements */
 
-#searchform {
-	margin: 10px auto 10px 0;
-	padding: 5px 3px; 
+form#searchform {
+	margin: 0px auto 30px 0;
+	padding: 0px; 
 	text-align: left;
 	}
 

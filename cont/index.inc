@@ -293,7 +293,7 @@ Else( $case == 'files' || $case == 'filecat');
     <div>
     <input type="text" value="[$s]" name="s" id="s">
     <input type="submit" id="searchsubmit" value="[str('Search!')]">
-    </div
+    </div>
 </form>		
 
 
