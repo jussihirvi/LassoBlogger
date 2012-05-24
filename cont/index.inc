@@ -259,9 +259,9 @@ MO_speakBubble($speakBubble);
 
 // #2.1 the left (wide) column
 
-'<table cellspacing="0" cellpadding="0" border="0" style="font-size:100%;">';
-'<tr>';
-'<td valign="top" id="widecolumn">';
+'<table cellspacing="0" cellpadding="0" border="0" style="font-size:100%;">\n';
+'<tr>\n';
+'<td valign="top" id="widecolumn">\n';
 '<div id="title">';
 If( $case == 'm'); // monthly
     '<h2>';
@@ -276,13 +276,13 @@ Else( $case == 'files' || $case == 'filecat');
     str('File Vault');
     '</h2>';
 /If;
-'</div>\r';
+'</div>\n';
   if( $case == 'files' || $case == 'filecat');
       include( $myinc + 'filevault.inc');
   else;
       include( $myinc + 'module_posts.inc');
   /if;
-'</td>\r'; //  end td widecolumn
+'</td>\n'; //  end td widecolumn
 
 
 // #2.2 sidebar
@@ -321,7 +321,7 @@ Else( $case == 'files' || $case == 'filecat');
 // 		// '<a href="?page='; Field('id'); '">';
 // 		Field('use_nickname');
 // 		// '</a>';
-// 	    '</li>\r';
+// 	    '</li>\n';
 //         /Records;
 // 	'</ul>';
 // 	/Inline;
@@ -339,7 +339,7 @@ Else( $case == 'files' || $case == 'filecat');
  	-ReturnField='pos_name',
  	-InlineName='getStaticPages');
      If( (Found_Count) > 0);
-         '<h2>'; str('Special Pages'); '</h2>\r<ul>';
+         '<h2>'; str('Special Pages'); '</h2>\n<ul>';
          Records;
  	    Var('permaStruct' = $opts -> find('permalink_structure'));
              '<li><a href="'; 
@@ -366,13 +366,13 @@ Else( $case == 'files' || $case == 'filecat');
  		  Field('pos_title');'&#34;">';
  		/If;
              Field('pos_title');
-             '</a></li>\r';
+             '</a></li>\n';
          /Records;
          '</ul>';
      /If;
      /Inline;
 
-'<h2>' + (str('Categories')) + '</h2>\r';
+'<h2>' + (str('Categories')) + '</h2>\n';
 
 '<ul>';
 // show cat links
@@ -391,7 +391,7 @@ Iterate( $catz->parents, $i); // parent cats (= all except children)
     $i -> Get(3);
     '">'; $i -> Get(3); '</a>'; 
     ' ('; LB_getNrofPosts(($i -> Get(1))); ')';
-    '</li>\r';
+    '</li>\n';
     // any child cats?
     $parent_catid = $i -> Get(1);
 	If( $catz->childparents -> (Find($parent_catid)) -> (Size));
@@ -410,7 +410,7 @@ Iterate( $catz->parents, $i); // parent cats (= all except children)
 		    $j -> Get(3);
 		    '">'; $j -> Get(3); '</a>'; 
 		    ' ('; LB_getNrofPosts(($j -> Get(1))); ')';
-		    '</li>\r';
+		    '</li>\n';
 		/If;
 	    /iterate;
 
@@ -429,7 +429,7 @@ If( ($opts -> find('use_fileupload')) == '1');
 		    -MaxRecords='1',
 		    -Search);
 	      If( Found_Count );
-'<h2>'; '<a href="?files=yes">'; str('File Vault'); '</a>';'</h2>\r';
+'<h2>'; '<a href="?files=yes">'; str('File Vault'); '</a>';'</h2>\n';
 
 '<ul>';
 
@@ -448,7 +448,7 @@ Iterate( $catz -> fileparents, $i);
     ' '; 
     $i -> Get(3);
     '">'; $i -> Get(3); '</a>'; 
-    '</li>\r';
+    '</li>\n';
     // any child cats?
     $parent_catid = $i -> Get(1);
 	If( $catz->filechildparents -> find($parent_catid) -> size);
@@ -464,7 +464,7 @@ Iterate( $catz -> fileparents, $i);
 		    ' '; 
 		    $j -> Get(3);
 		    '">'; $j -> Get(3); '</a>'; 
-		    '</li>\r';
+		    '</li>\n';
 		/If;
 	    /iterate;
 
@@ -553,23 +553,23 @@ Inline(-findAll,$dbConfig,-Table=$table_prefix+'linkcategories',
     '<ul>';
 
     If($use_level > 0);
-	'<li><a href="admin/">'; str('Site Admin'); '</a></li>\r';	
+	'<li><a href="admin/">'; str('Site Admin'); '</a></li>\n';	
     /If;
     If( integer($opts -> find('users_can_register')) == 1);
 	'<li><a href="';
 	$opts -> find('siteurl');
 	'register.lasso">'; str('Register');
-	'</a></li>\r';	
+	'</a></li>\n';	
     /If;
     if( $use_level < 1);
 	'<li><a href="';
 	$opts -> find('siteurl');
 	'?showlogin=yes">'; str('Login');
-	'</a></li>\r';	
+	'</a></li>\n';	
     else;
 	'<li><a href="';
 	'logout.lasso">'; str('Logout');
-	'</a></li>\r';	
+	'</a></li>\n';	
     /if;
 ?>
     </ul>

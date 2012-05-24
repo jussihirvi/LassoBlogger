@@ -1818,7 +1818,7 @@ MO_naviglinks(
   #out += '</div>'; // end naviglinks
   #out += '<div style="clear:both;">\n';
   #out += '</div>\n';
-  #out += '<div STYLE="clear:both;margin:0 auto 6px auto;width:100%; height:3px;;border-bottom:1px solid #999;">';
+  #out += '<div STYLE="clear:both;padding-bottom:3px;margin:0 auto 6px auto;width:100%; height:3px;border-bottom:1px solid #999;">';
   #out += '</div>\n';
   return(#out);
 /Define_Tag;

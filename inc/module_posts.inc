@@ -32,7 +32,7 @@ loop(1); // hack to mimic abort on L9
 		MO_speakBubble(Error_CurrentError);
             /if;
 
-    if( $case != 'p' && $case != 'page' && $case != 'perma');
+    if( $case != 'p' && $case != 'page' && $case != 'perma' && found_count > shown_count );
         MO_naviglinks(-rectype=$rectype,-rectype_pl=$rectype_plural);
     /if;
 
