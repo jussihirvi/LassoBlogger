@@ -328,49 +328,49 @@ Else( $case == 'files' || $case == 'filecat');
 
 //     // begin Special Pages
 // 
-//     Inline(-search,$dbConfig,-Table=$table_prefix+'posts',
-// 	'pos_status' = 'static',
-// 	-SortField='pos_menu_order',
-// 	-SortOrder='ascending',
-// 	-MaxRecords='all',
-// 	-ReturnField='id',
-// 	-ReturnField='pos_title',
-// 	-ReturnField='pos_date',
-// 	-ReturnField='pos_name',
-// 	-InlineName='getStaticPages');
-//     If( (Found_Count) > 0);
-//         '<h2>'; str('Special Pages'); '</h2>\r<ul>';
-//         Records;
-// 	    Var('permaStruct' = $opts -> find('permalink_structure'));
-//             '<li><a href="'; 
-// 	      $opts -> find('siteurl');
-// 		If( !($permaStruct -> (Find('%postname%')))); 
-// 			// if option not defined
-// 		    '?page='; Field('id'); 
-//  		    '">';
-// 		Else;	// use permalink structure
-// 		// available - /%year%/%monthnum%/%day%/%postname%/ /%postid%  
-// 		  Var('year' = (Date(Field('pos_date'))) -> Year);
-// 		  Var('month' = (Date(Field('pos_date'))) -> Month);
-// 		  Var('day' = (Date(Field('pos_date'))) -> Day);
-// 		  Var('postname' = Field('pos_name')); 
-// 		  Var('linkstuff' = ($opts -> find('permalink_structure')));
-// 		  $linkstuff ->  (RemoveLeading('/'));
-// 		  $linkstuff -> (Replace('%year%',$year));
-// 		  $linkstuff -> (Replace('%monthnum%',$month));
-// 		  $linkstuff -> (Replace('%day%',$day));
-// 		  $linkstuff -> (Replace('%postname%',$postname));
-// 		  $linkstuff -> (Replace('%postid%',$postID));
-// 		  encode_url($linkstuff); 
-// 		  '" TITLE="'; (str('Permanent link to')); ' &#34;'; 
-// 		  Field('pos_title');'&#34;">';
-// 		/If;
-//             Field('pos_title');
-//             '</a></li>\r';
-//         /Records;
-//         '</ul>';
-//     /If;
-//     /Inline;
+     Inline(-search,$dbConfig,-Table=$table_prefix+'posts',
+ 	'pos_status' = 'static',
+ 	-SortField='pos_menu_order',
+ 	-SortOrder='ascending',
+ 	-MaxRecords='all',
+ 	-ReturnField='id',
+ 	-ReturnField='pos_title',
+ 	-ReturnField='pos_date',
+ 	-ReturnField='pos_name',
+ 	-InlineName='getStaticPages');
+     If( (Found_Count) > 0);
+         '<h2>'; str('Special Pages'); '</h2>\r<ul>';
+         Records;
+ 	    Var('permaStruct' = $opts -> find('permalink_structure'));
+             '<li><a href="'; 
+ 	      $opts -> find('siteurl');
+ 		If( !($permaStruct -> (Find('%postname%')))); 
+ 			// if option not defined
+ 		    '?page='; Field('id'); 
+  		    '">';
+ 		Else;	// use permalink structure
+ 		// available - /%year%/%monthnum%/%day%/%postname%/ /%postid%  
+ 		  Var('year' = (Date(Field('pos_date'))) -> Year);
+ 		  Var('month' = (Date(Field('pos_date'))) -> Month);
+ 		  Var('day' = (Date(Field('pos_date'))) -> Day);
+ 		  Var('postname' = Field('pos_name')); 
+ 		  Var('linkstuff' = ($opts -> find('permalink_structure')));
+ 		  $linkstuff ->  (RemoveLeading('/'));
+ 		  $linkstuff -> (Replace('%year%',$year));
+ 		  $linkstuff -> (Replace('%monthnum%',$month));
+ 		  $linkstuff -> (Replace('%day%',$day));
+ 		  $linkstuff -> (Replace('%postname%',$postname));
+ 		  $linkstuff -> (Replace('%postid%',$postID));
+ 		  encode_url($linkstuff); 
+ 		  '" TITLE="'; (str('Permanent link to')); ' &#34;'; 
+ 		  Field('pos_title');'&#34;">';
+ 		/If;
+             Field('pos_title');
+             '</a></li>\r';
+         /Records;
+         '</ul>';
+     /If;
+     /Inline;
 
 '<h2>' + (str('Categories')) + '</h2>\r';
 
