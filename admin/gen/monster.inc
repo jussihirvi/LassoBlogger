@@ -174,7 +174,8 @@ else( Action_Param('upload') );
           /iterate;
 	var('upload_rotateangle'= Action_Param('upload_rotateangle'));
 	// next one for file remove (in LassoBlogger, page upl-list.lasso)
-	var('suffix' = string);
+        var('namebody' = string);
+	var('suffix'   = string);
 
 	// check upload_path 
 	// (in LB, defined in Options, in Monster CMS, in /gen/siteconfig.inc)
@@ -649,11 +650,23 @@ If( ! $dbChange_error && $upl_name );
 
     // ok - move the file to trash
 
+    var('aName' = $upl_name -> split('.'));
+    if($aName -> size != 2);
+      $speakBubble += 'Something wrong with the filename. Suffix missing?';
+        MO_speakBubble($speakBubble);
+	abort;
+    /if;
+    var('namebody') = $aName -> get(1);
+    var('suffix') = $aName -> get(2);
+    var('thumbsuffix') = string($suffix);
+    if($suffix == 'png'); // exception
+      $thumbsuffix = 'jpg';
+    /if;
 
     // thumbnail
-    $thispath = $path + 'thumbnails/' + $upl_name;
+    $thispath = $path + 'thumbnails/' + $namebody + '.' + $thumbsuffix;
     if(file_exists($thispath));
-      file_move( $thispath,$upload_trashpath+$upl_name,-FileOverwrite);
+      file_move( $thispath,$upload_trashpath+$namebody+'.'+$thumbsuffix,-FileOverwrite);
       if( File_CurrentError == 'No Error');
           $movedpaths += ($thispath + '<br>');
       else;

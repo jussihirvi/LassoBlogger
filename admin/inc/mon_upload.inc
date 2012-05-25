@@ -58,6 +58,7 @@ loop(1); // hack to mimic abort on L9
             $speakBubble += 'Please use only one dot (.) in the filename.<br>';
             $uploadErr = 34;
         else( $aName -> Size == 2); // ok case
+            $namebody = $aName -> get(1);
             $suffix = $aName -> get(2);
             Var('allowedSx' = $allowed_file_suffixes -> Split(' '));
             if( $allowedSx -> find($suffix) == array );
@@ -141,7 +142,6 @@ loop(1); // hack to mimic abort on L9
     /If;
 
     // validate: check for duplicate filename
-
     If( $uploadErr == 0);
 	var('testpath') = string;
 	var('exists_path') = string;
@@ -223,9 +223,15 @@ if($suffix == 'jpg' || $suffix == 'gif' || $suffix == 'png');
     /if;
 
     // make thumbnail 
+    var('thumbsuffix') = string($suffix);
     $speakBubble += MO_createdir($path + 'thumbnails' + '/');
-    $myimg ->	  save($path + 'thumbnails/' + $upload_filename);
-    var('myimg' = image($path + 'thumbnails/' + $upload_filename));
+    // png causes crash, convert to jpg
+    if($suffix == 'png');
+      $myimg -> convert('jpg',-quality='30');
+      $thumbsuffix = 'jpg'; 
+    /if;
+    $myimg ->	  save($path + 'thumbnails/' + $namebody + '.' + $thumbsuffix);
+    var('myimg' = image($path+ 'thumbnails/' + $namebody + '.' + $thumbsuffix));
 
     if(($myimg -> height) > 2 * ($myimg -> width)); // if it is high and narrow 
       if($myimg-> height > 80);                     // does it really need scaling?
@@ -236,14 +242,16 @@ if($suffix == 'jpg' || $suffix == 'gif' || $suffix == 'png');
 	$myimg -> scale(-width='80');
       /if;
     /if;
-    if($suffix == 'jpg');
-	$myimg -> save($path + 'thumbnails/' + $upload_filename,
+    if($thumbsuffix == 'jpg'); // jpg and png origs
+	$myimg -> save($path + 'thumbnails/' + $namebody + '.' + $thumbsuffix,
 	    -quality='40');
     else; // gif
-	$myimg -> save($path + 'thumbnails/' + $upload_filename);
+	$myimg -> save($path + 'thumbnails/' + $namebody + '.' + $thumbsuffix);
     /if;
     $path_description -> insert('thumbnail');
     // end make thumbnail
+  '<img src="' + $path + 'thumbnails/' + $namebody + '.' + $thumbsuffix + '">';
+
 
     // make other sizes
     if($upload_scale == 'yes');
@@ -299,7 +307,6 @@ if($suffix == 'jpg' || $suffix == 'gif' || $suffix == 'png');
 MO_speakBubble($speakBubble);
 
 /if;    // end image manipulations
-
 
 // now handle database entries
     If( ! $upload_catid ); $upload_catid = '-1'; /If;
