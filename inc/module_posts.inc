@@ -239,9 +239,9 @@ loop(1); // hack to mimic abort on L9
 	If( $showEditLink == 'yes');
 	    '<a href="admin/';
 	    If( $pos_status == 'static');
-		'man-pageedit.lasso';
+		'man-page-form.lasso';
 		Else;
-		'man-postedit.lasso';
+		'man-post-form.lasso';
 	    /If;
 	    '?&amp;id=';
 	    $postID;
