@@ -225,14 +225,12 @@ if($suffix == 'jpg' || $suffix == 'gif' || $suffix == 'png');
     // make thumbnail 
     var('thumbsuffix') = string($suffix);
     $speakBubble += MO_createdir($path + 'thumbnails' + '/');
-    // png causes crash, convert to jpg
+    // saving modified Mac Preview png causes crash, convert to jpg
+    // (making scaled versions of these pngs still does not work)
     if($suffix == 'png');
       $myimg -> convert('jpg',-quality='30');
       $thumbsuffix = 'jpg'; 
     /if;
-    $myimg ->	  save($path + 'thumbnails/' + $namebody + '.' + $thumbsuffix);
-    var('myimg' = image($path+ 'thumbnails/' + $namebody + '.' + $thumbsuffix));
-
     if(($myimg -> height) > 2 * ($myimg -> width)); // if it is high and narrow 
       if($myimg-> height > 80);                     // does it really need scaling?
 	$myimg -> scale(-height='80');
@@ -250,7 +248,7 @@ if($suffix == 'jpg' || $suffix == 'gif' || $suffix == 'png');
     /if;
     $path_description -> insert('thumbnail');
     // end make thumbnail
-  '<img src="' + $path + 'thumbnails/' + $namebody + '.' + $thumbsuffix + '">';
+//  '<img src="' + $path + 'thumbnails/' + $namebody + '.' + $thumbsuffix + '">';
 
 
     // make other sizes

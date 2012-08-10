@@ -215,6 +215,8 @@ else( $perma );
             $startDate = date($year+'-' + $monthnum + '-01 00:00:00');
             $endDate = date($startDate);
             $endDate -> add(-month=1);
+            $startDate = $startDate -> format('%Q %T');
+            $endDate = $endDate -> format('%Q %T');
         else;			// year, monthnum, day are known
                     // capture crazy input
                     if(1 > $monthnum || $monthnum > 12 );
@@ -228,6 +230,8 @@ else( $perma );
             $startDate = date($year + '-' + $monthnum + '-' + $day+' 00:00:00');
             $endDate = date($startDate);
             $endDate -> add(-day=1);
+            $startDate = $startDate -> format('%Q %T');
+            $endDate = $endDate -> format('%Q %T');
         /if;
         $searchArgs -> insert( '-gte');
         $searchArgs -> insert( 'pos_date' = $startDate);
