@@ -557,7 +557,8 @@ Inline(-findAll,$dbConfig,-Table=$table_prefix+'linkcategories',
     '<ul>';
 
     If($use_level > 0);
-	'<li><a href="admin/">'; str('Site Admin'); '</a></li>\n';	
+        '<li><a href="'; $opts -> find('siteurl');
+        'admin/">'; str('Site Admin'); '</a></li>\n'; 
     /If;
     If( integer($opts -> find('users_can_register')) == 1);
 	'<li><a href="';
