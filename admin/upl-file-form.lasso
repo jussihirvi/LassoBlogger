@@ -130,7 +130,7 @@ Array('upl_customsortcode','Custom sort code','text','','40px','','','',''),
 // Array('upl_userid','Uploaded by','replacecode','','','','','',$auth),
 Array('upl_modified','Last modified','moddate','','','','','date',''),
 Array('upl_imagedisplay','Image Display','select','','right;left;block;link;none','display: right side of post;display: left side of post;display: center of post;no display: show link to file; no display','Relevant only for image files','',''),
-// Array('upl_linkurl','Link URI','text','','','','Use this to make a post-related image into a link (typically it would point to a big version of an image). If the value does not begin with "http://" or a slash (/), it is relative to the	path that is <a href="opt-uploads.lasso">set in the option</a> <code>fileupload_path</code> (current value: <b>[LB_getOption(\'fileupload_path\')]</b>)','',''),
+Array('upl_linkurl','Link URI','text','','','','Use this to make a post-related image into a link (typically it would point to a big version of an image). If the value does not begin with "http://" or a slash (/), it is relative to the	path that is <a href="opt-uploads.lasso">set in the option</a> <code>fileupload_path</code> (current value: <b>[$opts->find(\'fileupload_path\')]</b>)','',''),
 );
 // define sorting for the main search inline
 var('sortstuff') = Array(
