@@ -491,7 +491,7 @@ var('emailbody') = str('a comment has been added to your blog at');
 $emailbody += '\n\n' + ($opts -> find('siteurl')) + 
 		'?' + $oldcase + '=' + $com_post_id;
 $emailbody += '\n\n' + str('You may edit or moderate the comment here:');
-$emailbody += '\n\n' + ($opts -> find('siteurl')) + 'admin/man-commedit.lasso';
+$emailbody += '\n\n' + ($opts -> find('siteurl')) + 'admin/man-comm-form.lasso';
 $emailbody += '?id=' + $commentID;
 email_send( -from=($opts -> find('admin_email')),
 	-to=$emailto,
