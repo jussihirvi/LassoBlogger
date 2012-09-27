@@ -411,8 +411,8 @@ if( $result == 'discard' );
 	$email_body += '\n\nTo turn off these notification emails, open cont/com-posted.inc and set the var notifyAdmin to \'no\' for individual tests.';
 	email_send( -from=($opts -> find('admin_email')),
 		    -to=($opts -> find('admin_email')),
-		    -subject=($opts -> find('blogname')) + '( ' 
-			+ 'a comment has been discarded',
+		    -subject=($opts -> find('blogname')  
+			+ ' (a comment has been discarded)'),
 		    -body=$email_body);
     /if;
     loop_continue; // mimics abort
