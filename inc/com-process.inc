@@ -409,7 +409,7 @@ if( $result == 'discard' );
 	$temp -> replace('<br>','\n');
 	var('email_body') = 'This is an automatic message from your blog. Your comment processing system has been set to notify the blog administrator of a comment evaluation. Below is the error message presented to the commentor.\n\n' + $temp;
 	$email_body += '\n\nTo turn off these notification emails, open cont/com-posted.inc and set the var notifyAdmin to \'no\' for individual tests.';
-	email_send: -from=($opts -> find('admin_email')),
+	email_send( -from=($opts -> find('admin_email')),
 		    -to=($opts -> find('admin_email')),
 		    -subject=($opts -> find('blogname')) + '( ' 
 			+ 'a comment has been discarded',
