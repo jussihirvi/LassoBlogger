@@ -309,7 +309,7 @@ Else( $case == 'files' || $case == 'filecat');
 	-->
 	<!-- multi-author blog -->
 <?LassoScript
-// 	'<h2>'; (str('Authors')); '</h2>';
+// 	'<h2>'; str('Authors'); '</h2>';
 //     Inline(-search,$dbConfig,-Table=$table_prefix+'users',
 // 	-Op='gte',
 // 	'use_level' =2,
@@ -342,31 +342,31 @@ Else( $case == 'files' || $case == 'filecat');
  	-ReturnField='pos_date',
  	-ReturnField='pos_name',
  	-InlineName='getStaticPages');
-     If( (Found_Count) > 0);
+     If( found_count );
          '<h2>'; str('Special Pages'); '</h2>\n<ul>';
          Records;
- 	    Var('permaStruct' = $opts -> find('permalink_structure'));
+ 	    Var('permaStruct') = $opts -> find('permalink_structure');
              '<li><a href="'; 
  	      $opts -> find('siteurl');
- 		If( !($permaStruct -> (Find('%postname%')))); 
+ 		If( ! ($permaStruct -> find('%postname%')) ); 
  			// if option not defined
  		    '?page='; Field('id'); 
   		    '">';
  		Else;	// use permalink structure
  		// available - /%year%/%monthnum%/%day%/%postname%/ /%postid%  
- 		  Var('year' = (Date(Field('pos_date'))) -> Year);
- 		  Var('month' = (Date(Field('pos_date'))) -> Month);
- 		  Var('day' = (Date(Field('pos_date'))) -> Day);
- 		  Var('postname' = Field('pos_name')); 
- 		  Var('linkstuff' = ($opts -> find('permalink_structure')));
- 		  $linkstuff ->  (RemoveLeading('/'));
- 		  $linkstuff -> (Replace('%year%',$year));
- 		  $linkstuff -> (Replace('%monthnum%',$month));
- 		  $linkstuff -> (Replace('%day%',$day));
- 		  $linkstuff -> (Replace('%postname%',$postname));
- 		  $linkstuff -> (Replace('%postid%',$postID));
+ 		  Var('year')      = Date(Field('pos_date')) -> Year;
+ 		  Var('month')     = Date(Field('pos_date')) -> Month;
+ 		  Var('day')       = Date(Field('pos_date')) -> Day;
+ 		  Var('postname')  = Field('pos_name'); 
+ 		  Var('linkstuff') = $opts -> find('permalink_structure');
+ 		  $linkstuff -> RemoveLeading('/');
+ 		  $linkstuff -> Replace('%year%',string($year));
+ 		  $linkstuff -> Replace('%monthnum%',string($month));
+ 		  $linkstuff -> Replace('%day%',string($day));
+ 		  $linkstuff -> Replace('%postname%',$postname);
+ 		  $linkstuff -> Replace('%postid%',$postID);
  		  encode_url($linkstuff); 
- 		  '" TITLE="'; (str('Permanent link to')); ' &#34;'; 
+ 		  '" TITLE="'; str('Permanent link to'); ' &#34;'; 
  		  Field('pos_title');'&#34;">';
  		/If;
              Field('pos_title');
