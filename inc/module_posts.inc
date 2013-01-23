@@ -159,7 +159,8 @@ loop(1); // hack to mimic abort on L9
 
 		If( $opts -> find('www_use_summary') == '1'
 			&& $summary && ($case != 'p' && $case != 'perma'));
-		    '<p class="summary">'; $files -> get(1); // shown_files 
+                    $files -> get(1); // shown_files 
+		    '<p class="summary">'; 
                         encode_smart($summary);
 		    '</p>\r';
 		    '<p class="linkfromsummary"><a href="' + $url_topost + '" TITLE="';
@@ -167,12 +168,12 @@ loop(1); // hack to mimic abort on L9
 		    '">';
 		    str('Read the whole post'); ' &#187;</a></p>\r';
 		Else;
+                    $files -> get(1); // shown_files
 		    '<p class="summary">'; 
-                        $files -> get(1); // shown_files
                         encode_smart($summary);
 		    '</p><p>';
                         encode_smart($content);
-		    '</p>\r';
+//		    '</p>\r';
 		/If;
 		If( $files->get(2)->size); $files->get(2); /If; //linked_files
 

@@ -141,7 +141,7 @@ if($com_post_id); // comment submitted
 
 <!--<p><small><strong>XHTML:</strong> You can use these tags: &lt;a href=&quot;&quot; title=&quot;&quot;&gt; &lt;abbr title=&quot;&quot;&gt; &lt;acronym title=&quot;&quot;&gt; &lt;b&gt; &lt;blockquote cite=&quot;&quot;&gt; &lt;code&gt; &lt;em&gt; &lt;i&gt; &lt;strike&gt; &lt;strong&gt; </small></p>-->
 
-<p><textarea name="com_content" id="com_content" rows="10" tabindex="4" style="width:400px;">[$com_content]</textarea></p>
+<p><textarea name="com_content" id="com_content" cols="60" rows="10" tabindex="4">[$com_content]</textarea></p>
 
 <p><input name="submit" type="submit" id="submit" tabindex="5" value="[str('Submit Comment')]">
 </p>

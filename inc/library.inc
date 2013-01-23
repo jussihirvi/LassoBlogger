@@ -1773,7 +1773,7 @@ MO_naviglinks(
   #out += '<div id="naviglinks_lowleft">\n';
     if(shown_first > 1);
       #out += #arrowleft;
-      #out += ' <a href="' + $myfilename + '?ref=naviglinks&';
+      #out += ' <a href="' + $myfilename + '?ref=naviglinks&amp;';
         #out += $linkstuff + 'skip=' + #mathsub+'">\n';
         #out += str('Previous page');
       #out += '</a>';
@@ -1788,7 +1788,7 @@ MO_naviglinks(
   //     If( (Loop_Count >= Shown_First - (5 * MaxRecords_Value))
   //      && (Loop_Count <= Shown_First + (5 * MaxRecords_Value)));
   //         If( Loop_Count != Shown_First);
-  //           #out += '<A HREF=\"' + $myfilename + '?ref=naviglinks&' + $linkstuff;
+  //           #out += '<A HREF=\"' + $myfilename + '?ref=naviglinks&amp;' + $linkstuff;
   //           #out += 'skip=' + (loop_count - 1) + '\">' + loop_count + '</A>';
   //         Else;
   //           #out += '<em>' + string(loop_count) + '</em>';
@@ -1804,7 +1804,7 @@ MO_naviglinks(
 
   #out += '<div id="naviglinks_lowright">\n&nbsp;';
     if( shown_last != found_count );
-      #out += ('<a href="' + $myfilename + '?ref=naviglinks&' + $linkstuff);
+      #out += ('<a href="' + $myfilename + '?ref=naviglinks&amp;' + $linkstuff);
       #out += ('skip=' + shown_last + '">');
       #out += str('Next page');
       #out += (#arrowright + '</a> ');
