@@ -1970,7 +1970,9 @@ example usage
                   #linked_files += '">' + #name + '</A><br>\r';
               /if;
           /iterate;
-          #shown_files += '</div>\n'; // close the (last) div
+          if(#shown_files);
+            #shown_files += '</div>\n'; // close the (last) div
+          /if;
   return(array(#shown_files,#linked_files));
 /define_tag;
 define_tag('imagelogic',-namespace='MO',

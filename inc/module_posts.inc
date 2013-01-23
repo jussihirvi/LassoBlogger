@@ -159,7 +159,7 @@ loop(1); // hack to mimic abort on L9
 
 		If( $opts -> find('www_use_summary') == '1'
 			&& $summary && ($case != 'p' && $case != 'perma'));
-		    '<p class="summary">';$shown_files; 
+		    '<p class="summary">'; $files -> get(1); // shown_files 
                         encode_smart($summary);
 		    '</p>\r';
 		    '<p class="linkfromsummary"><a href="' + $url_topost + '" TITLE="';
