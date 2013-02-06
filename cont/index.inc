@@ -11,7 +11,8 @@ var( 'searchArgs' = array,
 
 // capture action params - month, post, searchphrase, category, page
 
-var('m'           = action_param('m'), 
+var('y'           = action_param('y'), 
+    'm'           = action_param('m'), 
     'p'           = action_param('p'), 
     's'           = action_param('s'), 
     'cat'         = integer(action_param('cat')),
@@ -39,7 +40,7 @@ $abort_it ? loop_continue; // loop_continue mimics abort, necessary in l9
 if( $com_post_id ); 		// comment submitted
     include( $myinc + 'com-process.inc');
     if(action_param('oldcase') == 'p');
-      $p= $com_post_id;
+      $p = $com_post_id;
     else(action_param('oldcase') == 'perma');
       $p = $com_post_id;
     else(action_param('oldcase') == 'page');
@@ -47,29 +48,40 @@ if( $com_post_id ); 		// comment submitted
     /if;
 /if;
 
-if( $m );		// month
+if( $y );		// year
+    $linkstuff = 'y=' + $y;
+    if( $y -> Size != 4 || integer($y) < 1900 || integer($y) > 3000);
+	$speakBubble += 'Cannot interpret the specified year ' + $y + '.';
+    else;
+        $case = 'y';
+	var('startDate') = $y+'-01-01 00:00:00';
+	var('endDate')   = $y+'-12-31 23:59:59';
+	$searchArgs = array(-gte, 'pos_date' = $startDate,
+                            -lte, 'pos_date' = $endDate,
+                            'pos_status' = 'publish'
+        );
+    /if;
+else( $m );		// month
     $linkstuff = 'm=' + $m;
     if( $m -> Size != 6 || integer($m) < 100000 || integer($m) > 300000);
 	$speakBubble += 'Cannot interpret the specified month ' + $m + '.';
     else;
         $case = 'm';
-	var('year'      = integer($m -> substring(1,4)));
-	var('month'     = integer($m -> substring(5,2)));
+	var('year'       = integer($m -> substring(1,4)));
+	var('month'      = integer($m -> substring(5,2)));
         var('year_s')    = string($year);
         var('month_s')   = string($month);
-	var('startDate') = date($year_s+'-'+$month_s+'-01 00:00:00');
+	var('startDate') = $year_s+'-'+$month_s+'-01 00:00:00';
 	if( $month == 12);
-          var('enddate') = date(($year_s + 1) + '-01-01 00:00:00' );
+          var('enddate') = string($year + 1) + '-01-01 00:00:00';
 	else;
-          var('endDate' = 
-            date($year_s + '-' + string($month + 1) + '-01 00:00:00' ));
+          var('endDate') = 
+            $year_s + '-' + string($month + 1) + '-01 00:00:00';
 	/if;
-	$searchArgs = array('-Operator' = 'gte', 
-		'pos_date' = (Date_Format($startDate,-Format='%Q %T')),
-		'-Operator' = 'lt', 
-		'pos_date' = (Date_Format($endDate,-Format='%Q %T')),
-		'pos_status' = 'publish',
-		);
+	$searchArgs = array(-gte, 'pos_date' = $startDate,
+                            -lt,  'pos_date' = $endDate,
+                            'pos_status' = 'publish',
+        );
     /if;
 else( $p ); 		// post (and comments)
     $case = 'p';
@@ -492,30 +504,42 @@ Inline(-findAll,$dbConfig,-Table=$table_prefix+'posts',
     -ReturnField='pos_date',
     -InlineName='archiveSearch');
 
-    var(	'tempDate' 	= Date,
-		'myMonth' 	= Integer,
-		'myMonthname'	= String,
-		'myYear' 	= Integer);
-
-    var('subhea' = '');
+    var(	'myDate' 	= date,
+		'myMonth' 	= integer,
+		'myMonthname'	= string,
+		'myYear' 	= integer,
+                'subheaMonth'   = string,
+                'subheaYear'    = string,
+                'href'          = string,
+                'label'         = string,
+                'yearMode'      = 'no');
     Records;
-	$tempDate = (Date(Field('pos_date'),-Format='%Q %T'));
+      $myDate     = date(field('pos_date'),-format='%Q %T');
+      $myMonth 	  = $myDate -> month; // month names, see languages
+      $myMonthname= $aMonths -> get($myMonth);
+      $myYear 	  = $myDate -> year;
+      $href       = $opts -> find('siteurl');
 
-	$myMonth 	= $tempDate -> Month;
-	// for month names, see config.lasso
-	$myMonthname 	= $aMonths -> Get($myMonth);
-	$myYear 	= $tempDate -> Year;
-
-	If( $subhea != (String($myYear)) + (String($myMonth)));
-	// display
-	    '<li><a href="';
-	    $opts -> find('siteurl');
-	    '?m=' + $myYear + (Date_Format($tempDate,-Format='%m')) + 
-	    '" title="' + $myMonthname + 
-	     ' ' +  $myYear + '">' + $myMonthname + ' ' + $myYear + '</a></li>';
-	/If;
-    $subhea = (String($myYear)) + (String($myMonth));
-//     $subhea;'<br>';
+      if( $subheaMonth != string($myYear)+string($myMonth)); // month changed
+        if(   $subheaYear != $myYear 
+              && loop_count > 8 );         // show year-links
+          $href     += '?y=' + string($myYear); 
+          $label     = string($myYear);
+          $yearMode = 'yes';
+          '<li>';
+            '<a href="'+$href+'" title="'+$label+'">'+$label+'</a>';
+          '</li>\n';
+        else($yearMode != 'yes');           // show month-links
+          $href += '?m=' + string($myYear) + string($myMonth); 
+          $label = $myMonthname + ' ' + string($myYear);
+          '<li>';
+            '<a href="'+$href+'" title="'+$label+'">'+$label+'</a>';
+          '</li>\n';
+        /if;
+        // display
+      /if;
+      $subheaMonth = string($myYear) + string($myMonth);
+      $subheaYear = $myYear;
     /Records;
 /Inline;
 '</ul>';

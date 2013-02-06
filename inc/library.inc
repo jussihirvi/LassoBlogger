@@ -1774,7 +1774,7 @@ MO_naviglinks(
     if(shown_first > 1);
       #out += #arrowleft;
       #out += ' <a href="' + $myfilename + '?ref=naviglinks&amp;';
-        #out += $linkstuff + 'skip=' + #mathsub+'">\n';
+        #out += $linkstuff + '&amp;skip=' + #mathsub+'">\n';
         #out += str('Previous page');
       #out += '</a>';
     /if;
@@ -1805,7 +1805,7 @@ MO_naviglinks(
   #out += '<div id="naviglinks_lowright">\n&nbsp;';
     if( shown_last != found_count );
       #out += ('<a href="' + $myfilename + '?ref=naviglinks&amp;' + $linkstuff);
-      #out += ('skip=' + shown_last + '">');
+      #out += ('&amp;skip=' + shown_last + '">');
       #out += str('Next page');
       #out += (#arrowright + '</a> ');
     /if;
