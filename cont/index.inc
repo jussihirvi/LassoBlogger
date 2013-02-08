@@ -496,8 +496,8 @@ Iterate( $catz -> fileparents, $i);
 
 '<h2>'; Str('Archives'); '</h2>';
 '<ul>';
-Inline(-findAll,$dbConfig,-Table=$table_prefix+'posts',
-    'pos_status' = 'publish',
+Inline(-search,$dbConfig,-Table=$table_prefix+'posts',
+    -eq, 'pos_status' = 'publish',
     -SortField='pos_date',
     -SortOrder='descending',
     -MaxRecords='all',
@@ -505,9 +505,9 @@ Inline(-findAll,$dbConfig,-Table=$table_prefix+'posts',
     -InlineName='archiveSearch');
 
     var(	'myDate' 	= date,
-		'myMonth' 	= integer,
+		'myMonth' 	= string,
 		'myMonthname'	= string,
-		'myYear' 	= integer,
+		'myYear' 	= string,
                 'subheaMonth'   = string,
                 'subheaYear'    = string,
                 'href'          = string,
@@ -515,30 +515,31 @@ Inline(-findAll,$dbConfig,-Table=$table_prefix+'posts',
                 'yearMode'      = 'no');
     Records;
       $myDate     = date(field('pos_date'),-format='%Q %T');
-      $myMonth 	  = $myDate -> month; // month names, see languages
-      $myMonthname= $aMonths -> get($myMonth);
-      $myYear 	  = $myDate -> year;
+      $myMonth 	  = string($myDate -> month); 
+      $myMonth -> padleading(2,'0');
+      $myMonthname= $aMonths -> get($myDate->month);// month names, see languages
+      $myYear 	  = string($myDate -> year);
       $href       = $opts -> find('siteurl');
 
-      if( $subheaMonth != string($myYear)+string($myMonth)); // month changed
+      if( $subheaMonth != $myYear + $myMonth); // month changed
         if(   $subheaYear != $myYear 
               && loop_count > 8 );         // show year-links
-          $href     += '?y=' + string($myYear); 
-          $label     = string($myYear);
+          $href     += '?y=' + $myYear; 
+          $label     = $myYear;
           $yearMode = 'yes';
           '<li>';
             '<a href="'+$href+'" title="'+$label+'">'+$label+'</a>';
           '</li>\n';
         else($yearMode != 'yes');           // show month-links
-          $href += '?m=' + string($myYear) + string($myMonth); 
-          $label = $myMonthname + ' ' + string($myYear);
+          $href += '?m=' + $myYear + $myMonth; 
+          $label = $myMonthname + ' ' + $myYear;
           '<li>';
             '<a href="'+$href+'" title="'+$label+'">'+$label+'</a>';
           '</li>\n';
         /if;
       /if;
-      $subheaMonth = string($myYear) + string($myMonth);
-      $subheaYear = $myYear;
+      $subheaMonth = $myYear + $myMonth;
+      $subheaYear  = $myYear;
     /Records;
 /Inline;
 '</ul>';
