@@ -1,7 +1,7 @@
 <?LassoScript
 // remember - var 'i' is reserved (in the enclosing file inc/filevault.inc)!!
 	'<h3>'; $upc_nicename; 
-	' <span STYLE="font-size:80%;font-weight:normal;">&nbsp;&nbsp;'; 
+	' <span style="font-size:80%;font-weight:normal;">&nbsp;&nbsp;'; 
 	$upc_description; '</span>';
 	'</h3>\r';
 

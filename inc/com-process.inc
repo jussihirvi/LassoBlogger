@@ -229,7 +229,7 @@ if( ! $result );
 
 // 	'test:'; $result; ',test='; $testNr; 
 // 	      ',optvalue='; $optvalue; 
-// 	      ',user='; ($userinfo -> LB_getUser_id); '<br>';
+// 	      ',user='; ($userinfo -> LB_getUser_id); '<br />';
 
 //  == Unconditional  ==			35  comment_moderation
 
@@ -316,7 +316,7 @@ if( ! $result );
         if( ($this -> get(4)) == 'req' );
             if( ! var($this -> get(1)) );
                 $speakBubble += (str('Please give') + ' ' + 
-			str($this->get(2)) + '!<br>');
+			str($this->get(2)) + '!<br />');
                 $testNr = '1001';
                 $result = 'discard';
             /if;
@@ -325,12 +325,12 @@ if( ! $result );
     //  			36 require_name_email 
     if( $opts -> find('require_name_email') == '1' );
 	if( $com_author_email == '' );
-          $speakBubble += str('Please give') + ' ' + str('email address') + '!<br>';
+          $speakBubble += str('Please give') + ' ' + str('email address') + '!<br />';
           $testNr = '1001';
           $result = 'discard';
 	/if;
 	if( ! $com_author );
-          $speakBubble += str('Please give') + ' ' + str('your name') + '!<br>';
+          $speakBubble += str('Please give') + ' ' + str('your name') + '!<br />';
           $testNr = '1001';
           $result = 'discard';
 	/if;
@@ -366,19 +366,19 @@ var('email_recipient') = string;
 
 if( $result != 'discard' );
     if( $opts -> find('comments_notify') == '1' );
-        $errText += '<br>' + str('The writer of the post will be notified of your comment.');
+        $errText += '<br />' + str('The writer of the post will be notified of your comment.');
 	$email_recipient = 'writer';
     else( $opts -> find('comments_notify') == '2' );
-        $errText += '<br>' + str('The administrator will be notified of your comment.');
+        $errText += '<br />' + str('The administrator will be notified of your comment.');
 	$email_recipient = 'admin';
     else( $opts -> find('comments_notify') != '0' );
 	$adminErr += ('Problem in reading option value. The value might be empty or illegal. Option id = 33');
     else( $result == 'moderate' );
       if( $opts -> find('moderation_notify') == '1' );
-        $errText += '<br>' + str('The writer of the post will be notified of your comment.');
+        $errText += '<br />' + str('The writer of the post will be notified of your comment.');
 	$email_recipient = 'writer';
       else( $opts -> find('moderation_notify') == '2' );
-        $errText += '<br>' + str('The administrator will be notified of your comment.');
+        $errText += '<br />' + str('The administrator will be notified of your comment.');
 	$email_recipient = 'admin';
       else( $opts -> find('moderation_notify') );
 	$adminErr += ('Problem in reading option value. The value might be empty or illegal. Option id = 34');
@@ -392,12 +392,12 @@ if( $result != 'discard' );
 if( $result == 'discard' );
     // assemble the text
     $speakBubble = str('Sorry, your comment was <b>NOT</b> saved.'); 
-    $speakbubble +='<br>'+str('It didn\'t pass test number')+' '+$testNr+'.';
-    $speakbubble +='<br>'+str('The tests are used to control commenting and to prevent spam comments.');
+    $speakbubble +='<br />'+str('It didn\'t pass test number')+' '+$testNr+'.';
+    $speakbubble +='<br />'+str('The tests are used to control commenting and to prevent spam comments.');
     if( $errtext != '' );
-       $speakbubble += '<br>' + str('More info') + ': <b>' + $errText + '</b>.';
+       $speakbubble += '<br />' + str('More info') + ': <b>' + $errText + '</b>.';
     /if;
-    $speakbubble += '<br>'+str('You can try again or contact the administrator at'); 
+    $speakbubble += '<br />'+str('You can try again or contact the administrator at'); 
     $speakbubble += (' ' + $opts -> find('admin_email')); 
 
     // display
@@ -406,7 +406,7 @@ if( $result == 'discard' );
     // notify admin, if needed
     if( $notifyAdmin == 'yes' );
 	var('temp') = $text;
-	$temp -> replace('<br>','\n');
+	$temp -> replace('<br />','\n');
 	var('email_body') = 'This is an automatic message from your blog. Your comment processing system has been set to notify the blog administrator of a comment evaluation. Below is the error message presented to the commentor.\n\n' + $temp;
 	$email_body += '\n\nTo turn off these notification emails, open cont/com-posted.inc and set the var notifyAdmin to \'no\' for individual tests.';
 	email_send( -from=($opts -> find('admin_email')),
@@ -445,7 +445,7 @@ var('commentid') = string;
 
 // moderation text to user
 if( $result == 'moderate' );
-    $speakBubble += ' <br>' + str('It has to be moderated by administrator before it can be shown.'); 
+    $speakBubble += ' <br />' + str('It has to be moderated by administrator before it can be shown.'); 
 /if;
 
 MO_speakBubble($speakBubble);

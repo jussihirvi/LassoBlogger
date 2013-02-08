@@ -1,7 +1,7 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<HTML><HEAD>
-<META http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<TITLE>[$opts -> find('blogname')][If( $page_title != '')] - [$page_title][/If]</TITLE>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>[$opts -> find('blogname')][If( $page_title != '')] - [$page_title][/If]</title>
 <link rel="stylesheet" href="[$myStylesheet]" type="text/css">
 <style type="text/css">
 <!--
@@ -60,8 +60,8 @@ $(document).ready(function(){
   ?>
 });
 </script>
-</HEAD>
-<BODY>
+</head>
+<body>
 <div id="page">
 <?LassoScript
 if( $header );
@@ -70,14 +70,12 @@ if( $header );
 if( $use_level < 1 && ($showlogin == 'yes' || $loginsubmitted == 'yes') );
   include('inc/loginform.inc');
 else;
-  include( Var('contents'));
+  include($contents);
 /if;
 
-If( $footer );
-    include( $footer);
-/If;
+$footer ? include($footer);
 ?>
 
 </div> <!-- end pagearea -->
-</BODY>
-</HTML>
+</body>
+</html>

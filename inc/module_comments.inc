@@ -1,6 +1,14 @@
+<div class="commenting">
 <?LassoScript
 
 // comments module
+var('aclass') = 'closed';
+var('blockstyle') = 'style="display:none;"';
+if($case=='p' || $case=='page' || $case=='perma');
+  $aclass='open';
+  $blockstyle='style="display:block;"';
+/if;
+
 
 // var postID comes from inc/module_posts.inc
 
@@ -13,8 +21,9 @@ inline(-search,$dbConfig,
     -inlineName='commentSearch');
 
     records;
-	if( (Loop_Count) == 1 );
-	    '<h3 id="comments">' + Found_Count + ' ';
+	if( loop_count == 1 );
+	    '<h3 class="comments"><a class="'+$aclass+'" href="#" id="comments-' + $postID + '">';
+                    Found_Count + ' ';
 		    if( found_count == 1 );
 			str('comment');
                     else( found_count > 1 );
@@ -23,17 +32,20 @@ inline(-search,$dbConfig,
                     ' ';  
                     if( $case == 'p' || $case == 'perma'); 
                         str('to the post'); 
+                        ' &#8220;' + $pos_title + '&#8221;';
                     else( $case == 'page'); 
                         str('to the page'); 
+                        ' &#8220;' + $pos_title + '&#8221;';
                     /if;
-                    ' &#8220;' + $pos_title + '&#8221;';
-	    '</h3>'; 	
-	    '<ol class="commentlist">';
+	    '</a></h3>'; 	
+	    '<ol class="commentlist" id="comments-'+$postid+'" '+$blockstyle+'>';
 	/if;
 
 // show the comment
 
-'<li class="comment" id="comment-'; loop_count; '">';
+'<a id="comment-' + $postid + '-' + loop_count + '"></a>\n';
+'<a id="test"></a>';
+'<li class="comment" id="comment-' + loop_count + '">\n';
 '<span class="commentauthor">';
     if( field('com_author_url') );
 	'<a href="http://' + field('com_author_url');
@@ -46,11 +58,11 @@ inline(-search,$dbConfig,
 '</span> '; str('says'); 
 
 '<span class="commentmetadata" style="font-size:0.9em;">';
-    ' <a href="#comment-1" title="">';
-	'('; 
-	    LB_formatDateTime(Field('com_date')); 
-	')';
-    '</a>';
+' <a href="' + $url_topost + '#comment-' + $postid + '-' + loop_count + '" title="">';
+      '('; 
+          LB_formatDateTime(Field('com_date')); 
+      ')';
+  '</a>';
 '</span>';
 ':<br />\r';
 
@@ -61,18 +73,15 @@ if( field('com_title') );
 /if;
 
 var('content') = field('com_content');
-	$content -> replace('\n','\r');
-	$content -> replace('\r\r','</p><p>');
-	$content -> replace('\r','<br>');
-	$content -> replace('<p>','<p>\r'); // for neater html source
-'<div class="commentcontent"><p>'; encode_smart($content); '</p></div>';
+	$content -> replace('\r','\n');
+	$content -> replace('\n\n','</p><p>');
+	$content -> replace('\n','<br>');
+'<div class="commentcontent"><p>'; $content; '</p></div>';
 '</li>';
     
 // end showing comment
 
-	If( loop_count == found_count );
-	'</ol>\r';
-	/If;
+        loop_count == found_count ? '</ol>\n';
     /records;
 /inline;
 
@@ -111,8 +120,9 @@ if($com_post_id); // comment submitted
 /if;
 ?>
 
-<h3 id="respond">[str('Leave a Comment')]</h3>
-<form action="[$opts->find('siteurl')]index.lasso" method="post" id="commentform">
+<h3 class="respond">
+<a class="[$aclass]" id="respond-[$postID]" href="#">[str('Leave a Comment')]</a></h3>
+<form action="[$opts->find('siteurl')]index.lasso" method="post" class="commentform" id="respond-[$postid]" [$blockstyle]>
 <input type="hidden" name="oldcase" value="[$case]">
 <input type="hidden" name="com_post_ID" value="[$postID]">
 <input type="hidden" name="spamcontrol" value="[$spamcontrol]">
@@ -147,3 +157,4 @@ if($com_post_id); // comment submitted
 </p>
 
 </form>
+</div>

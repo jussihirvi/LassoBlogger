@@ -70,6 +70,27 @@ loop(1); // hack to mimic abort on L9
             $url_topost += encode_url($linkstuff);
           /if;
 
+          // metadata logic
+
+            $pos_status != 'static' ? $showCatLink  = 'yes'; 
+            $use_level > 2 ?          $showEditLink = 'yes';
+
+	    If( $opts -> find('default_comment_status') == '1'
+	      && field('pos_comment_status') == 'open'
+	      && ( ( $comment_reg == 1 && $use_level > 0)
+		   || $comment_reg != 1
+		 ));
+		// these will be checked once more on the 
+		// comment form response page (to prevent misuse)
+
+                // comment module now always visible
+//		If($case == 'p'||  $case == 'page' || $case == 'perma' );
+		    $showCommentModule = 'yes';
+//		Else;
+//		    $showCommentLink = 'yes';
+//		/If;
+	    /If;
+
 	'<div class="post" id="post-'; (Loop_Count); '">\r';
 	  '<h3>';
             // show link
@@ -81,12 +102,55 @@ loop(1); // hack to mimic abort on L9
 		'">';
 		field('pos_title'); '</A>';
 	  '</h3>\r';
+
 	  if( $pos_status != 'static');
 	    '<small>'; 
-
-// for multi-user blogs, just comment out the author display 
+            // for multi-user blogs, just comment out the author display 
 	    LB_getAuthor(field('pos_author')); ', ';
 	    LB_formatDateTime(field('pos_date'));
+
+	If( $showCatLink == 'yes');
+            ' <strong>|</strong> ';  
+	    // maincat or subcat?
+	    var('cat' = string, 'ix' = integer);
+	    If( $catz->parentids -> FindIndex(Field('pos_category'))->size);
+		$ix = $catz->parentids -> FindIndex(Field('pos_category')) 
+		    -> (get(1));
+		$cat = $catz->parents -> get($ix) -> get(3);
+	    Else;
+		$ix = $catz->childids -> FindIndex(Field('pos_category'))
+		    -> get(1);
+		$cat = $catz->children -> get($ix) -> get(3);
+	    /If;
+
+	    str('Posted in'); 
+	    ' <a href="'; $siteurl; '?cat='; Field('pos_category'); '"'; 
+	    ' title="'; str('View all posts in'); ' '; $cat;
+	    '" rel="category tag">'; $cat; '</a>';  
+	    If( $showEditLink == 'yes' || $showCommentLink == 'yes'
+	        || $comment_reg == 1 );
+		' <strong>|</strong> ';  
+	    /If;
+	/If;
+
+	If( $showEditLink == 'yes');
+            ' <strong>|</strong> ';  
+	    '<a href="admin/';
+	    If( $pos_status == 'static');
+		'man-page-form.lasso';
+		Else;
+		'man-post-form.lasso';
+	    /If;
+	    '?&amp;id=';
+	    $postID;
+	    '">'; (str('Edit')); '</a>';
+	    If( $showCommentLink == 'yes' || $comment_reg == 1);
+		' <strong>|</strong> ';  
+	    /If;
+	/If;
+
+
+
 	    '</small>\r';
 	  /If;
 
@@ -130,7 +194,7 @@ loop(1); // hack to mimic abort on L9
 		'8-O' = 'surprised',
 		':?' = 'question',
 		':-?' = 'question',
-		'8)' = 'cool',
+		// '8)' = 'cool', // causes errors
 		'8-)' = 'cool',
 		':X' = 'mad',
 		':-X' = 'mad',
@@ -180,81 +244,11 @@ loop(1); // hack to mimic abort on L9
 	    '</div>\r';	// end entry 
 
 
-	'<p class="postmetadata">';
-
-	// first lay down logic
-
-	    If( $pos_status != 'static');
-		    $showCatLink = 'yes';
-	    /If;
-	    If( $use_level > 2);
-		    $showEditLink = 'yes';
-	    /If;
-	    If( $opts -> find('default_comment_status') == '1'
-	      && field('pos_comment_status') == 'open'
-	      && ( ( $comment_reg == 1 && $use_level > 0)
-		   || $comment_reg != 1
-		 ));
-		// these will be checked once more on the 
-		// comment form response page (to prevent misuse)
-
-		If($case == 'p'||  $case == 'page' || $case == 'perma' );
-		    $showCommentModule = 'yes';
-		Else;
-		    $showCommentLink = 'yes';
-		/If;
-	    /If;
-
-	// now show
-
-/*  'TEST - level='; $use_level; ' ';
-    'showCommentLink='; $showCommentLink; ' ';
-    'showCommentModule='; $showCommentModule; ' ';
-    'comment_registration='; $opts -> find('comment_registration'); ' ';
-*/
-
-	If( $showCatLink == 'yes');
-
-	    // maincat or subcat?
-	    var('cat' = string, 'ix' = integer);
-	    If( $catz->parentids -> FindIndex(Field('pos_category'))->size);
-		$ix = $catz->parentids -> FindIndex(Field('pos_category')) 
-		    -> (get(1));
-		$cat = $catz->parents -> get($ix) -> get(3);
-	    Else;
-		$ix = $catz->childids -> FindIndex(Field('pos_category'))
-		    -> get(1);
-		$cat = $catz->children -> get($ix) -> get(3);
-	    /If;
-
-	    str('Posted in'); 
-	    ' <a href="'; $siteurl; '?cat='; Field('pos_category'); '"'; 
-	    ' title="'; str('View all posts in'); ' '; $cat;
-	    '" rel="category tag">'; $cat; '</a>';  
-	    If( $showEditLink == 'yes' || $showCommentLink == 'yes'
-	        || $comment_reg == 1 );
-		' <strong>|</strong> ';  
-	    /If;
-	/If;
-
-	If( $showEditLink == 'yes');
-	    '<a href="admin/';
-	    If( $pos_status == 'static');
-		'man-page-form.lasso';
-		Else;
-		'man-post-form.lasso';
-	    /If;
-	    '?&amp;id=';
-	    $postID;
-	    '">'; (str('Edit')); '</a>';
-	    If( $showCommentLink == 'yes' || $comment_reg == 1);
-		' <strong>|</strong> ';  
-	    /If;
-	/If;
 
 	// link to comments / commenting
 
 	If( $showCommentLink == 'yes');
+	'<p class="postmetadata">';
 	    '<a href="'; $siteurl;
 		If( $pos_status == 'static');
 		    '?page=';
@@ -264,26 +258,28 @@ loop(1); // hack to mimic abort on L9
 		$postID; '#comments">'; 
 		LB_getCommentLink($postID);
 	    '</a>';
-	Else( $comment_reg == '1');
-	str('You have to be registered and logged in to be able to comment');
-	/If;
 	'</p>';
+	Else( $comment_reg == '1');
+	'<p class="postmetadata">';
+	str('You have to be registered and logged in to be able to comment');
+	'</p>';
+	/If;
 
     '</div>\r'; 	// end post
 
-
 	var('pos_title' = Field('pos_title'));
+
+    // comments module now always visible
+    If( $showCommentModule == 'yes');
+        Include( $myinc + 'module_comments.inc');
+    /If; 
+
     /Records;
     /Inline;
 	// show error, if any
 	If( $speakBubble);
 	MO_speakBubble($speakBubble);
 	/If;
-
-// comments module
-If( $showCommentModule == 'yes');
-    Include( $myinc + 'module_comments.inc');
-/If; 
 
 /loop;
 ?>

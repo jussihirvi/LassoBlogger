@@ -9,7 +9,7 @@ Include('../inc/library.inc');
   define_tag( 'LB_codeCleanup');
     local( 'output')=(params)->get(1);
     #output = string_replace( -find=' ', -replace=' ', #output);
-    #output = string_replace( -find='<br>', -replace='\r', #output);
+    #output = string_replace( -find='<br />', -replace='\r', #output);
     #output = string_replace( -find='<i>', -replace='', #output);
     #output = string_replace( -find='</i>', -replace='', #output);
     #output = string_replace( -find='<b>', -replace='', #output);

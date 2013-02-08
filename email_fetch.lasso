@@ -21,7 +21,7 @@ Inline(-search,$dbConfig,
     'opt_name'='mailserver_pass',
     'opt_name'='default_email_category');
 	if( $testmode );
-	    'test: found options = ' + found_count + '<br>';
+	    'test: found options = ' + found_count + '<br />';
 	/if; 
 	records;
 	    var(field('opt_name')) = field('opt_value');
@@ -45,7 +45,7 @@ var('myID') = integer;
 
     iterate($myPOP,var('myID'));
 	if( $testmode );
-	    'test: myID = '; $myID; '<br>';
+	    'test: myID = '; $myID; '<br />';
 	/if;
 	var('myMSG') = $myPOP -> retrieve;
 	$myPOP -> delete; // marks the message to be deleted
@@ -53,7 +53,7 @@ var('myID') = integer;
 	var('myParse') = email_parse( $myMSG);
 	var('mysender') = $myParse -> Header('from',-extract);
 	if( $testmode );
-	    'test: mysender = '; $mysender; '<br>';
+	    'test: mysender = '; $mysender; '<br />';
 	/if;
 	var('myBody') = $myParse -> body('text/plain');
 	var('mySubject') = $myParse -> subject;
@@ -62,7 +62,7 @@ var('myID') = integer;
 	$myBody = $myBody -> split('\r\n--\r\n');
 	$myBody = $myBody -> Get(1);
 	if( $testmode );
-	    'test: myBody = '; $myBody; '<br>';
+	    'test: myBody = '; $myBody; '<br />';
 	/if;
 
 	// check the user
@@ -73,7 +73,7 @@ var('myID') = integer;
 	    -op='eq',
 	    'use_email' = $mySender);
 		if( $testmode );
-		    'test: users found = ' (found_count) + '<br>';
+		    'test: users found = ' (found_count) + '<br />';
 		/if;
 		var('nickname') = string;
 		var('userlevel') = 0;
@@ -84,8 +84,8 @@ var('myID') = integer;
 			    $userid = field('id');
 			    $userlevel = field('use_level');
 			    if( $testmode );
-				'test: nick = '; $nickname; '<br>';
-				'test: level = '; $userlevel; '<br>';
+				'test: nick = '; $nickname; '<br />';
+				'test: level = '; $userlevel; '<br />';
 			    /if;
 			/if;
 		    /records;
@@ -96,7 +96,7 @@ var('myID') = integer;
 	
 	var('myAddError') = string;
 	if( $testmode );
-	    'test: userok = '; $userok; '<br>';
+	    'test: userok = '; $userok; '<br />';
 	/if;
 
 	if( $userOK == 'yes' );

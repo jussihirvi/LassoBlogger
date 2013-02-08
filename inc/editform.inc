@@ -60,7 +60,7 @@ If( $viewtype == 'formview');
               '*'; 
             /If; // if pakollinen kenttä
         '</th>\n';
-        '<td id="td-' + $fieldname + '" STYLE="">\n';
+        '<td id="td-' + $fieldname + '" style="">\n';
         MO_formfieldHandler(-this=$this,-fvalue=$fieldvalue);
             '<div class="helptext" id="help-'+$fieldname+'"> ';
               If( $this -> (Get(7) )); // show help texts
@@ -93,13 +93,13 @@ if( $viewtype == 'listview'); // listview, hidden field: no cell
 
 If( $viewtype == 'formview');		// prepare for buttons
     If( $reqFieldsFound == 'yes');
-	'<tr><td></td><td colspan="2" STYLE="font-size:1.2em;padding:8px 0 0 0">';
+	'<tr><td></td><td colspan="2" style="font-size:1.2em;padding:8px 0 0 0">';
 	    str('Fields marked with an asterisk (*) are required.');
 	'</td></tr>';
     /If;
-    '<tr><td>&nbsp;</td><td colspan="2" STYLE="padding:8px 0 20px 0;">';
+    '<tr><td>&nbsp;</td><td colspan="2" style="padding:8px 0 20px 0;">';
 Else; // listview
-    '<td class="' + $inputtextClass + '" STYLE="text-align:center;">';
+    '<td class="' + $inputtextClass + '" style="text-align:center;">';
 /If;
 
 // which buttons?
@@ -156,11 +156,11 @@ If( $showQDbutton == 1);
 '</td></tr>\n';
 
 // If( $viewtype == 'formview');
-// '<tr><td>&nbsp;</td><td colspan="2" STYLE="padding-top:8px;">';
-// 'See the public page: <A HREF="/';
-// $publicPage; '" TARGET="_blank">'; $publicPage; '</A>\n';
+// '<tr><td>&nbsp;</td><td colspan="2" style="padding-top:8px;">';
+// 'See the public page: <a href="/';
+// $publicPage; '" target="_blank">'; $publicPage; '</a>\n';
 // '</td></tr>';
 // /If;
 
-'</FORM>';
+'</form>';
 ?>

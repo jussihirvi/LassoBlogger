@@ -62,10 +62,10 @@
     <li>NEW FEATURE: FCKeditor (v2.6.4) integrated in LassoBlogger. Notes for use:
     <ul>
     <li>to enable FCKeditor for a field, open the stub file (for example admin/man-postedit.lasso), find the variable EditFields, and replace "textarea" with "textarea_fckeditor" in the third slot of the array 
-    <li>if you get errors, check the Apache conf to verify that Lasso is *not* processing all files in the fckeditor directory; for example add these lines: <br>
+    <li>if you get errors, check the Apache conf to verify that Lasso is *not* processing all files in the fckeditor directory; for example add these lines: <br />
 	<blockquote>
-	&lt;Directory "/var/www/MyPathTo/LassoBlogger/admin/fckeditor"&gt;<br>
-	RemoveHandler lasso8-handler html htm js php pl py css<br>
+	&lt;Directory "/var/www/MyPathTo/LassoBlogger/admin/fckeditor"&gt;<br />
+	RemoveHandler lasso8-handler html htm js php pl py css<br />
 	&lt;/Directory&gt;
 	</blockquote>
     </ul>
@@ -78,7 +78,7 @@
 	<li>Upload a post-related pic (the small pic) in the usual way (Manage > Write & Edit Posts)
 	<li>Upload the other file (the big pic) using the admin section Uploads
 	<li>In Uploads > Manage Files, set the Image Display for the big pic as "none"
-	<li>In Uploads > Manage Files, select the small pic, and set the Link URI so that it points to the big pic; also check the Description, which will become the TITLE parameter of the A tag
+	<li>In Uploads > Manage Files, select the small pic, and set the Link URI so that it points to the big pic; also check the Description, which will become the title parameter of the a tag
 	</ol>
     </ul>
     <h2>0.9.0 (released 2008-07-28)</h2>

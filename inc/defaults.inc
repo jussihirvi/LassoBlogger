@@ -20,15 +20,15 @@ var('userInfo') = LB_Userinfo(
 var('use_level') = $userInfo -> LB_getUse_level;
 
 //    /* DEBUG SPACE
-//    'test - uselevel = ' + $use_level + '<br>';
-//    'test - tst = ' + $userinfo -> 'tst' + '<br>';
-//    'test - found = ' + $userinfo -> 'found' + '<br>';
-//    'test - cusername = ' + $userinfo -> 'cusername' + '<br>';
-//    'test - cpassword = ' + $userinfo -> 'cpassword' + '<br>';
+//    'test - uselevel = ' + $use_level + '<br />';
+//    'test - tst = ' + $userinfo -> 'tst' + '<br />';
+//    'test - found = ' + $userinfo -> 'found' + '<br />';
+//    'test - cusername = ' + $userinfo -> 'cusername' + '<br />';
+//    'test - cpassword = ' + $userinfo -> 'cpassword' + '<br />';
 //    */
 
 var('speakBubble' = '');
-var('br') = '<br>';
+var('br') = '<br />';
 var('myInc' = 'inc/');
 var('myImages' = 'images/');
 // var('myThemeImages' = 'themes/default/images');

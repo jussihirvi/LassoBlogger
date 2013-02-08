@@ -29,10 +29,10 @@
 <input id="password" type="password" name="cpassword" value="">
 <div style="clear:both;"></div>
 <div class="label">&nbsp;</div>
-<INPUT TYPE="Submit" NAME="-nothing" id="submit" VALUE="[str('Login')] &raquo;">
-<INPUT TYPE="Hidden" NAME="-nothing" VALUE="Kirjaudu">
+<input type="Submit" name="-nothing" id="submit" value="[str('Login')] &raquo;">
+<input type="Hidden" name="-nothing" value="Kirjaudu">
 <div style="clear:both;"></div>
-</FORM>
+</form>
 
 <ul>
 	<li><a href="[$opts -> find('siteurl')]" title="are you lost?">&laquo; [str('Back to the site')]</a></li>

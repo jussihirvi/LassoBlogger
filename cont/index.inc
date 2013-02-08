@@ -176,7 +176,7 @@ else( $perma );
 
     // if option is not defined
     if( ! $permaStruct );
-      MO_speakBubble('The permalink structure has not been defined in blog options. You may have an old link. Go to the <A HREF="' + ($opts -> find('siteurl')) + '">front page</A> and try to search for the post by its title.');
+      MO_speakBubble('The permalink structure has not been defined in blog options. You may have an old link. Go to the <a href="' + ($opts -> find('siteurl')) + '">front page</a> and try to search for the post by its title.');
         loop_continue; // mimics abort
     /if;
 
@@ -264,10 +264,10 @@ else; 		// find the latest
 MO_speakBubble($speakBubble);
 
 // testground
-// 	'test - startdate = ' + $startDate + '<br>';
-// 	'test - enddate = '   + $endDate   + '<br>';
-//	'test - searchArgs = ' + $searchArgs + '<br>';
-//	'test - case = ' + $case + '<br>';
+// 	'test - startdate = ' + $startDate + '<br />';
+// 	'test - enddate = '   + $endDate   + '<br />';
+//	'test - searchArgs = ' + $searchArgs + '<br />';
+//	'test - case = ' + $case + '<br />';
 
 
 
@@ -275,9 +275,9 @@ MO_speakBubble($speakBubble);
 
 // #2.1 the left (wide) column
 
-'<table cellspacing="0" cellpadding="0" border="0" style="font-size:100%;">\n';
+'<table id="content">\n';
 '<tr>\n';
-'<td valign="top" id="widecolumn">\n';
+'<td id="widecolumn">\n';
 '<div id="title">';
 If( $case == 'm'); // monthly
     '<h2>';
@@ -303,7 +303,7 @@ Else( $case == 'files' || $case == 'filecat');
 
 // #2.2 sidebar
 ?>
-	<td valign="top" id="sidebar">
+	<td id="sidebar">
 
 <form method="get" id="searchform" action="[$myfilename]">
     <div>
@@ -378,7 +378,7 @@ Else( $case == 'files' || $case == 'filecat');
  		  $linkstuff -> Replace('%postname%',$postname);
  		  $linkstuff -> Replace('%postid%',$postID);
  		  encode_url($linkstuff); 
- 		  '" TITLE="'; str('Permanent link to'); ' &#34;'; 
+ 		  '" title="'; str('Permanent link to'); ' &#34;'; 
  		  Field('pos_title');'&#34;">';
  		/If;
              Field('pos_title');
@@ -536,7 +536,6 @@ Inline(-findAll,$dbConfig,-Table=$table_prefix+'posts',
             '<a href="'+$href+'" title="'+$label+'">'+$label+'</a>';
           '</li>\n';
         /if;
-        // display
       /if;
       $subheaMonth = string($myYear) + string($myMonth);
       $subheaYear = $myYear;
