@@ -4,7 +4,7 @@
 // comments module
 var('aclass') = 'closed';
 var('blockstyle') = 'style="display:none;"';
-if($case=='p' || $case=='page' || $case=='perma');
+if($case=='p' || $case=='page' || $case=='perma');
   $aclass='open';
   $blockstyle='style="display:block;"';
 /if;
