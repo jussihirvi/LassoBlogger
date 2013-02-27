@@ -1875,22 +1875,23 @@ example usage
 //   + ', table is ' + #table
 //   + ', postid is ' + #postid
 //   );
-          Records;
+          records;
               // collect image data
               #filedata -> insert(array(
-              field('upl_path'),
-              field('upl_name'),
-              field('upl_description'),
-              field('upl_imagedisplay'),
-              field('upl_linkurl')
+                field('upl_path'),
+                field('upl_name'),
+                field('upl_description'),
+                field('upl_imagedisplay'),
+                field('upl_linkurl')
               ));
-          /Records;
-          /Inline;
+          /records;
+          /inline;
 
           // prepare for iterating filedata
           local('suffix' 	    = string);
           local('linked_files'= '<p>');
           local('shown_files' = string);
+          local('shown_addrs' = array);
           local('i' 	    = array);
           local('basepath'    = $upload_path + $upload_subpath );
           if(#postid);
@@ -1952,9 +1953,11 @@ example usage
                   local('subdir') = string;
                     // orig-size pics are saved at root level
                   #subdir = #display_size;
+                  #subdir ? #subdir += '/';
 
                   #shown_files += '<img src="';
-                  #shown_files += #basepath + #subdir + '/' + #name + '" alt="';
+                  #shown_files += #basepath + #subdir + #name + '" alt="';
+                  #shown_addrs -> insert(#basepath+#subdir+#name);
                   #shown_files += #desc + '" title="';
                   #shown_files += #desc + '">\r';
                  // close the a tag?
@@ -1973,7 +1976,7 @@ example usage
           if(#shown_files);
             #shown_files += '</div>\n'; // close the (last) div
           /if;
-  return(array(#shown_files,#linked_files));
+  return(array(#shown_files,#linked_files,#shown_addrs));
 /define_tag;
 define_tag('imagelogic',-namespace='MO',
         -required='paths',
@@ -2101,6 +2104,15 @@ Define_Tag( 'MO_errorhandler',-Optional='level',-encodeNone);
     Return(local('output'));
 /Define_Tag;
 
+Define_Tag( 'LB_sidebarItem',-required='href',-required='label',-optional='afterlink',-encodeNone);
+  local('out') = string;
+  ! local_defined('afterlink') ? local('afterlink') = string;
+          #out += '<li>';
+          #out += '<a href="'+#href+'" title="'+#label+'">'+#label+'</a>';
+          #out += #afterlink;
+          #out += '</li>\n';
+  return(#out);
+/Define_Tag;
 
 
 

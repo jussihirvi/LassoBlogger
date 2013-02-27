@@ -1,4 +1,5 @@
 <?LassoScript
+// for search inline, see gen/frame_default.inc
 loop(1); // hack to mimic abort on L9
 
     // posts module
@@ -6,48 +7,22 @@ loop(1); // hack to mimic abort on L9
         var('comment_reg'	= $opts -> find('comment_registration'));
 	var('siteurl'	        = $opts -> find('siteurl'));
 
-	var('showcatlink'       = string);
-	var('showeditlink'      = string);
-	var('showcommentlink'   = string);
-        var('showcommentmodule' = string); 
-        var('postid'		= string); // necessary when case=perma
-     	var('pos_status'	= string); // needed when case=perma
-        var('pos_comment_status'= string); // commenting allowed for post? 
-	var('url_topost'	= string);
-
-     inline(-search,$dbConfig,-table=$table_prefix+'posts',
-        -sortField='pos_date',
-        -sortOrder='descending',
-        -maxRecords=$opts->find('posts_per_page'),
-        $searchArgs,
-	-skipRecords=$skip,
-        -inlineName='postsearch');
-            if( (found_count) == 0);
-		$speakBubble = (str('No records were found'));
-	    else( (found_count) > 1 && $case == 'perma');
-		MO_speakBubble(str('Tried to interpret the address as a permalink, but failed. Please check the address!'));
-		'searchArgs = '; $searchArgs;
-		abort;
-            else( error_currenterror != error_noerror );
-		MO_speakBubble(Error_CurrentError);
-            /if;
-
     if( $case != 'p' && $case != 'page' && $case != 'perma' && found_count > shown_count );
         MO_naviglinks(-rectype=$rectype,-rectype_pl=$rectype_plural);
     /if;
 
     records(-inlineName='postSearch');
 
-	$showCatLink       = string;
-	$showEditLink      = string;
-	$showCommentLink   = string;
-        $showCommentModule = string;
-	$postID            = string(field('id'));
-	$pos_status        = field('pos_status');
-	$pos_comment_status= field('pos_comment_status');
+	var('showCatLink')       = string;
+	var('showEditLink')      = string;
+	var('showCommentLink')   = string;
+        var('showCommentModule') = string;
+	var('postID')            = string(field('id')); // for case=perma
+	var('pos_status')        = field('pos_status'); // for case=perma
+	var('pos_comment_status')= field('pos_comment_status'); // comm allowed?
 
         // compose link to post
-        $url_topost = $siteurl;
+        var('url_topost') = $siteurl;
           if( ! $opts->find('permalink_structure') ); // permalinks switched off
             $url_topost += '?p=' + $postID;  
           else;	// use permalink structure
@@ -274,8 +249,7 @@ loop(1); // hack to mimic abort on L9
         Include( $myinc + 'module_comments.inc');
     /If; 
 
-    /Records;
-    /Inline;
+    /records;
 	// show error, if any
 	If( $speakBubble);
 	MO_speakBubble($speakBubble);
