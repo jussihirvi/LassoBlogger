@@ -405,7 +405,7 @@ if( $result == 'discard' );
 
     // notify admin, if needed
     if( $notifyAdmin == 'yes' );
-	var('temp') = $text;
+	var('temp') = $errtext;
 	$temp -> replace('<br />','\n');
 	var('email_body') = 'This is an automatic message from your blog. Your comment processing system has been set to notify the blog administrator of a comment evaluation. Below is the error message presented to the commentor.\n\n' + $temp;
 	$email_body += '\n\nTo turn off these notification emails, open cont/com-posted.inc and set the var notifyAdmin to \'no\' for individual tests.';

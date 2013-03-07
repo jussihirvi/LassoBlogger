@@ -299,10 +299,11 @@ if( $case != 'files' && $case != 'filecat' );
     if(found_count == 1);
       $og_title       = field('pos_title');
       $og_description = field('pos_content') -> split('\r') -> get(1);
-      $og_image = ($opts->find('siteurl')
-        + (MO_collectUploadData(-table='posts',-postid=integer(field('id')))
-          -> get(3) -> get(1)));
-
+      $og_description = string_replaceregexp($og_description,
+                -find='<[^<]*>', -replace='');
+      $og_description -> replace('"','');
+      local('i') = MO_collectUploadData(-table='posts',-postid=integer(field('id')))->get(3);
+      #i -> size ? $og_image = ($opts->find('siteurl') + #i -> get(1));
     /if;
   /inline;
 /if;
