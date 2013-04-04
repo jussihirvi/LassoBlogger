@@ -1232,7 +1232,7 @@ if( $viewtype == 'formview' && ! $formShown && $buttonlist->Find('add') == 'yes'
 
 // customPostform
 
-'<div id="postform" style="font-size:130%;text-align:center;line-height:1.6em;margin:5px auto 10px auto; padding-top:8px;border-top:1px solid grey;">';
+'<div id="postform">';
     If( (Variable_Defined('customPostform')));
 	If( $customPostform == 'yes');
 	    include( 'custom/postform/' + $myfilebody + '.inc');

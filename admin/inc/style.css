@@ -564,6 +564,7 @@ div#naviglinks_lowright{width:150px;
 div#naviglinks em {font-style:normal; font-weight:bold;}
 div#naviglinks img {vertical-align:text-top; padding:0 5px 0 8px;}
 
+div#postform {font-size:130%;text-align:center;line-height:1.6em;margin:5px auto 10px auto; padding-top:8px;border-top:1px solid grey;}
 
 /* AJAX field validations */
 
