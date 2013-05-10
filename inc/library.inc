@@ -12,7 +12,7 @@
 
 // var('lb_version' = '0.9.0'); // July 28 2008
 // var('lb_version') = '0.9.1'; // June 19 2009
-var('lb_version' = '0.9.2'); // November 15 2011
+var('lb_version' = '0.9.3'); // November 15 2011
 
 // hack for (older) $basicoptions system
 // from now on, use $opts instead 2011-10
@@ -121,84 +121,76 @@ Define_Tag('LB_createCookiehash');
 
 // recognize user
 
-// Define_Type('LB_Userinfo');
-// 	Local('inlinestuff' = Array);
-// 	Local('use_level' = '');
-// 	Local('user_id' = '');
-// 	Local('cusername' = '');
-// 	Local('cpassword' = '');
-// 	Local('testing' = '');
-// 	Local('found' = Integer);
-//     Define_Tag('onCreate',-optional='username',-optional='password');
-//         if(! local_defined('username'));
-//           local('username') = string;
-//         /if;
-//         if(! local_defined('password'));
-//           local('password') = string;
-//         /if;
-//         self->'testing' = #username;
-//         local('hash' = LB_createCookiehash);
-//         if(#username && #password);
-//           (self->'inlinestuff')->insert(-operator = 'eq');
-//           (self->'inlinestuff')->insert('use_login' = #username);
-//           (self->'inlinestuff')->insert(-operator = 'eq');
-//           (self->'inlinestuff')->insert(encrypt_md5('use_pass' = #password));
-// 	else( Cookie('siteuser_' + #hash) && Cookie('sitepass_' + #hash));
-//           // use cookies
-//           (self -> 'inlinestuff') -> Insert(-operator = 'eq');
-//           (self -> 'inlinestuff') -> 
-//             Insert('use_login' = Cookie('siteuser_' + #hash));
-//           (self -> 'inlinestuff') -> Insert(-operator = 'eq');
-//           (self -> 'inlinestuff') -> 
-// 	      Insert('use_pass' = Cookie('sitepass_' + #hash));
-// 	Else( Variable_Defined('user_ses'));  
-// 	// use session vars (probably never used, as public pages
-// 	// don't use session)
-// 	    (self -> 'inlinestuff') -> Insert(-operator = 'eq');
-// 	    (self -> 'inlinestuff') -> Insert('id' = $user_ses);
-// 	/If;
-//         If( (Self -> 'inlinestuff') != Array);
-// 	// verify the user data
-// 	    Inline( -search,$dbConfig, 
-// 		-table = $table_prefix+'users',
-// 		Self -> 'inlinestuff');
-// 
-// 		If( error_msg == Error_NoError && Found_Count == 1);
-//                   (Self -> 'cusername') = Field('use_login');
-//                   (Self -> 'cpassword') = Field('use_pass');
-//                   (Self -> 'use_level') = Field('use_level');
-//                   (Self -> 'user_id')   = Field('id');
-//                   // write/refresh cookies
-//                   var('path') = response_path;
-//                   $path -> RemoveTrailing('admin/');
-//                   Cookie_Set( ('siteuser_' + $hash)
-//                   = $cusername,-Expires=432000,-Domain=$myDomain,-Path=$path);
-//                   Cookie_Set( ('blogpass_' + $hash)
-//                   = $cpassword,-Expires=432000,-Domain=$myDomain,-Path=$path);
-//                   // remember that cpassword is now md5-encrypted
-// 
-// 		Else;
-// 		    (Self -> 'use_level') = (-2); // no match?
-// 		/If;
-// 		(Self->'testing') = Field('use_login') + ', ' + Field('use_pass');
-// 		(Self->'found') = Found_Count;
-// 	    /Inline;
-// 	Else;				
-// 	    (Self -> 'use_level') = (-1); 	// no cookies, no session
-// 	    (Self->'testing') = Cookie('siteuser_' + #hash);
-// 	/If;
-//     /Define_Tag;
-// 
-//     Define_Tag('LB_getUse_level');
-// 	Return( Self -> 'use_level');
-//     /Define_Tag;
-//     Define_Tag('LB_getUser_id');
-// 	Return( Self -> 'user_id');
-//     /Define_Tag;
-//     Define_Tag('testing');
-// 	Return( Self -> 'testing');
-//     /Define_Tag;
-// /Define_Type;
+Define_Type('LB_Userinfo');
+	Local('inlinestuff' = Array);
+	Local('use_level' = '');
+	Local('user_id' = '');
+	Local('username' = '');
+	Local('password' = '');
+	Local('testing' = '');
+	Local('found' = Integer);
+    Define_Tag('onCreate',-optional='username',-optional='password');
+        ! local_defined('username') ? local('username') = string;
+        ! local_defined('password') ? local('password') = string;
+        self->'testing' = #username;
+        local('hash' = LB_createCookiehash);
+        if(#username && #password);
+          (self->'inlinestuff')->insert(-eq);
+          (self->'inlinestuff')->insert('use_login' = #username);
+          (self->'inlinestuff')->insert(-eq);
+          (self->'inlinestuff')->insert(encrypt_md5('use_pass' = #password));
+	else( cookie('user_' + #hash) && cookie('pass_' + #hash));
+          // use cookies
+          (self -> 'inlinestuff') -> insert(-operator = 'eq');
+          (self -> 'inlinestuff') -> 
+            insert('use_login' = cookie('user_' + #hash));
+          (self -> 'inlinestuff') -> insert(-operator = 'eq');
+          (self -> 'inlinestuff') -> 
+	      insert('use_pass' = cookie('pass_' + #hash));
+	else( variable_defined('user_ses'));  
+	// use session vars (probably never used, as public pages
+	// don't use session)
+	    (self -> 'inlinestuff') -> Insert(-eq);
+	    (self -> 'inlinestuff') -> Insert('id' = $user_ses);
+	/If;
+        If( self -> 'inlinestuff' -> size );
+	// verify the user data
+	    Inline( -search,$dbConfig, 
+		-table = $table_prefix+'users',
+		self -> 'inlinestuff');
+
+		if( error_msg == error_noerror && found_count == 1);
+                  (self -> 'username') = field('use_login');
+                  (Self -> 'password') = Field('use_pass');
+                  (Self -> 'use_level') = Field('use_level');
+                  (Self -> 'user_id')   = Field('id');
+                  // write/refresh cookies
+                  var('path') = response_path;
+                  $path -> RemoveTrailing('admin/');
+                  Cookie_Set( ('user_' + #hash)
+                  = #username,-Expires=432000,-Domain=$myDomain,-Path=$path);
+                  Cookie_Set( ('pass_' + #hash)
+                  = #password,-Expires=432000,-Domain=$myDomain,-Path=$path);
+                  // remember that password is now md5-encrypted
+
+		Else;
+		    (Self -> 'use_level') = (-2); // no match?
+		/If;
+		(self->'testing') = field('use_login')+', '+field('use_pass');
+		(self->'found') = found_count;
+	    /Inline;
+	Else;				
+	    self -> 'use_level' = (-1); 	// no cookies, no session
+	    self->'testing'     = cookie('user_' + #hash);
+	/if;
+    /Define_Tag;
+
+    define_tag('lb_getuse_level'); return( self -> 'use_level'); /define_tag;
+    define_tag('lb_getuser_id');   return( self -> 'user_id');   /define_tag;
+    define_tag('testing');         return( self -> 'testing');   /define_tag;
+/define_type;
+
+
 
 // tag to get options
 Define_Tag('siteoptions',-namespace='LB');
@@ -208,7 +200,8 @@ Define_Tag('siteoptions',-namespace='LB');
     local('err' = string);
     local('out' = map);
       inline( -findall, $dbConfig,
-        -table = $table_prefix+'options');
+        -table = $table_prefix+'options',
+        -maxrecords='all');
         records;
           #out -> insert(field('opt_name') = field('opt_value'));
         /records;

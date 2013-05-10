@@ -12,7 +12,6 @@ $opts->insert('time_showformat' = $opts->find('time_format'));
 // authentication - feed loginform output to LB_userinfo, if any
 // otherwise, the type checks for cookies
 
-library('inc/libtest.inc');
 var('userInfo') = LB_Userinfo(
   -username=action_param('cusername'),
   -password=action_param('cpassword')
@@ -31,7 +30,6 @@ var('speakBubble' = '');
 var('br') = '<br />';
 var('myInc' = 'inc/');
 var('myImages' = 'images/');
-// var('myThemeImages' = 'themes/default/images');
 
 var('error' = integer);
 var('errorText' = string);
@@ -42,7 +40,8 @@ var('loginsubmitted') = Action_Param('loginsubmitted'); // "yes" means submitted
 var('cusername') = action_param('cusername');
 var('cpassword') = action_param('cpassword');
 
-var('myStylesheet' = 'themes/default/style.css');
+var('myStylesheet' = 'themes/' + $opts->find('theme') + '/style.css');
+var('myThemeImages'= 'themes/' + $opts->find('theme') + '/images');
 var('header'='inc/header.inc');
 var('menu'='inc/menu.lasso');
 var('footer'='inc/footer.inc');

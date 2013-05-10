@@ -313,6 +313,12 @@ if( $case != 'files' && $case != 'filecat' );
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://www.facebook.com/2008/fbml" xmlns:og="http://ogp.me/ns#">
 <head>
+[noprocess]
+<!--[if lt IE 9]>
+ <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+ <![endif]-->
+[/noprocess]
+
 <title>[$opts -> find('blogname')][If( $page_title != '')] - [$page_title][/If]</title>
 <link rel="stylesheet" href="[$opts->find('siteurl')][$myStylesheet]" type="text/css" />
 <style type="text/css">
@@ -376,9 +382,9 @@ h1, h1 a, h1 a:hover, h1 a:visited, .description {
 <meta property="og:description" content="[$og_description]" />
 <meta property="og:url" content="[client_url]" />
 <meta property="og:image" content="[$og_image]" />
-<meta property='og:type' content='article' /> 
-<meta content='208685792608423' property='fb:app_id' />
-<script src='http://connect.facebook.net/en_US/all.js#xfbml=1'></script> 
+<meta property="og:type" content="article" /> 
+<meta content="[$opts->find('facebook_app_id')]" property="fb:app_id" />
+<script src="http://connect.facebook.net/en_US/all.js#xfbml=1"></script> 
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
@@ -423,6 +429,15 @@ $(document).ready(function(){
 </script>
 </head>
 <body>
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+[noprocess]var js, fjs = d.getElementsByTagName(s)[0];[/noprocess]
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=[$opts->find('facebook_app_id')]";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
 <?LassoScript
 '<div id="page" class="round">\n';
 if( $header );

@@ -20,6 +20,7 @@
 <p><strong>New in 0.9.3</strong>: </p>
 <ul>
 <li>new option for selection of theme (it's about time)
+<li>new option for Facebook app ID; this is needed for integration of your blog with Facebok
 </ul>
 
 <p>For the updater to work, your LassoBlogger user must have privilege to use SQL (in Lasso 8 SiteAdmin, that's defined in the Security > Hosts page).</p>
@@ -39,8 +40,11 @@ var('SQL_string') = '';
 
 $SQL_string += "
 INSERT INTO options SET opt_name='theme',opt_value='default',opt_description='Path for stylesheet and images',opt_group='gene',opt_status='works';
+INSERT INTO options SET opt_name='facebook_app_id',opt_value='',opt_description='Facebook application ID, needed for Facebook integration',opt_group='gene',opt_status='works';
+INSERT INTO options SET opt_name='facebook_app_secret',opt_value='',opt_description='Facebook application secret (you get this from Facebook)',opt_group='gene',opt_status='works';
 DELETE FROM options WHERE opt_name='home';
 DELETE FROM options WHERE opt_name='stylesheet';
+DELETE FROM options WHERE opt_name='template';
 ";
 
 
