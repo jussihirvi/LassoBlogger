@@ -12,7 +12,8 @@
 
 // var('lb_version' = '0.9.0'); // July 28 2008
 // var('lb_version') = '0.9.1'; // June 19 2009
-var('lb_version' = '0.9.3'); // November 15 2011
+var('lb_version' = '0.9.2'); // November 15 2011
+var('lb_version' = '0.9.3'); // 2013
 
 // hack for (older) $basicoptions system
 // from now on, use $opts instead 2011-10
@@ -1730,7 +1731,7 @@ MO_naviglinks(
   ! local_defined('shownfirst')   ? local('shownfirst' = shown_first);
   ! local_defined('shownlast')    ? local('shownlast' = shown_last);
 
-  local('mathsub'=Math_Sub(shown_first,maxrecords_value,1));
+  local('mathsub'=Math_Sub(#shownfirst,#max,1));
   local('arrowleft' = '<IMG SRC="' + $fromMetoRoot + 'images/arrowleft.gif" '
       + 'ALT="'+str('Previous page')
       + '" BORDER="0" align="middle" style="width:17px;height:15px;">');
@@ -1745,12 +1746,12 @@ MO_naviglinks(
   #out += '<div id="naviglinks_upper">\n';
   //       If($lang == 'fi');
   //         #out += 'Löytyi ';
-  //         #out += '<em>' + string(found_count) + '</em> ';
+  //         #out += '<em>' + string(#found) + '</em> ';
   //         #out += 'tietue'; 
-  //         #out += (found_count > 1 ? 'tta.');
+  //         #out += (#found > 1 ? 'tta.');
   //       Else;
-  //         #out += '<em>' + string(found_count) + '</em> ';
-  //         #out += (found_count > 1 ? #rectype_pl+' were' | #rectype+' was');
+  //         #out += '<em>' + string(#found) + '</em> ';
+  //         #out += (#found > 1 ? #rectype_pl+' were' | #rectype+' was');
   //         #out += ' found.';
   //       /If;
   #out += '</div>\n';
@@ -1758,14 +1759,14 @@ MO_naviglinks(
 
   // #2 links to prev & next page
 
-  If( Shown_First > 1 || Shown_count < Found_Count );  // some links are needed
+  If( #shownfirst > 1 || #shown < #found );  // some links are needed
 
   #out += '<div id="naviglinks_lower">';
 
   // #2-1 Left cell
 
   #out += '<div id="naviglinks_lowleft">\n';
-    if(shown_first > 1);
+    if(#shownfirst > 1);
       #out += #arrowleft;
       #out += ' <a href="' + $myfilename + '?ref=naviglinks&amp;';
         #out += $linkstuff + '&amp;skip=' + #mathsub+'">\n';
@@ -1777,11 +1778,11 @@ MO_naviglinks(
   // #2-2 Middle cell
 
   #out += '<div id="naviglinks_lowmid">\n';
-  //   Loop(-to=Found_Count,-by=MaxRecords_Value);
+  //   Loop(-to=#found,-by=#max);
   //     // show 5 before ja 5 after
-  //     If( (Loop_Count >= Shown_First - (5 * MaxRecords_Value))
-  //      && (Loop_Count <= Shown_First + (5 * MaxRecords_Value)));
-  //         If( Loop_Count != Shown_First);
+  //     If( (Loop_Count >= #shownfirst - (5 * #max))
+  //      && (Loop_Count <= #shownfirst + (5 * #max)));
+  //         If( Loop_Count != #shownfirst);
   //           #out += '<A HREF=\"' + $myfilename + '?ref=naviglinks&amp;' + $linkstuff;
   //           #out += 'skip=' + (loop_count - 1) + '\">' + loop_count + '</A>';
   //         Else;
@@ -1797,9 +1798,9 @@ MO_naviglinks(
   // #2-3 Right cell
 
   #out += '<div id="naviglinks_lowright">\n&nbsp;';
-    if( shown_last != found_count );
+    if( #shownlast != #found );
       #out += ('<a href="' + $myfilename + '?ref=naviglinks&amp;' + $linkstuff);
-      #out += ('&amp;skip=' + shown_last + '">');
+      #out += ('&amp;skip=' + #shownlast + '">');
       #out += str('Next page');
       #out += (#arrowright + '</a> ');
     /if;

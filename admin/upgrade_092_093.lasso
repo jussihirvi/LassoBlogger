@@ -35,16 +35,18 @@ var('temp_errorFlag') = string;
 '<p>';
 
 var('SQL_string') = '';
+var('tp') = $table_prefix;
+$table_prefix ? $tp = '.' + $tp;
 
 // new db field: link address to make an uploaded image into a link
 
 $SQL_string += "
-INSERT INTO options SET opt_name='theme',opt_value='default',opt_description='Path for stylesheet and images',opt_group='gene',opt_status='works';
-INSERT INTO options SET opt_name='facebook_app_id',opt_value='',opt_description='Facebook application ID, needed for Facebook integration',opt_group='gene',opt_status='works';
-INSERT INTO options SET opt_name='facebook_app_secret',opt_value='',opt_description='Facebook application secret (you get this from Facebook)',opt_group='gene',opt_status='works';
-DELETE FROM options WHERE opt_name='home';
-DELETE FROM options WHERE opt_name='stylesheet';
-DELETE FROM options WHERE opt_name='template';
+INSERT INTO " + $tp + "options SET opt_name='theme',opt_value='default',opt_description='Path for stylesheet and images',opt_group='gene',opt_status='works';
+INSERT INTO " + $tp + "options SET opt_name='facebook_app_id',opt_value='',opt_description='Facebook application ID, needed for Facebook integration',opt_group='gene',opt_status='works';
+INSERT INTO " + $tp + "options SET opt_name='facebook_app_secret',opt_value='',opt_description='Facebook application secret (you get this from Facebook)',opt_group='gene',opt_status='works';
+DELETE FROM " + $tp + "options WHERE opt_name='home';
+DELETE FROM " + $tp + "options WHERE opt_name='stylesheet';
+DELETE FROM " + $tp + "options WHERE opt_name='template';
 ";
 
 
