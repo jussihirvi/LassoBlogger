@@ -7,8 +7,8 @@ loop(1); // hack to mimic abort on L9
         var('comment_reg'	= $opts -> find('comment_registration'));
 	var('siteurl'	        = $opts -> find('siteurl'));
 
-    if( $case != 'p' && $case != 'page' && $case != 'perma' && found_count > shown_count );
-        MO_naviglinks(-rectype=$rectype,-rectype_pl=$rectype_plural);
+    if( $case != 'p' && $case != 'page' && $case != 'perma' && $found > $shown );
+        MO_naviglinks(-rectype=$rectype,-rectype_pl=$rectype_plural,-found=$found,-shown=$shown,-max=$max,-shownfirst=$shownfirst,-shownlast=$shownlast);
     /if;
 
     records(-inlineName='postSearch');

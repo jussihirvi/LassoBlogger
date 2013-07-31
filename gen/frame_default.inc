@@ -287,6 +287,12 @@ if( $case != 'files' && $case != 'filecat' );
             $searchArgs,
             -skipRecords=$skip,
             -inlineName='postsearch');
+    var('found'     = found_count,
+      'shown'       = shown_count,
+      'max'         = maxrecords_value,
+      'shownfirst'  = shown_first,
+      'shownlast'   = shown_last
+    );
     if( ! found_count );
         $speakBubble = (str('No records were found'));
     else( found_count > 1 && $case == 'perma');

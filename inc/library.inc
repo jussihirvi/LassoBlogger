@@ -1704,6 +1704,11 @@ Define_tag('naviglinks',-namespace='MO',
   -optional='fromMetoRoot',
   -optional='rectype',
   -optional='rectype_pl',
+  -optional='found',
+  -optional='shown',
+  -optional='max',
+  -optional='shownfirst',
+  -optional='shownlast',
   -encodeNone);
   local('out' = string);
 
@@ -1714,21 +1719,17 @@ MO_naviglinks(
   -linkstuff=$linkstuff,
   -textclass=$textclass);
 */
-  if(! local_defined('linkstuff'));
-    local('linkstuff' = string);
-  /if;
-  if(! local_defined('textclass'));
-    local('textclass' = string);
-  /if;
-  if(! local_defined('fromMetoRoot'));
-    local('fromMetoRoot' = string);
-  /if;
-  if(! local_defined('rectype'));
-    local('rectype' = string);
-  /if;
-  if(! local_defined('rectype_pl'));
-    local('rectype_pl' = string);
-  /if;
+  ! local_defined('linkstuff')    ? local('linkstuff' = string);
+  ! local_defined('textclass')    ? local('textclass' = string);
+  ! local_defined('fromMetoRoot') ? local('fromMetoRoot' = string);
+  ! local_defined('rectype')      ? local('rectype' = string);
+  ! local_defined('rectype_pl')   ? local('rectype_pl' = string);
+  ! local_defined('found')        ? local('found' = found_count);
+  ! local_defined('shown')        ? local('shown' = shown_count);
+  ! local_defined('max')          ? local('max' = maxrecords_value);
+  ! local_defined('shownfirst')   ? local('shownfirst' = shown_first);
+  ! local_defined('shownlast')    ? local('shownlast' = shown_last);
+
   local('mathsub'=Math_Sub(shown_first,maxrecords_value,1));
   local('arrowleft' = '<IMG SRC="' + $fromMetoRoot + 'images/arrowleft.gif" '
       + 'ALT="'+str('Previous page')
