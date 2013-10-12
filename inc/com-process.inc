@@ -493,6 +493,14 @@ $emailbody += '\n\n' + ($opts -> find('siteurl')) +
 $emailbody += '\n\n' + str('You may edit or moderate the comment here:');
 $emailbody += '\n\n' + ($opts -> find('siteurl')) + 'admin/man-comm-form.lasso';
 $emailbody += '?id=' + $commentID;
+$emailbody += '\n\n';
+var('excerpt') = $inlinestuff -> find('com_content') -> get(1) -> get(2);
+if($excerpt -> size > 120);
+    $emailbody += str('Excerpt')+': '+($excerpt -> substring(1,110))+'...';
+  else;  
+    $emailbody += str('Comment content') + ': ' + $excerpt;
+/if;
+
 email_send( -from=($opts -> find('admin_email')),
 	-to=$emailto,
 	-subject=$emailsubject,
