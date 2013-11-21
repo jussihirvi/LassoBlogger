@@ -14,7 +14,7 @@ If( $lang == 'fi');
     Else;
     var('page_title'='Comments');
 /If;
-// categories
+// x categories
 var('i' = MO_composeValuelist(-table='categories',
                               -showfield='cat_name',
                               -sortfield='id'));
