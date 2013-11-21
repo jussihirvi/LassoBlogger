@@ -82,12 +82,21 @@ if( ! $result );
   // var('datediff') = date($date_fromform) -> difference(date);
   // if( $datediff > duration('0:10:00') );
   // comparing durations is broken in L9.1.4
-      $date_fromform -> add(-minute=10);
-      if($date_fromform < date);
+    var('compdate1') = date($date_fromform);
+    var('compdate2') = date($date_fromform);
+    $compdate1 -> add(-minute=10); // max writing time 
+    $compdate2 -> add(-second=15); // min writing time
+    if($compdate1 < date);
       $testNr = '04';
       $result = 'discard';
       $errText = str('The comment is discarded - too much time has elapsed since the commenting form was loaded');
       $notifyAdmin = 'yes';
+    /if;
+    if($compdate2 > date);
+      $testNr = '04b';
+      $result = 'discard';
+      $errText = str('The comment is discarded - too little time has elapsed since the commenting form was loaded (are you a robot, maybe?)');
+      $notifyAdmin = 'no';
     /if;
 /if;
 
@@ -446,6 +455,12 @@ var('commentid') = string;
 // moderation text to user
 if( $result == 'moderate' );
     $speakBubble += ' <br />' + str('It has to be moderated by administrator before it can be shown.'); 
+    // if translations are used, better show the text in English too
+    // so international spammers will see them
+    if( str('Thanks for your comment!') != 'Thanks for your comment!' );
+      $speakBubble += '<br />Thanks for your comment!';
+      $speakBubble += ' <br />' + 'It has to be moderated by administrator before it can be shown.'; 
+    /if;
 /if;
 
 MO_speakBubble($speakBubble);
@@ -500,6 +515,10 @@ if($excerpt -> size > 120);
   else;  
     $emailbody += str('Comment content') + ': ' + $excerpt;
 /if;
+
+// temp testing
+// $emailbody += '\n\nDate difference is ' + date($date_fromform) -> difference(date) + ', date from form is ' + $date_fromform + ', date is ' + date + '.';
+// temp testing ends
 
 email_send( -from=($opts -> find('admin_email')),
 	-to=$emailto,
