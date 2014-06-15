@@ -25,7 +25,7 @@ var('y'           = integer(action_param('y')),
     'files'       = action_param('files'),
     'filecat'     = integer(action_param('filecat')),
     'com_post_id' = action_param('com_post_id'),
-    'perma'       = action_param('perma'),
+    'perma'       = action_param('perma'), // see .htaccess
     'speakBubble' = string);
 
 // check if database structure is up-to-date
@@ -212,8 +212,8 @@ else( $perma );
             /if;
         /if;
       else; // input does not match permastructure
-      MO_speakBubble('Page is not found');
-      loop_continue;
+      MO_speakBubble(str('Page was not found'));
+      loop_abort;
       /if;
     /iterate;
 

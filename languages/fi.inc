@@ -82,6 +82,7 @@ sallivat tämän)', // use-registered.inc
 'No records were found'	= 'Yhtään tietuetta ei löytynyt',
 'Only alphanumeric characters (a-z, A-Z and 0-9) are allowed in the field'	= 'vain kirjaimia ja numeroita (a-z, A-Z, 0-9) saa käyttää kentässä',
 'or edit the post here:' = 'tai editoida sitä täällä:',
+'Page was not found'	= 'Sivua ei löytynyt',
 'Password'	= 'Salasana',
 'Permanent link to'	= 'Pysyvä linkki blogiviestiin', // ...[post title]
 'Please give'	= 'Ole hyvä ja anna',
