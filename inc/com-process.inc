@@ -22,7 +22,7 @@ var('editfields' = array(
     array('com_post_id','message id','text','req'),
     array('com_author','author','text',''),
     array('com_author_email','email','text',''),
-    array('com_author_url','url','text',''),
+//    array('com_author_url','url','text',''),
     array('com_title','title','text',''),
     array('com_content','comment text','text','req')
     ));
@@ -144,6 +144,7 @@ if( ! $result );
     var('keys') = $opts -> find('blacklist_keys');
     if( $keys && $keys != ';');
 	 var('aKeys') = $keys -> split(';');
+         $aKeys -> insert('href');
          var('i' = '', 'lc' = 0);
          iterate( $aKeys, $i);
 	    $lc += 1;
@@ -151,7 +152,7 @@ if( ! $result );
 	    if( $i && (
 		    $com_author >> $i
 		 || $com_author_email >> $i
-		 || $com_author_url >> $i
+//		 || $com_author_url >> $i
 		 || $com_title >> $i
 		 || $com_content >> $i
 		));
@@ -265,7 +266,7 @@ if( ! $result );
 		If( $i && (
 		    $com_author >> $i
 		 || $com_author_email >> $i
-		 || $com_author_url >> $i
+//		 || $com_author_url >> $i
 		 || $com_title >> $i
 		 || $com_content >> $i
 		));
@@ -552,9 +553,9 @@ if( ! cookie('comment_author_' + $hash) );
 if( ! cookie('comment_author_email' + $hash) );
     cookie_set( ('comment_author_email_' + $hash) = $com_author_email,-expires=432000,-domain=$mydomain);
 /if;
-if( ! cookie('comment_author_url' + $hash) );
-    cookie_set( ('comment_author_url_' + $hash) = $com_author_url,-expires=432000,-domain=$mydomain);
-/if;
+// if( ! cookie('comment_author_url' + $hash) );
+//     cookie_set( ('comment_author_url_' + $hash) = $com_author_url,-expires=432000,-domain=$mydomain);
+// /if;
 
 /loop; // see first line
 ?>

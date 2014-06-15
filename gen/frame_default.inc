@@ -16,8 +16,8 @@ var('searchArgs' = array,
 
 // capture action params - month, post, searchphrase, category, page
 
-var('y'           = action_param('y'), 
-    'm'           = action_param('m'), 
+var('y'           = integer(action_param('y')), 
+    'm'           = integer(action_param('m')), 
     'p'           = action_param('p'), 
     's'           = action_param('s'), 
     'cat'         = integer(action_param('cat')),
@@ -55,7 +55,7 @@ if( $com_post_id ); 		// comment submitted
 
 if( $y );		// year
     $linkstuff = 'y=' + $y;
-    if( $y -> Size != 4 || integer($y) < 1900 || integer($y) > 3000);
+    if( string($y) -> Size != 4 || $y < 1900 || $y > 3000);
 	$speakBubble += 'Cannot interpret the specified year ' + $y + '.';
     else;
         $case = 'y';
@@ -70,7 +70,7 @@ if( $y );		// year
     /if;
 else( $m );		// month
     $linkstuff = 'm=' + $m;
-    if( $m -> Size != 6 || integer($m) < 100000 || integer($m) > 300000);
+    if( string($m) -> Size != 6 || $m < 100000 || $m > 300000);
 	$speakBubble += 'Cannot interpret the specified month ' + $m + '.';
     else;
         $case = 'm';

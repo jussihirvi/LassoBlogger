@@ -141,9 +141,11 @@ if($com_post_id); // comment submitted
 </small></label>
 </p>
 
+<!--
 <p>
 <input type="text" name="com_author_url" id="com_author_url" value="[$com_author_url]" size="22" tabindex="3">
 <label for="com_author_url"><small>[str('Website')]</small></label></p>
+-->
 
 <p>
 <input type="text" name="com_title" id="com_title" value="[$com_title]" size="44" tabindex="3">
