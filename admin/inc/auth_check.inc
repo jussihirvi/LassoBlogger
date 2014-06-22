@@ -59,11 +59,6 @@
   /If;
 
 // logincount - prevent flooding
-// temporarily disabled
-
-?>
-
-    [Output_None][NoProcess]
 
     If( $logincount_ses == 5);  /* flood attempt - send email */ 
 	var('emailbody' = 'A user has tried to login 5 times. ' + 
@@ -80,9 +75,5 @@
           MO_speakBubble(str('Too many trials. Please try again later!'));
 	Abort;
     /If; 			// end prevent flooding 
-    [/NoProcess][/Output_None]
 
-<?LassoScript
-
-// /Inline;
 ?>

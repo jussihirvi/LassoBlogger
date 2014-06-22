@@ -28,7 +28,7 @@
           $speakBubble = str('Some of the required fields were empty.');
 	/If;
 	$logincount_ses += 1; 		// session var
-        var('sleeptime'=(($logincount_ses - 1) * 300)); 
-        // Sleep( $sleeptime);	// childish, I know
+        var('sleeptime'=(($logincount_ses - 1) * 500)); 
+        sleep( $sleeptime);	// to annoy crackers
     /If;
 ?>
