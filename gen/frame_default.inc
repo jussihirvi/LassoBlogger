@@ -74,8 +74,8 @@ else( $m );		// month
 	$speakBubble += 'Cannot interpret the specified month ' + $m + '.';
     else;
         $case = 'm';
-	var('year'       = integer($m -> substring(1,4)));
-	var('month'      = integer($m -> substring(5,2)));
+        var('year' )     = string($m) -> substring(1,4);
+        var('month')     = string($m) -> substring(5,2);
         var('year_s')    = string($year);
         var('month_s')   = string($month);
 	var('startDate') = $year_s+'-'+$month_s+'-01 00:00:00';
